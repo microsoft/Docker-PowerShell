@@ -7,22 +7,22 @@ using Docker.DotNet;
 
 namespace Docker.PowerShell
 {
-    [Cmdlet("Get", "Container")]
-    public class GetContainer : DkrCmdlet
+    [Cmdlet("Get", "ContainerImage")]
+    public class GetContainerImage : DkrCmdlet
     {
 
         #region Overrides
         /// <summary>
-        /// Outputs container objects for each container matching the provided parameters.
+        /// Outputs container image objects for each image matching the provided parameters.
         /// </summary>
         protected override void ProcessRecord()
         {
             base.ProcessRecord();
 
-            foreach (var c in DkrClient.Containers.ListContainersAsync(
-                new DotNet.Models.ListContainersParameters() { All = true }).Result)
+            foreach (var img in DkrClient.Images.ListImagesAsync(
+                new DotNet.Models.ListImagesParameters() { }).Result)
             {
-                WriteObject(c);
+                WriteObject(img);
             }
         }
 
