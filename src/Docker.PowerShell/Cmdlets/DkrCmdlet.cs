@@ -12,7 +12,6 @@ namespace Docker.PowerShell
         #region Private members
 
         // The Uri generated from HostAddress that will be used for remote connections.
-        protected Uri HostUri;
         protected DockerClient DkrClient;
 
         #endregion
@@ -30,6 +29,18 @@ namespace Docker.PowerShell
             set;
         }
 
+        /// <summary>
+        /// The common parameter for specifying the version that should be used
+        /// when communicating with the host.
+        /// </summary>
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public virtual string ApiVersion
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         #region Overrides
@@ -42,16 +53,38 @@ namespace Docker.PowerShell
         {
             base.ProcessRecord();
 
-            if (!String.IsNullOrEmpty(HostAddress))
+            if (String.IsNullOrEmpty(HostAddress))
             {
-                HostUri = new Uri(HostAddress);
-            }
-            else
-            {
-                HostUri = new Uri("http://127.0.0.1:2375");
+                HostAddress = Environment.GetEnvironmentVariable("DOCKER_HOST");
+                if (String.IsNullOrEmpty(HostAddress))
+                {
+                    HostAddress = "http://127.0.0.1:2375";
+                }
             }
 
-            DkrClient = new DockerClientConfiguration(HostUri).CreateClient();
+            if (String.IsNullOrEmpty(ApiVersion))
+            {
+                ApiVersion = Environment.GetEnvironmentVariable("DOCKER_API_VERSION");
+                if (String.IsNullOrEmpty(ApiVersion))
+                {
+                    ApiVersion = "1.23";
+                }
+            }
+
+            ResetClient();
+        }
+
+        #endregion
+
+        #region Helpers
+
+        /// <summary>
+        /// Helper method that creates a new docker client based on the currently configured
+        /// HostAddress and ApiVersion and sets the DkrClient member variable to it.
+        /// </summary>
+        protected void ResetClient()
+        {
+            DkrClient = new DockerClientConfiguration(new Uri(HostAddress)).CreateClient(new Version(ApiVersion));
         }
 
         #endregion
