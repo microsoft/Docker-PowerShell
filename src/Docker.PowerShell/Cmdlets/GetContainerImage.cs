@@ -35,7 +35,7 @@ namespace Docker.PowerShell
             foreach (var img in DkrClient.Images.ListImagesAsync(
                 new DotNet.Models.ListImagesParameters() { All = All.ToBool() }).Result)
             {
-                WriteObject(img);
+                WriteObject(img, HostAddress, ApiVersion);
             }
         }
 

@@ -11,7 +11,6 @@ namespace Docker.PowerShell
     {
         #region Private members
 
-        // The Uri generated from HostAddress that will be used for remote connections.
         protected DockerClient DkrClient;
 
         #endregion
@@ -72,6 +71,22 @@ namespace Docker.PowerShell
             }
 
             ResetClient();
+        }
+
+        /// <summary>
+        /// Special WriteObject override that also takes host address and version,
+        /// so that they can be dynamically added to the psobject generated from
+        /// object being written.
+        /// </summary>
+        /// <param name="o">The object to write to the pipeline.</param>
+        /// <param name="hostAddress">The host address that the object came from.</param>
+        /// <param name="apiVersion">The api version used to get the object.</param>
+        protected void WriteObject(object o, string hostAddress, string apiVersion)
+        {
+            var po = PSObject.AsPSObject(o);
+            po.Properties.Add(new PSNoteProperty("HostAddress", hostAddress));
+            po.Properties.Add(new PSNoteProperty("ApiVersion", apiVersion));
+            WriteObject(po);
         }
 
         #endregion

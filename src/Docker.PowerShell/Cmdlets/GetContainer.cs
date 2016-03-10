@@ -22,7 +22,7 @@ namespace Docker.PowerShell
             foreach (var c in DkrClient.Containers.ListContainersAsync(
                 new DotNet.Models.ListContainersParameters() { All = true }).Result)
             {
-                WriteObject(c);
+                WriteObject(c, HostAddress, ApiVersion);
             }
         }
 
