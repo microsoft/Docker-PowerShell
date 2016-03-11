@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Management.Automation;
 using Docker.DotNet;
+using Docker.PowerShell.Objects;
 
 namespace Docker.PowerShell
 {
@@ -22,7 +23,7 @@ namespace Docker.PowerShell
             foreach (var c in DkrClient.Containers.ListContainersAsync(
                 new DotNet.Models.ListContainersParameters() { All = true }).Result)
             {
-                WriteObject(c, HostAddress, ApiVersion);
+                WriteObject(new Objects.ContainerListResponse(c, HostAddress, ApiVersion));
             }
         }
 

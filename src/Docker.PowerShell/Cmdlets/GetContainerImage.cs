@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Management.Automation;
 using Docker.DotNet;
+using Docker.PowerShell.Objects;
 
 namespace Docker.PowerShell
 {
@@ -35,7 +36,7 @@ namespace Docker.PowerShell
             foreach (var img in DkrClient.Images.ListImagesAsync(
                 new DotNet.Models.ListImagesParameters() { All = All.ToBool() }).Result)
             {
-                WriteObject(img, HostAddress, ApiVersion);
+                WriteObject(new ImageListResponse(img, HostAddress, ApiVersion));
             }
         }
 
