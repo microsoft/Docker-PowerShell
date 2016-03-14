@@ -8,7 +8,8 @@ using Docker.PowerShell.Objects;
 
 namespace Docker.PowerShell
 {
-    [Cmdlet("Get", "ContainerImage")]
+    [Cmdlet(VerbsCommon.Get, "ContainerImage",
+            DefaultParameterSetName = CommonParameterSetNames.Default)]
     public class GetContainerImage : DkrCmdlet
     {
         #region Parameters
@@ -16,12 +17,8 @@ namespace Docker.PowerShell
         /// <summary>
         /// Specifies whether all images should be shown, or just top level images.
         /// </summary>
-        [Parameter]
-        public virtual SwitchParameter All
-        {
-            get;
-            set;
-        }
+        [Parameter(ParameterSetName = CommonParameterSetNames.Default)]
+        public virtual SwitchParameter All { get; set; }
 
         #endregion
 
@@ -36,7 +33,7 @@ namespace Docker.PowerShell
             foreach (var img in DkrClient.Images.ListImagesAsync(
                 new DotNet.Models.ListImagesParameters() { All = All.ToBool() }).Result)
             {
-                WriteObject(new ImageListResponse(img, HostAddress, ApiVersion));
+                WriteObject(new ImageListResponse(img, HostAddress));
             }
         }
 

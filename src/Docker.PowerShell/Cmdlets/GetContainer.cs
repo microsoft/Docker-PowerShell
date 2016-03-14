@@ -8,7 +8,8 @@ using Docker.PowerShell.Objects;
 
 namespace Docker.PowerShell
 {
-    [Cmdlet("Get", "Container")]
+    [Cmdlet(VerbsCommon.Get, "Container",
+            DefaultParameterSetName = CommonParameterSetNames.Default)]
     public class GetContainer : DkrCmdlet
     {
 
@@ -23,7 +24,7 @@ namespace Docker.PowerShell
             foreach (var c in DkrClient.Containers.ListContainersAsync(
                 new DotNet.Models.ListContainersParameters() { All = true }).Result)
             {
-                WriteObject(new Objects.ContainerListResponse(c, HostAddress, ApiVersion));
+                WriteObject(new Objects.ContainerListResponse(c, HostAddress));
             }
         }
 

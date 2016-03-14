@@ -7,11 +7,21 @@ using Docker.DotNet;
 
 namespace Docker.PowerShell
 {
+    /// <summary>
+    /// Contains strings commonly used as parameter set names.
+    /// </summary>
+    internal class CommonParameterSetNames
+    {
+        public const string Default = "Default";
+        public const string ContainerObject = "ContainerObject";
+    }
+
     public class DkrCmdlet : PSCmdlet
     {
         #region Private members
 
         protected DockerClient DkrClient;
+        protected string ApiVersion = "1.23";
 
         #endregion
 
@@ -20,25 +30,9 @@ namespace Docker.PowerShell
         /// <summary>
         /// The common parameter for specifying the address of the host to operate on.
         /// </summary>
-        [Parameter]
+        [Parameter(ParameterSetName = CommonParameterSetNames.Default)]
         [ValidateNotNullOrEmpty]
-        public virtual string HostAddress
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// The common parameter for specifying the version that should be used
-        /// when communicating with the host.
-        /// </summary>
-        [Parameter]
-        [ValidateNotNullOrEmpty]
-        public virtual string ApiVersion
-        {
-            get;
-            set;
-        }
+        public virtual string HostAddress { get; set; }
 
         #endregion
 
@@ -58,15 +52,6 @@ namespace Docker.PowerShell
                 if (String.IsNullOrEmpty(HostAddress))
                 {
                     HostAddress = "http://127.0.0.1:2375";
-                }
-            }
-
-            if (String.IsNullOrEmpty(ApiVersion))
-            {
-                ApiVersion = Environment.GetEnvironmentVariable("DOCKER_API_VERSION");
-                if (String.IsNullOrEmpty(ApiVersion))
-                {
-                    ApiVersion = "1.23";
                 }
             }
 

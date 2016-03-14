@@ -9,9 +9,8 @@ namespace Docker.PowerShell.Objects
     public class ContainerListResponse : DotNet.Models.ContainerListResponse
     {
         public string HostAddress;
-        public string ApiVersion;
 
-        public ContainerListResponse(DotNet.Models.ContainerListResponse c, string hostAddress, string apiVersion)
+        public ContainerListResponse(DotNet.Models.ContainerListResponse c, string hostAddress)
         {
             Id = c.Id;
             Names = c.Names;
@@ -23,16 +22,14 @@ namespace Docker.PowerShell.Objects
             SizeRootFs = c.SizeRootFs;
             Ports = c.Ports;
             HostAddress = hostAddress;
-            ApiVersion = apiVersion;
         }
     }
 
     public class ImageListResponse : DotNet.Models.ImageListResponse
     {
         public string HostAddress;
-        public string ApiVersion;
 
-        public ImageListResponse(DotNet.Models.ImageListResponse i, string hostAddress, string apiVersion)
+        public ImageListResponse(DotNet.Models.ImageListResponse i, string hostAddress)
         {
             Id = i.Id;
             ParentId = i.ParentId;
@@ -41,7 +38,6 @@ namespace Docker.PowerShell.Objects
             Size = i.Size;
             VirtualSize = i.VirtualSize;
             HostAddress = hostAddress;
-            ApiVersion = apiVersion;
         }
     }
 }
