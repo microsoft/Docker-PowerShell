@@ -21,8 +21,11 @@ namespace Docker.PowerShell
         {
             base.ProcessRecord();
 
-            foreach (var c in DkrClient.Containers.ListContainersAsync(
-                new DotNet.Models.ListContainersParameters() { All = true }).Result)
+            var t = DkrClient.Containers.ListContainersAsync(
+                new DotNet.Models.ListContainersParameters() { All = true });
+            AwaitResult(t);
+
+            foreach (var c in t.Result)
             {
                 WriteObject(new Container(c, HostAddress));
             }

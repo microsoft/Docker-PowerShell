@@ -32,9 +32,9 @@ namespace Docker.PowerShell.Cmdlets
             {
                 HostAddress = entry.Value;
                 ResetClient();
-                DkrClient.Images.DeleteImageAsync(entry.Key,
+                AwaitResult(DkrClient.Images.DeleteImageAsync(entry.Key,
                     new DotNet.Models.DeleteImageParameters() { Force = Force.ToBool() }
-                    ).Wait();
+                    ));
             }
         }
 

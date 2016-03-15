@@ -30,8 +30,11 @@ namespace Docker.PowerShell
         {
             base.ProcessRecord();
 
-            foreach (var img in DkrClient.Images.ListImagesAsync(
-                new DotNet.Models.ListImagesParameters() { All = All.ToBool() }).Result)
+            var t = DkrClient.Images.ListImagesAsync(
+                new DotNet.Models.ListImagesParameters() { All = All.ToBool() });
+            AwaitResult(t);
+
+            foreach (var img in t.Result)
             {
                 WriteObject(new Image(img, HostAddress));
             }

@@ -87,6 +87,18 @@ namespace Docker.PowerShell
             DkrClient = new DockerClientConfiguration(new Uri(HostAddress)).CreateClient(new Version(ApiVersion));
         }
 
+        protected void AwaitResult(Task t)
+        {
+            try
+            {
+                t.Wait();
+            }
+            catch (System.Exception ex)
+            {
+                throw ex.InnerException;
+            }
+        }
+
         #endregion
     }
 }
