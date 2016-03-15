@@ -45,4 +45,9 @@ namespace Docker.PowerShell.Objects
     {
         public Config() { }
     }
+
+    public class HostConfig : DotNet.Models.HostConfig
+    {
+        public HostConfig() { }
+    }
 }
