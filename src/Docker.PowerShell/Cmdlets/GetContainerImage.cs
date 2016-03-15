@@ -33,7 +33,7 @@ namespace Docker.PowerShell
             foreach (var img in DkrClient.Images.ListImagesAsync(
                 new DotNet.Models.ListImagesParameters() { All = All.ToBool() }).Result)
             {
-                WriteObject(new ImageListResponse(img, HostAddress));
+                WriteObject(new Image(img, HostAddress));
             }
         }
 

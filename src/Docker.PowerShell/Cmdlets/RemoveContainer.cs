@@ -38,7 +38,7 @@ namespace Docker.PowerShell.Cmdlets
                    Position = 0,
                    Mandatory = true)]
         [ValidateNotNullOrEmpty]
-        public virtual ContainerListResponse[] Container { get; set; }
+        public virtual Container[] Container { get; set; }
 
         /// <summary>
         /// Whether or not to force the removal of the container.

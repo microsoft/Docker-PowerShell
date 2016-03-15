@@ -6,11 +6,11 @@ using Docker.DotNet;
 
 namespace Docker.PowerShell.Objects
 {
-    public class ContainerListResponse : DotNet.Models.ContainerListResponse
+    public class Container : DotNet.Models.ContainerListResponse
     {
         public string HostAddress;
 
-        public ContainerListResponse(DotNet.Models.ContainerListResponse c, string hostAddress)
+        public Container(DotNet.Models.ContainerListResponse c, string hostAddress)
         {
             Id = c.Id;
             Names = c.Names;
@@ -25,11 +25,11 @@ namespace Docker.PowerShell.Objects
         }
     }
 
-    public class ImageListResponse : DotNet.Models.ImageListResponse
+    public class Image : DotNet.Models.ImageListResponse
     {
         public string HostAddress;
 
-        public ImageListResponse(DotNet.Models.ImageListResponse i, string hostAddress)
+        public Image(DotNet.Models.ImageListResponse i, string hostAddress)
         {
             Id = i.Id;
             ParentId = i.ParentId;
