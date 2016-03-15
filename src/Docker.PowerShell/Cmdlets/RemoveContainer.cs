@@ -34,7 +34,7 @@ namespace Docker.PowerShell.Cmdlets
                 ResetClient();
                 DkrClient.Containers.RemoveContainerAsync(entry.Key,
                     new DotNet.Models.RemoveContainerParameters() { Force = Force.ToBool() }
-                    );
+                    ).Wait();
             }
         }
 

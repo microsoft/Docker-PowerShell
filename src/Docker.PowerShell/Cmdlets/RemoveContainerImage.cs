@@ -34,7 +34,7 @@ namespace Docker.PowerShell.Cmdlets
                 ResetClient();
                 DkrClient.Images.DeleteImageAsync(entry.Key,
                     new DotNet.Models.DeleteImageParameters() { Force = Force.ToBool() }
-                    );
+                    ).Wait();
             }
         }
 
