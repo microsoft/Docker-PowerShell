@@ -31,7 +31,7 @@ namespace Docker.PowerShell.Cmdlets
         /// <summary>
         /// The containers to remove.
         /// </summary>
-        [Parameter(ParameterSetName = CommonParameterSetNames.ContainerObject,
+        [Parameter(ParameterSetName = CommonParameterSetNames.ImageObject,
             ValueFromPipeline = true,
                    Position = 0,
                    Mandatory = true)]

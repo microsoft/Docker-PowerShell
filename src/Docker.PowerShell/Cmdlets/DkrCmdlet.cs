@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Management.Automation;
 using Docker.DotNet;
 
-namespace Docker.PowerShell
+namespace Docker.PowerShell.Cmdlets
 {
     /// <summary>
     /// Contains strings commonly used as parameter set names.
@@ -14,6 +14,8 @@ namespace Docker.PowerShell
     {
         public const string Default = "Default";
         public const string ContainerObject = "ContainerObject";
+        public const string ImageObject = "ImageObject";
+        public const string ConfigObject = "ConfigObject";
     }
 
     public class DkrCmdlet : PSCmdlet

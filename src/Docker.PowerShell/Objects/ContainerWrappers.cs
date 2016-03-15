@@ -40,4 +40,9 @@ namespace Docker.PowerShell.Objects
             HostAddress = hostAddress;
         }
     }
+
+    public class Config : DotNet.Models.Config
+    {
+        public Config() { }
+    }
 }

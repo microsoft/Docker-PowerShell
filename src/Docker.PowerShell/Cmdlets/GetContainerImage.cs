@@ -6,7 +6,7 @@ using System.Management.Automation;
 using Docker.DotNet;
 using Docker.PowerShell.Objects;
 
-namespace Docker.PowerShell
+namespace Docker.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.Get, "ContainerImage",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
