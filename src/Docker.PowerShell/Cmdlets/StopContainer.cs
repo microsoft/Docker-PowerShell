@@ -37,7 +37,7 @@ namespace Docker.PowerShell.Cmdlets
                 var stopResult = DkrClient.Containers.StopContainerAsync(
                     entry.Key, 
                     new DotNet.Models.StopContainerParameters(),
-                    System.Threading.CancellationToken.None);
+                    CancelSignal.Token);
                 AwaitResult(stopResult);
 
                 if (!stopResult.Result)

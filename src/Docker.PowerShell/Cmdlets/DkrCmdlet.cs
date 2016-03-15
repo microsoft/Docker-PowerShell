@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Management.Automation;
 using Docker.DotNet;
+using System.Threading;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -24,6 +25,7 @@ namespace Docker.PowerShell.Cmdlets
 
         protected DockerClient DkrClient;
         protected string ApiVersion = "1.23";
+        protected CancellationTokenSource CancelSignal = new CancellationTokenSource();
 
         #endregion
 
@@ -61,19 +63,14 @@ namespace Docker.PowerShell.Cmdlets
         }
 
         /// <summary>
-        /// Special WriteObject override that also takes host address and version,
-        /// so that they can be dynamically added to the psobject generated from
-        /// object being written.
+        /// Common StopProcessing code, that signals the CancellationToken. This may or may
+        /// not be used be child classes in http calls to docker.
         /// </summary>
-        /// <param name="o">The object to write to the pipeline.</param>
-        /// <param name="hostAddress">The host address that the object came from.</param>
-        /// <param name="apiVersion">The api version used to get the object.</param>
-        protected void WriteObject(object o, string hostAddress, string apiVersion)
+        protected override void StopProcessing()
         {
-            var po = PSObject.AsPSObject(o);
-            po.Properties.Add(new PSNoteProperty("HostAddress", hostAddress));
-            po.Properties.Add(new PSNoteProperty("ApiVersion", apiVersion));
-            WriteObject(po);
+            base.StopProcessing();
+
+            CancelSignal.Cancel();
         }
 
         #endregion

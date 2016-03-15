@@ -71,7 +71,9 @@ namespace Docker.PowerShell.Cmdlets
                         throw new ApplicationFailedException("The container has already started.");
                     }
 
-                    var waitResult = DkrClient.Containers.WaitContainerAsync(createResult.Id, System.Threading.CancellationToken.None);
+                    var waitResult = DkrClient.Containers.WaitContainerAsync(
+                        createResult.Id, 
+                        CancelSignal.Token);
                     AwaitResult(waitResult);
 
                     WriteVerbose("Status Code: " + waitResult.Result.StatusCode.ToString());
