@@ -15,6 +15,12 @@ namespace Docker.PowerShell.Cmdlets
         #region Parameters
         
         /// <summary>
+        /// Whether or not to force the termination of the container.
+        /// </summary>
+        [Parameter]
+        public virtual SwitchParameter Force { get; set; }
+
+        /// <summary>
         /// If specified, the resulting container object will be output after it has finished
         /// starting.
         /// </summary>
@@ -34,15 +40,24 @@ namespace Docker.PowerShell.Cmdlets
                 HostAddress = entry.Value;
                 ResetClient();
 
-                var stopResult = DkrClient.Containers.StopContainerAsync(
-                    entry.Key, 
-                    new DotNet.Models.StopContainerParameters(),
-                    CancelSignal.Token);
-                AwaitResult(stopResult);
-
-                if (!stopResult.Result)
+                if (Force.ToBool())
                 {
-                    throw new ApplicationFailedException("The container has already stopped.");
+                    AwaitResult(DkrClient.Containers.KillContainerAsync(
+                        entry.Key,
+                        new DotNet.Models.KillContainerParameters()));
+                }
+                else
+                {
+                    var stopResult = DkrClient.Containers.StopContainerAsync(
+                        entry.Key,
+                        new DotNet.Models.StopContainerParameters(),
+                        CancelSignal.Token);
+                    AwaitResult(stopResult);
+
+                    if (!stopResult.Result)
+                    {
+                        throw new ApplicationFailedException("The container has already stopped.");
+                    }
                 }
 
                 if (PassThru.ToBool())
