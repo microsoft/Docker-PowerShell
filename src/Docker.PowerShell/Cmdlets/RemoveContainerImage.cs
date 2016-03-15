@@ -8,9 +8,9 @@ using Docker.PowerShell.Objects;
 
 namespace Docker.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Remove, "Container",
+    [Cmdlet(VerbsCommon.Remove, "ContainerImage",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
-    public class RemoveContainer : ContainerOperationCmdlet
+    public class RemoveContainerImage : ImageOperationCmdlet
     {
         #region Parameters
 
@@ -32,8 +32,8 @@ namespace Docker.PowerShell.Cmdlets
             {
                 HostAddress = entry.Value;
                 ResetClient();
-                DkrClient.Containers.RemoveContainerAsync(entry.Key,
-                    new DotNet.Models.RemoveContainerParameters() { Force = Force.ToBool() }
+                DkrClient.Images.DeleteImageAsync(entry.Key,
+                    new DotNet.Models.DeleteImageParameters() { Force = Force.ToBool() }
                     );
             }
         }
