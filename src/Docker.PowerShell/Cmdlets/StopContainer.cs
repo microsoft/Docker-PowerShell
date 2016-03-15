@@ -8,12 +8,12 @@ using Docker.PowerShell.Objects;
 
 namespace Docker.PowerShell.Cmdlets
 {
-    [Cmdlet("Start", "Container",
+    [Cmdlet("Stop", "Container",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
-    public class StartContainer : ContainerOperationCmdlet
+    public class StopContainer : ContainerOperationCmdlet
     {
         #region Parameters
-
+        
         /// <summary>
         /// If specified, the resulting container object will be output after it has finished
         /// starting.
@@ -34,13 +34,15 @@ namespace Docker.PowerShell.Cmdlets
                 HostAddress = entry.Value;
                 ResetClient();
 
-                var startResult = DkrClient.Containers.StartContainerAsync(
-                    entry.Key, new HostConfig());
-                AwaitResult(startResult);
+                var stopResult = DkrClient.Containers.StopContainerAsync(
+                    entry.Key, 
+                    new DotNet.Models.StopContainerParameters(),
+                    System.Threading.CancellationToken.None);
+                AwaitResult(stopResult);
 
-                if (!startResult.Result)
+                if (!stopResult.Result)
                 {
-                    throw new ApplicationFailedException("The container has already started.");
+                    throw new ApplicationFailedException("The container has already stopped.");
                 }
 
                 if (PassThru.ToBool())
