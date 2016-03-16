@@ -34,23 +34,19 @@ namespace Docker.PowerShell.Cmdlets
                 HostAddress = entry.Value;
                 ResetClient();
 
-                var startResult = DkrClient.Containers.StartContainerAsync(
-                    entry.Key, new HostConfig());
-                AwaitResult(startResult);
-
-                if (!startResult.Result)
+                if (!DkrClient.Containers.StartContainerAsync(
+                        entry.Key, new HostConfig()).AwaitResult())
                 {
                     throw new ApplicationFailedException("The container has already started.");
                 }
 
                 if (PassThru.ToBool())
                 {
-                    var listResponse = DkrClient.Containers.ListContainersAsync(
-                        new DotNet.Models.ListContainersParameters() { All = true });
-                    AwaitResult(listResponse);
                     Container container =
                         new Container(
-                            listResponse.Result.Where(c => c.Id.StartsWith(entry.Key) || c.Names.Any(n => n.Equals("/" + entry.Key))).Single(),
+                            DkrClient.Containers.ListContainersAsync(
+                                new DotNet.Models.ListContainersParameters() { All = true }).AwaitResult().Where(
+                                    c => c.Id.StartsWith(entry.Key) || c.Names.Any(n => n.Equals("/" + entry.Key))).Single(),
                             HostAddress);
 
                     WriteObject(container);

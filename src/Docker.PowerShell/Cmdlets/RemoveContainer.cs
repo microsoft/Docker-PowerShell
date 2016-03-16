@@ -32,9 +32,9 @@ namespace Docker.PowerShell.Cmdlets
             {
                 HostAddress = entry.Value;
                 ResetClient();
-                AwaitResult(DkrClient.Containers.RemoveContainerAsync(entry.Key,
+                DkrClient.Containers.RemoveContainerAsync(entry.Key,
                     new DotNet.Models.RemoveContainerParameters() { Force = Force.ToBool() }
-                    ));
+                    ).WaitUnwrap();
             }
         }
 

@@ -42,19 +42,16 @@ namespace Docker.PowerShell.Cmdlets
 
                 if (Force.ToBool())
                 {
-                    AwaitResult(DkrClient.Containers.KillContainerAsync(
+                    DkrClient.Containers.KillContainerAsync(
                         entry.Key,
-                        new DotNet.Models.KillContainerParameters()));
+                        new DotNet.Models.KillContainerParameters()).WaitUnwrap();
                 }
                 else
                 {
-                    var stopResult = DkrClient.Containers.StopContainerAsync(
-                        entry.Key,
-                        new DotNet.Models.StopContainerParameters(),
-                        CancelSignal.Token);
-                    AwaitResult(stopResult);
-
-                    if (!stopResult.Result)
+                    if (!DkrClient.Containers.StopContainerAsync(
+                            entry.Key,
+                            new DotNet.Models.StopContainerParameters(),
+                            CancelSignal.Token).AwaitResult())
                     {
                         throw new ApplicationFailedException("The container has already stopped.");
                     }
@@ -62,12 +59,11 @@ namespace Docker.PowerShell.Cmdlets
 
                 if (PassThru.ToBool())
                 {
-                    var listResponse = DkrClient.Containers.ListContainersAsync(
-                        new DotNet.Models.ListContainersParameters() { All = true });
-                    AwaitResult(listResponse);
                     Container container =
                         new Container(
-                            listResponse.Result.Where(c => c.Id.StartsWith(entry.Key) || c.Names.Any(n => n.Equals("/" + entry.Key))).Single(),
+                            DkrClient.Containers.ListContainersAsync(
+                                new DotNet.Models.ListContainersParameters() { All = true }).AwaitResult().Where(
+                                    c => c.Id.StartsWith(entry.Key) || c.Names.Any(n => n.Equals("/" + entry.Key))).Single(),
                             HostAddress);
 
                     WriteObject(container);

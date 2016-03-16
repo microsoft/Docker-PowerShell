@@ -38,11 +38,13 @@ namespace Docker.PowerShell.Cmdlets
 
                 if (!String.IsNullOrEmpty(createResult.Id))
                 {
-                    var t = DkrClient.Containers.ListContainersAsync(
-                        new DotNet.Models.ListContainersParameters() { All = true });
-                    AwaitResult(t);
+                    // TODO - Have a better way to get the container list response given the
+                    // ID.
                     Container container = 
-                        new Container(t.Result.Where(c => createResult.Id.Equals(c.Id)).Single(), 
+                        new Container(
+                            DkrClient.Containers.ListContainersAsync(
+                                new DotNet.Models.ListContainersParameters() { All = true }).AwaitResult().Where(
+                                    c => createResult.Id.Equals(c.Id)).Single(), 
                             HostAddress);
 
                     WriteObject(container);

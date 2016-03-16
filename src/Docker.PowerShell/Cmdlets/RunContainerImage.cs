@@ -62,35 +62,30 @@ namespace Docker.PowerShell.Cmdlets
 
                 if (!String.IsNullOrEmpty(createResult.Id))
                 {
-                    var startResult = DkrClient.Containers.StartContainerAsync(
-                        createResult.Id, HostConfiguration);
-                    AwaitResult(startResult);
-
-                    if (!startResult.Result)
+                    if (!DkrClient.Containers.StartContainerAsync(
+                        createResult.Id, HostConfiguration).AwaitResult())
                     {
                         throw new ApplicationFailedException("The container has already started.");
                     }
 
-                    var waitResult = DkrClient.Containers.WaitContainerAsync(
+                    var waitResponse = DkrClient.Containers.WaitContainerAsync(
                         createResult.Id, 
-                        CancelSignal.Token);
-                    AwaitResult(waitResult);
+                        CancelSignal.Token).AwaitResult();
 
-                    WriteVerbose("Status Code: " + waitResult.Result.StatusCode.ToString());
+                    WriteVerbose("Status Code: " + waitResponse.StatusCode.ToString());
 
                     if (RemoveAutomatically.ToBool())
                     {
-                        AwaitResult(DkrClient.Containers.RemoveContainerAsync(createResult.Id,
-                            new DotNet.Models.RemoveContainerParameters()));
+                        DkrClient.Containers.RemoveContainerAsync(createResult.Id,
+                            new DotNet.Models.RemoveContainerParameters()).WaitUnwrap();
                     }
                     else if (PassThru.ToBool())
                     {
-                        var listResponse = DkrClient.Containers.ListContainersAsync(
-                            new DotNet.Models.ListContainersParameters() { All = true });
-                        AwaitResult(listResponse);
                         Container container =
                             new Container(
-                                listResponse.Result.Where(c => createResult.Id.Equals(c.Id)).Single(),
+                                DkrClient.Containers.ListContainersAsync(
+                                    new DotNet.Models.ListContainersParameters() { All = true }).AwaitResult().Where(
+                                        c => createResult.Id.Equals(c.Id)).Single(),
                                 HostAddress);
 
                         WriteObject(container);

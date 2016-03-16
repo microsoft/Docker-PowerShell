@@ -73,9 +73,8 @@ namespace Docker.PowerShell.Cmdlets
                     ContainerName = ContainerName,
                     Config = Configuration
                 });
-            AwaitResult(t);
 
-            return t.Result;
+            return t.AwaitResult();
         }
         
         #endregion
