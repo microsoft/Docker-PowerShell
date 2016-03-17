@@ -38,46 +38,6 @@ namespace Docker.PowerShell.Cmdlets
         public virtual Config Configuration { get; set; }
 
         #endregion
-
-        #region Helpers
-
-        /// <summary>
-        /// Creates a new configuration at the requested host from the given image id.
-        /// </summary>
-        /// <param name="hostAddress">The address to make the create call to.</param>
-        /// <param name="id">The identifier for the image to use in creating the container.</param>
-        /// <returns></returns>
-        protected DotNet.Models.CreateContainerResponse CreateContainer(string hostAddress, string id)
-        {
-            if (Configuration == null)
-            {
-                Configuration = new Config();
-            }
-
-            if (!String.IsNullOrEmpty(id))
-            {
-                Configuration.Image = id;
-            }
-
-            if (Command != null)
-            {
-                Configuration.Cmd = Command;
-            }
-
-            HostAddress = hostAddress;
-            ResetClient();
-
-            var t = DkrClient.Containers.CreateContainerAsync(
-                new DotNet.Models.CreateContainerParameters()
-                {
-                    ContainerName = ContainerName,
-                    Config = Configuration
-                });
-
-            return t.AwaitResult();
-        }
-        
-        #endregion
     }
 
 }

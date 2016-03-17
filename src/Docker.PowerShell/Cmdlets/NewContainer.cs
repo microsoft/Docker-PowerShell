@@ -21,9 +21,15 @@ namespace Docker.PowerShell.Cmdlets
         {
             base.ProcessRecord();
 
-            foreach (var entry in IdMap)
+            foreach (var entry in ParameterResolvers.GetImageIdMap(Image, Id, HostAddress))
             {
-                var createResult = CreateContainer(entry.Value, entry.Key);
+                HostAddress = entry.Value;
+                var createResult = ContainerOperations.CreateContainer(
+                    entry.Key,
+                    Configuration,
+                    Command,
+                    ContainerName,
+                    DkrClient);
                 
                 if (createResult.Warnings != null)
                 {
@@ -38,16 +44,7 @@ namespace Docker.PowerShell.Cmdlets
 
                 if (!String.IsNullOrEmpty(createResult.Id))
                 {
-                    // TODO - Have a better way to get the container list response given the
-                    // ID.
-                    Container container = 
-                        new Container(
-                            DkrClient.Containers.ListContainersAsync(
-                                new DotNet.Models.ListContainersParameters() { All = true }).AwaitResult().Where(
-                                    c => createResult.Id.Equals(c.Id)).Single(), 
-                            HostAddress);
-
-                    WriteObject(container);
+                    WriteObject(ContainerOperations.GetContainerById(createResult.Id, DkrClient));
                 }
             }
         }

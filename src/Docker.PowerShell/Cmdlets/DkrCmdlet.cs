@@ -23,9 +23,24 @@ namespace Docker.PowerShell.Cmdlets
     {
         #region Private members
 
-        protected DockerClient DkrClient;
         protected string ApiVersion = "1.23";
         protected CancellationTokenSource CancelSignal = new CancellationTokenSource();
+
+        protected DockerClient DkrClient
+        {
+            get
+            {
+                if (dkrClient == null || !dkrClient.Configuration.EndpointBaseUri.ToString().Equals(hostAddress))
+                {
+                    dkrClient = new DockerClientConfiguration(new Uri(HostAddress)).CreateClient(new Version(ApiVersion));
+                }
+
+                return dkrClient;
+            }
+        }
+
+        private string hostAddress;
+        private DockerClient dkrClient;
 
         #endregion
 
@@ -36,31 +51,29 @@ namespace Docker.PowerShell.Cmdlets
         /// </summary>
         [Parameter(ParameterSetName = CommonParameterSetNames.Default)]
         [ValidateNotNullOrEmpty]
-        public virtual string HostAddress { get; set; }
+        public virtual string HostAddress {
+            get
+            {
+                if (String.IsNullOrEmpty(hostAddress))
+                {
+                    HostAddress = Environment.GetEnvironmentVariable("DOCKER_HOST");
+                    if (String.IsNullOrEmpty(hostAddress))
+                    {
+                        hostAddress = "http://127.0.0.1:2375";
+                    }
+                }
+
+                return hostAddress;
+            }
+            set
+            {
+                hostAddress = value;
+            }
+        }
 
         #endregion
 
         #region Overrides
-
-        /// <summary>
-        /// Common ProcessRecord code for all cmdlets.  Tries to create a client configuration
-        /// from the HostAddress, falling back to localhost + default port if none was specified.
-        /// </summary>
-        protected override void ProcessRecord()
-        {
-            base.ProcessRecord();
-
-            if (String.IsNullOrEmpty(HostAddress))
-            {
-                HostAddress = Environment.GetEnvironmentVariable("DOCKER_HOST");
-                if (String.IsNullOrEmpty(HostAddress))
-                {
-                    HostAddress = "http://127.0.0.1:2375";
-                }
-            }
-
-            ResetClient();
-        }
 
         /// <summary>
         /// Common StopProcessing code, that signals the CancellationToken. This may or may
@@ -71,19 +84,6 @@ namespace Docker.PowerShell.Cmdlets
             base.StopProcessing();
 
             CancelSignal.Cancel();
-        }
-
-        #endregion
-
-        #region Helpers
-
-        /// <summary>
-        /// Helper method that creates a new docker client based on the currently configured
-        /// HostAddress and ApiVersion and sets the DkrClient member variable to it.
-        /// </summary>
-        protected void ResetClient()
-        {
-            DkrClient = new DockerClientConfiguration(new Uri(HostAddress)).CreateClient(new Version(ApiVersion));
         }
 
         #endregion

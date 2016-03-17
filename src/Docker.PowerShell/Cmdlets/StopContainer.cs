@@ -35,10 +35,9 @@ namespace Docker.PowerShell.Cmdlets
         {
             base.ProcessRecord();
 
-            foreach (var entry in IdMap)
+            foreach (var entry in ParameterResolvers.GetContainerIdMap(Container, Id, HostAddress))
             {
                 HostAddress = entry.Value;
-                ResetClient();
 
                 if (Force.ToBool())
                 {
@@ -59,15 +58,7 @@ namespace Docker.PowerShell.Cmdlets
 
                 if (PassThru.ToBool())
                 {
-                    Container container =
-                        new Container(
-                            DkrClient.Containers.ListContainersAsync(
-                                new DotNet.Models.ListContainersParameters() { All = true }).AwaitResult().Where(
-                                    c => c.Id.StartsWith(entry.Key) || c.Names.Any(n => n.Equals("/" + entry.Key))).Single(),
-                            HostAddress);
-
-                    WriteObject(container);
-                }
+                    WriteObject(ContainerOperations.GetContainerById(entry.Key, DkrClient));                }
             }
         }
 

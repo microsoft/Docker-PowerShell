@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Docker.PowerShell.Cmdlets
+namespace Docker.PowerShell.Objects
 {
     internal static class TaskExtensionMethods
     {

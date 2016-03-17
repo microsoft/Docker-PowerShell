@@ -8,14 +8,8 @@ using Docker.PowerShell.Objects;
 
 namespace Docker.PowerShell.Cmdlets
 {
-    public class ImageOperationCmdlet : DkrCmdlet
+    public abstract class ImageOperationCmdlet : DkrCmdlet
     {
-        #region Members
-
-        internal Dictionary<string, string> IdMap;
-
-        #endregion
-
         #region Parameters
 
         /// <summary>
@@ -37,26 +31,6 @@ namespace Docker.PowerShell.Cmdlets
                    Mandatory = true)]
         [ValidateNotNullOrEmpty]
         public virtual Image[] Image { get; set; }
-
-        #endregion
-
-        #region Overrides
-
-        protected override void ProcessRecord()
-        {
-            base.ProcessRecord();
-
-            IdMap = new Dictionary<string, string>();
-
-            if (Image != null)
-            {
-                Image.ToList().ForEach(i => IdMap.Add(i.Id, i.HostAddress));
-            }
-            else
-            {
-                Id.ToList().ForEach(i => IdMap.Add(i, HostAddress));
-            }
-        }
 
         #endregion
     }

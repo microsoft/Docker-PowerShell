@@ -28,10 +28,9 @@ namespace Docker.PowerShell.Cmdlets
         {
             base.ProcessRecord();
 
-            foreach (var entry in IdMap)
+            foreach (var entry in ParameterResolvers.GetContainerIdMap(Container, Id, HostAddress))
             {
                 HostAddress = entry.Value;
-                ResetClient();
                 DkrClient.Containers.RemoveContainerAsync(entry.Key,
                     new DotNet.Models.RemoveContainerParameters() { Force = Force.ToBool() }
                     ).WaitUnwrap();

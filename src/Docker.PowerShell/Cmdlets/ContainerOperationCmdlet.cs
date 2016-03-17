@@ -8,14 +8,8 @@ using Docker.PowerShell.Objects;
 
 namespace Docker.PowerShell.Cmdlets
 {
-    public class ContainerOperationCmdlet : DkrCmdlet
+    public abstract class ContainerOperationCmdlet : DkrCmdlet
     {
-        #region Members
-
-        internal Dictionary<string, string> IdMap;
-
-        #endregion
-
         #region Parameters
 
         /// <summary>
@@ -37,26 +31,6 @@ namespace Docker.PowerShell.Cmdlets
                    Mandatory = true)]
         [ValidateNotNullOrEmpty]
         public virtual Container[] Container { get; set; }
-
-        #endregion
-
-        #region Overrides
-
-        protected override void ProcessRecord()
-        {
-            base.ProcessRecord();
-
-            IdMap = new Dictionary<string, string>();
-
-            if (Container != null)
-            {
-                Container.ToList().ForEach(c => IdMap.Add(c.Id, c.HostAddress));
-            }
-            else
-            {
-                Id.ToList().ForEach(i => IdMap.Add(i, HostAddress));
-            }
-        }
 
         #endregion
     }

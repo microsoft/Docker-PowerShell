@@ -45,10 +45,16 @@ namespace Docker.PowerShell.Cmdlets
         {
             base.ProcessRecord();
 
-            foreach (var entry in IdMap)
+            foreach (var entry in ParameterResolvers.GetImageIdMap(Image, Id, HostAddress))
             {
-                var createResult = CreateContainer(entry.Value, entry.Key);
-                
+                HostAddress = entry.Value;
+                var createResult = ContainerOperations.CreateContainer(
+                    entry.Key,
+                    Configuration,
+                    Command,
+                    ContainerName,
+                    DkrClient);
+
                 if (createResult.Warnings != null)
                 {
                     foreach (var w in createResult.Warnings)
