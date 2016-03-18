@@ -87,14 +87,7 @@ namespace Docker.PowerShell.Cmdlets
                     }
                     else if (PassThru.ToBool())
                     {
-                        Container container =
-                            new Container(
-                                DkrClient.Containers.ListContainersAsync(
-                                    new DotNet.Models.ListContainersParameters() { All = true }).AwaitResult().Where(
-                                        c => createResult.Id.Equals(c.Id)).Single(),
-                                HostAddress);
-
-                        WriteObject(container);
+                        WriteObject(ContainerOperations.GetContainerById(createResult.Id, DkrClient));
                     }
                 }
             }
