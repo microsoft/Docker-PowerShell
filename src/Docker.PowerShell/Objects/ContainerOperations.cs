@@ -59,5 +59,21 @@ namespace Docker.PowerShell.Objects
                         c => c.Id.StartsWith(id) || c.Names.Any(n => n.Equals("/" + id))).Single(),
                     dkrClient.Configuration.EndpointBaseUri.ToString());
         }
+
+        /// <summary>
+        /// Gets a single image object from the client by id.
+        /// </summary>
+        /// <param name="id">The image identifier to retrieve.</param>
+        /// <param name="dkrClient">The client to request the image from.</param>
+        /// <returns>The single image object matching the id.</returns>
+        internal static Image GetImageById(string id, DotNet.DockerClient dkrClient)
+        {
+            // TODO - Have a better way to get the image list response given the ID.
+            return new Image(
+                dkrClient.Images.ListImagesAsync(
+                    new DotNet.Models.ListImagesParameters() { All = true }).AwaitResult().Where(
+                        c => c.Id.StartsWith(id)).Single(),
+                    dkrClient.Configuration.EndpointBaseUri.ToString());
+        }
     }
 }
