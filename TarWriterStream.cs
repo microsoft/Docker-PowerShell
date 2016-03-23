@@ -1,3 +1,8 @@
+using System;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+
 namespace Tar
 {
     internal class TarWriterStream : Stream

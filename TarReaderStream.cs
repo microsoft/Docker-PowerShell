@@ -1,3 +1,8 @@
+using System;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+
 namespace Tar
 {
     internal class TarReaderStream : Stream
@@ -46,12 +51,12 @@ namespace Tar
 
         public override int Read(byte[] buffer, int offset, int count)
         {
-            return _reader.Read(buffer, offset, count);
+            return _reader.ReadCurrentFile(buffer, offset, count);
         }
 
         public override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
         {
-            return _reader.ReadAsync(buffer, offset, count, cancellationToken);
+            return _reader.ReadCurrentFileAsync(buffer, offset, count, cancellationToken);
         }
 
         public override long Seek(long offset, SeekOrigin origin)

@@ -1,3 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
 namespace Tar
 {
     public class TarReader
@@ -68,16 +75,16 @@ namespace Tar
         private static DateTime GetTime(ref ReadState state, int length)
         {
             long unixTime = GetOctalLong(ref state, length);
-            if (unixTime < TarUtils.MinUnixTime)
+            if (unixTime < TarTime.MinUnixTime)
             {
-                unixTime = TarUtils.MinUnixTime;
+                unixTime = TarTime.MinUnixTime;
             }
-            else if (unixTime > TarUtils.MaxUnixTime)
+            else if (unixTime > TarTime.MaxUnixTime)
             {
-                unixTime = TarUtils.MaxUnixTime;
+                unixTime = TarTime.MaxUnixTime;
             }
 
-            return TarUtils.FromUnixTime(unixTime, 0);
+            return TarTime.FromUnixTime(unixTime, 0);
         }
 
         private static long ParsePaxNumberLong(string str)
@@ -192,7 +199,7 @@ namespace Tar
             get { return _currentStream; }
         }
 
-        private async Task<TarEntry> ReadHeader(Dictionary<string, string> paxHeaders)
+        private async Task<TarEntry> ReadHeader(Dictionary<string, string> paxEntries)
         {
             if (_remaining > 0)
             {
@@ -236,55 +243,55 @@ namespace Tar
             }
 
             var entry = ParseHeader(_buffer, padding);
-            if (paxHeaders != null)
+            if (paxEntries != null)
             {
                 string value;
-                if (paxHeaders.TryGetValue("atime", out value))
+                if (paxEntries.TryGetValue("atime", out value))
                 {
-                    entry.AccessTime = TarUtils.ParsePaxTime(value);
+                    entry.AccessTime = TarTime.ParsePaxTime(value);
                 }
 
-                if (paxHeaders.TryGetValue("ctime", out value))
+                if (paxEntries.TryGetValue("ctime", out value))
                 {
-                    entry.ChangeTime = TarUtils.ParsePaxTime(value);
+                    entry.ChangeTime = TarTime.ParsePaxTime(value);
                 }
 
-                if (paxHeaders.TryGetValue("mtime", out value))
+                if (paxEntries.TryGetValue("mtime", out value))
                 {
-                    entry.ModifiedTime = TarUtils.ParsePaxTime(value);
+                    entry.ModifiedTime = TarTime.ParsePaxTime(value);
                 }
 
-                if (paxHeaders.TryGetValue("uname", out value))
+                if (paxEntries.TryGetValue("uname", out value))
                 {
                     entry.UserName = value;
                 }
 
-                if (paxHeaders.TryGetValue("gname", out value))
+                if (paxEntries.TryGetValue("gname", out value))
                 {
                     entry.GroupName = value;
                 }
 
-                if (paxHeaders.TryGetValue("uid", out value))
+                if (paxEntries.TryGetValue("uid", out value))
                 {
                     entry.UserID = ParsePaxNumber(value);
                 }
 
-                if (paxHeaders.TryGetValue("gid", out value))
+                if (paxEntries.TryGetValue("gid", out value))
                 {
                     entry.GroupID = ParsePaxNumber(value);
                 }
 
-                if (paxHeaders.TryGetValue("linkpath", out value))
+                if (paxEntries.TryGetValue("linkpath", out value))
                 {
                     entry.LinkTarget = value;
                 }
 
-                if (paxHeaders.TryGetValue("path", out value))
+                if (paxEntries.TryGetValue("path", out value))
                 {
                     entry.Name = value;
                 }
 
-                if (paxHeaders.TryGetValue("size", out value))
+                if (paxEntries.TryGetValue("size", out value))
                 {
                     entry.Length = ParsePaxNumberLong(value);
                 }
@@ -310,8 +317,8 @@ namespace Tar
 
             if (entry.Type == TarUtils.PaxHeaderType)
             {
-                var paxHeaders = await ReadPax();
-                entry = await ReadHeader(paxHeaders);
+                var paxEntries = await ReadPaxEntries();
+                entry = await ReadHeader(paxEntries);
                 if (entry == null)
                 {
                     throw new Exception("missing entry after PAX entry");
@@ -341,7 +348,7 @@ namespace Tar
             return entry;
         }
 
-        private async Task<Dictionary<string, string>> ReadPax()
+        private async Task<Dictionary<string, string>> ReadPaxEntries()
         {
             var streamReader = new StreamReader(_currentStream, _utf8);
             var values = new Dictionary<string, string>();
@@ -373,7 +380,7 @@ namespace Tar
             return values;
         }
 
-        internal int Read(byte[] buffer, int offset, int count)
+        internal int ReadCurrentFile(byte[] buffer, int offset, int count)
         {
             if (count > _remaining)
             {
@@ -390,7 +397,7 @@ namespace Tar
             return read;
         }
 
-        internal async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
+        internal async Task<int> ReadCurrentFileAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
         {
             if (count > _remaining)
             {
@@ -406,6 +413,5 @@ namespace Tar
             _remaining -= read;
             return read;
         }
-
     }
 }

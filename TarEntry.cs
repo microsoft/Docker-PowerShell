@@ -1,3 +1,5 @@
+using System;
+
 namespace Tar
 {
     public class TarEntry

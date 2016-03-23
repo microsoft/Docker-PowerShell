@@ -1,3 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
 namespace Tar
 {
     public class TarWriter
@@ -117,7 +124,7 @@ struct header_posix_ustar {
         bool TryPutTime(ref WriteState state, DateTime time, int n)
         {
             uint nanoseconds;
-            long unixTime = TarUtils.ToUnixTime(time, out nanoseconds);
+            long unixTime = TarTime.ToUnixTime(time, out nanoseconds);
             if (!TryPutOctal(ref state, unixTime, n))
             {
                 return false;
@@ -195,7 +202,7 @@ struct header_posix_ustar {
 
             if (!TryPutTime(ref state, entry.ModifiedTime, 12))
             {
-                paxHeaders["mtime"] = TarUtils.ToPaxTime(entry.ModifiedTime);
+                paxHeaders["mtime"] = TarTime.ToPaxTime(entry.ModifiedTime);
             }
 
             var checksumState = state;
@@ -239,12 +246,12 @@ struct header_posix_ustar {
 
             if (entry.AccessTime.HasValue)
             {
-                paxHeaders["atime"] = TarUtils.ToPaxTime(entry.AccessTime.Value);
+                paxHeaders["atime"] = TarTime.ToPaxTime(entry.AccessTime.Value);
             }
 
             if (entry.ChangeTime.HasValue)
             {
-                paxHeaders["ctime"] = TarUtils.ToPaxTime(entry.ChangeTime.Value);
+                paxHeaders["ctime"] = TarTime.ToPaxTime(entry.ChangeTime.Value);
             }
 
             if (paxHeaders.Count == 1 && paxHeaders.ContainsKey("path"))
