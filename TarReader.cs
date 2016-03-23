@@ -14,7 +14,6 @@ namespace Tar
         private byte[] _buffer = new byte[2 * TarUtils.BlockSize];
         private long _remaining;
         private int _remainingPadding;
-        static private ASCIIEncoding _ascii = new ASCIIEncoding();
         static private UTF8Encoding _utf8 = new UTF8Encoding(false);
 
         public TarReader(Stream stream)
@@ -32,33 +31,68 @@ namespace Tar
         {
             public byte[] Buffer;
             public int Offset;
+            public Dictionary<string, string> PaxEntries;
         }
 
-        private static string GetString(ref ReadState state, int length, Encoding encoding)
+        private static string GetPaxValue(ref ReadState state, string paxKey)
         {
-            var s = encoding.GetString(state.Buffer, state.Offset, length);
-            state.Offset += length;
-            var nulIndex = s.IndexOf('\x00');
-            if (nulIndex < 0)
+            string paxValue;
+            if (paxKey != null && state.PaxEntries != null && state.PaxEntries.TryGetValue(paxKey, out paxValue))
             {
-                return s;
+                return paxValue;
             }
 
-            return s.Substring(0, nulIndex);
+            return null;
+        }
+
+        private static string GetString(ref ReadState state, int length, string paxKey)
+        {
+            string paxValue = GetPaxValue(ref state, paxKey);
+            if (paxValue != null)
+            {
+                return paxValue;
+            }
+
+            var s = new StringBuilder();
+            for (int i = 0; i < length; i++)
+            {
+                var b = state.Buffer[state.Offset + i];
+                if (b == 0)
+                {
+                    return s.ToString();
+                }
+                else if (b > 127)
+                {
+                    throw new Exception("non-ASCII byte in legacy header");
+                }
+                else
+                {
+                    s.Append((char)b);
+                }
+            }
+
+            throw new Exception("missing NUL terminator");
         }
 
         static readonly char[] nulAndSpace = new char[]{' ', '\x00'};
         static readonly char[] nul = new char[]{'\x00'};
 
-        private static long GetOctalLong(ref ReadState state, int length)
+        private static long GetOctalLong(ref ReadState state, int length, string paxKey)
         {
+            string paxValue = GetPaxValue(ref state, paxKey);
+            if (paxValue != null)
+            {
+                return Convert.ToInt64(paxValue);
+            }
+
             if ((state.Buffer[state.Offset] & 128) != 0)
             {
+                // TODO
                 throw new NotSupportedException();
             }
             else
             {
-                var str = GetString(ref state, length, _ascii).Trim(nulAndSpace);
+                var str = GetString(ref state, length, null).Trim(nulAndSpace);
                 if (str.Length == 0)
                 {
                     return 0;
@@ -67,14 +101,26 @@ namespace Tar
             }
         }
 
-        private static int GetOctal(ref ReadState state, int length)
+        private static int GetOctal(ref ReadState state, int length, string paxKey)
         {
-            return (int)GetOctalLong(ref state, length);
+            long value = GetOctalLong(ref state, length, paxKey);
+            if ((int)value != value)
+            {
+                throw new Exception("value too large");
+            }
+
+            return (int)value;
         }
 
-        private static DateTime GetTime(ref ReadState state, int length)
+        private static DateTime GetTime(ref ReadState state, int length, string paxKey)
         {
-            long unixTime = GetOctalLong(ref state, length);
+            string paxValue = GetPaxValue(ref state, paxKey);
+            if (paxValue != null)
+            {
+                return ParsePaxTime(paxValue);
+            }
+
+            long unixTime = GetOctalLong(ref state, length, null);
             if (unixTime < TarTime.MinUnixTime)
             {
                 unixTime = TarTime.MinUnixTime;
@@ -87,39 +133,49 @@ namespace Tar
             return TarTime.FromUnixTime(unixTime, 0);
         }
 
-        private static long ParsePaxNumberLong(string str)
+        public static DateTime ParsePaxTime(string str)
         {
-            return Convert.ToInt64(str);
-        }
-
-        private static int ParsePaxNumber(string str)
-        {
-            long value = ParsePaxNumberLong(str);
-            if ((int)value != value)
+            var point = str.IndexOf('.');
+            long seconds;
+            uint nanoseconds;
+            if (point < 0)
             {
-                throw new Exception("PAX value too large");
+                seconds = Convert.ToInt64(str, 10);
+                nanoseconds = 0;
+            }
+            else
+            {
+                seconds = Convert.ToInt64(str.Substring(0, point), 10);
+                var nsStr = str.Substring(point + 1, 9);
+                if (nsStr.Length < 9)
+                {
+                    nsStr += new String('0', 9 - nsStr.Length);
+                }
+
+                nanoseconds = Convert.ToUInt32(nsStr, 10);
             }
 
-            return (int)value;
+            return TarTime.FromUnixTime(seconds, nanoseconds);
         }
 
-        private static TarEntry ParseHeader(byte[] buffer, int offset)
+        private static TarEntry ParseHeader(byte[] buffer, int offset, Dictionary<string, string> paxEntries)
         {
             var state = new ReadState
             {
                 Buffer = buffer,
                 Offset = offset,
+                PaxEntries = paxEntries,
             };
 
             var entry = new TarEntry();
 
-            entry.Name = GetString(ref state, 100, _utf8);
-            entry.Mode = GetOctal(ref state, 8);
-            entry.UserID = GetOctal(ref state, 8);
-            entry.GroupID = GetOctal(ref state, 8);
-            entry.Length = GetOctalLong(ref state, 12);
-            entry.ModifiedTime = GetTime(ref state, 12);
-            var checksum = GetOctal(ref state, 8);
+            entry.Name = GetString(ref state, 100, TarUtils.PaxPath);
+            entry.Mode = GetOctal(ref state, 8, null);
+            entry.UserID = GetOctal(ref state, 8, TarUtils.PaxUid);
+            entry.GroupID = GetOctal(ref state, 8, TarUtils.PaxGid);
+            entry.Length = GetOctalLong(ref state, 12, TarUtils.PaxSize);
+            entry.ModifiedTime = GetTime(ref state, 12, TarUtils.PaxMtime);
+            var checksum = GetOctal(ref state, 8, null);
             int signedChecksum;
             var unsignedChecksum = TarUtils.Checksum(buffer, offset, out signedChecksum);
             if (checksum != signedChecksum && checksum != unsignedChecksum)
@@ -136,23 +192,35 @@ namespace Tar
             entry.Type = (TarEntryType)typeFlag;
 
             state.Offset++;
-            entry.LinkTarget = GetString(ref state, 100, _utf8);
-            var magic = GetString(ref state, 8, _ascii);
-            if (magic == "ustar" || magic == "ustar  ")
+            entry.LinkTarget = GetString(ref state, 100, TarUtils.PaxLinkpath);
+            var magic = GetString(ref state, 8, null);
+            if (magic == TarUtils.PosixMagic || magic == TarUtils.GnuMagic)
             {
                 // POSIX, star, or GNU format
-                entry.UserName = GetString(ref state, 32, _utf8);
-                entry.GroupName = GetString(ref state, 32, _utf8);
-                entry.DeviceMajor = GetOctal(ref state, 8);
-                entry.DeviceMinor = GetOctal(ref state, 8);
-                if (magic == "ustar")
+                entry.UserName = GetString(ref state, 32, TarUtils.PaxUname);
+                entry.GroupName = GetString(ref state, 32, TarUtils.PaxGname);
+                entry.DeviceMajor = GetOctal(ref state, 8, TarUtils.PaxDevmajor);
+                entry.DeviceMinor = GetOctal(ref state, 8, TarUtils.PaxDevminor);
+                if (magic == TarUtils.PosixMagic && (state.PaxEntries == null || !state.PaxEntries.ContainsKey(TarUtils.PaxPath)))
                 {
                     // POSIX or star
-                    var prefix = GetString(ref state, 155, _utf8);
+                    var prefix = GetString(ref state, 155, null);
                     if (prefix.Length > 0)
                     {
                         entry.Name = prefix + "/" + entry.Name;
                     }
+                }
+
+                string atime = GetPaxValue(ref state, TarUtils.PaxAtime);
+                if (atime != null)
+                {
+                    entry.AccessTime = ParsePaxTime(atime);
+                }
+
+                string ctime = GetPaxValue(ref state, TarUtils.PaxCtime);
+                if (ctime != null)
+                {
+                    entry.ChangeTime = ParsePaxTime(ctime);
                 }
             }
 
@@ -242,60 +310,7 @@ namespace Tar
                 }
             }
 
-            var entry = ParseHeader(_buffer, padding);
-            if (paxEntries != null)
-            {
-                string value;
-                if (paxEntries.TryGetValue("atime", out value))
-                {
-                    entry.AccessTime = TarTime.ParsePaxTime(value);
-                }
-
-                if (paxEntries.TryGetValue("ctime", out value))
-                {
-                    entry.ChangeTime = TarTime.ParsePaxTime(value);
-                }
-
-                if (paxEntries.TryGetValue("mtime", out value))
-                {
-                    entry.ModifiedTime = TarTime.ParsePaxTime(value);
-                }
-
-                if (paxEntries.TryGetValue("uname", out value))
-                {
-                    entry.UserName = value;
-                }
-
-                if (paxEntries.TryGetValue("gname", out value))
-                {
-                    entry.GroupName = value;
-                }
-
-                if (paxEntries.TryGetValue("uid", out value))
-                {
-                    entry.UserID = ParsePaxNumber(value);
-                }
-
-                if (paxEntries.TryGetValue("gid", out value))
-                {
-                    entry.GroupID = ParsePaxNumber(value);
-                }
-
-                if (paxEntries.TryGetValue("linkpath", out value))
-                {
-                    entry.LinkTarget = value;
-                }
-
-                if (paxEntries.TryGetValue("path", out value))
-                {
-                    entry.Name = value;
-                }
-
-                if (paxEntries.TryGetValue("size", out value))
-                {
-                    entry.Length = ParsePaxNumberLong(value);
-                }
-            }
+            var entry = ParseHeader(_buffer, padding, paxEntries);
 
             _remaining = entry.Length;
             _remainingPadding = TarUtils.BlockSize - (int)(_remaining % TarUtils.BlockSize);

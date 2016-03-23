@@ -16,8 +16,6 @@ namespace Tar
         private byte[] _paxBuffer = new byte[2 * TarUtils.BlockSize];
         private TarWriterStream _currentStream;
 
-        static private UTF8Encoding _utf8 = new UTF8Encoding(false);
-
         public TarWriter(Stream stream)
         {
             _stream = stream;
@@ -68,27 +66,23 @@ struct header_posix_ustar {
         {
             public byte[] Buffer;
             public int Offset;
+            public Dictionary<string, string> PaxEntries;
         }
 
-        bool TryPutUTF8(ref WriteState state, byte[] bytes, int offset, int count, int n)
+        private static bool IsASCII(string s)
         {
-            if (count >= n)
+            for (int i = 0; i < s.Length; i++)
             {
-                PutNul(ref state, n);
-                return false;
+                if (s[i] > 127)
+                {
+                    return false;
+                }
             }
 
-            for (int i = 0; i < count; i++)
-            {
-                state.Buffer[state.Offset + i] = bytes[offset + i];
-            }
-
-            state.Offset += count;
-            PutNul(ref state, n - count);
             return true;
         }
 
-        bool TryPutString(ref WriteState state, string str, int n)
+        private static bool TryPutString(ref WriteState state, string str, int n, string paxKey)
         {
             if (str == null)
             {
@@ -96,44 +90,70 @@ struct header_posix_ustar {
                 return true;
             }
 
-            var count = _utf8.GetByteCount(str);
-            if (count >= n)
+            if (IsASCII(str))
             {
-                PutNul(ref state, n);
-                return false;
+                if (str.Length < n)
+                {
+                    for (int i = 0; i < str.Length; i++)
+                    {
+                        state.Buffer[state.Offset + i] = (byte)str[i];
+                    }
+
+                    state.Offset += str.Length;
+                    PutNul(ref state, n - str.Length);
+                    return true;
+                }
             }
 
-            _utf8.GetBytes(str, 0, str.Length, state.Buffer, state.Offset);
-            state.Offset += count;
-            PutNul(ref state, n - count);
-            return true;
+            if (paxKey != null)
+            {
+                state.PaxEntries[paxKey] = str;
+            }
+
+            return false;
         }
 
-        bool TryPutOctal(ref WriteState state, long value, int n)
+        private static bool TryPutOctal(ref WriteState state, long value, int n, string paxKey)
         {
-            if (value < 0)
+            if (value >= 0)
+            {
+                var str = Convert.ToString(value, 8);
+                if (TryPutString(ref state, str, n, null))
+                {
+                    return true;
+                }
+            }
+            else
             {
                 PutNul(ref state, n);
-                return false;
             }
 
-            var str = Convert.ToString(value, 8);
-            return TryPutString(ref state, str, n);
+            if (paxKey != null)
+            {
+                state.PaxEntries[paxKey] = value.ToString();
+            }
+
+            return false;
         }
 
-        bool TryPutTime(ref WriteState state, DateTime time, int n)
+        private static bool TryPutTime(ref WriteState state, DateTime time, int n, string paxKey)
         {
             uint nanoseconds;
             long unixTime = TarTime.ToUnixTime(time, out nanoseconds);
-            if (!TryPutOctal(ref state, unixTime, n))
+            if (TryPutOctal(ref state, unixTime, n, null) && nanoseconds == 0)
             {
-                return false;
+                return true;
             }
 
-            return nanoseconds == 0;
+            if (paxKey != null)
+            {
+                state.PaxEntries[paxKey] = ToPaxTime(time);
+            }
+
+            return false;
         }
 
-        void PutNul(ref WriteState state, int n)
+        private static void PutNul(ref WriteState state, int n)
         {
             for (int i = 0; i < n; i++)
             {
@@ -143,12 +163,31 @@ struct header_posix_ustar {
             state.Offset += n;
         }
 
-        bool TrySplitPath(string path, out byte[] bytes, out int splitIndex)
+        public static string ToPaxTime(DateTime time)
         {
-            bytes = _utf8.GetBytes(path);
-            for (int i = 0; i < bytes.Length; i++)
+            uint nanoseconds;
+            long seconds = TarTime.ToUnixTime(time, out nanoseconds);
+            if (nanoseconds != 0)
             {
-                if (bytes[i] == (byte)'/')
+                return string.Format("{0}.{1:D7}", seconds, nanoseconds / 100);
+            }
+            else
+            {
+                return Convert.ToString(seconds);
+            }
+        }
+
+        private static bool TrySplitPath(string path, out int splitIndex)
+        {
+            splitIndex = -1;
+            if (!IsASCII(path))
+            {
+                return false;
+            }
+
+            for (int i = 0; i < path.Length; i++)
+            {
+                if (path[i] == '/')
                 {
                     if (i < 155 && path.Length - i - 1 < 100)
                     {
@@ -158,8 +197,6 @@ struct header_posix_ustar {
                 }
             }
 
-            bytes = null;
-            splitIndex = -1;
             return false;
         }
 
@@ -167,11 +204,12 @@ struct header_posix_ustar {
         {
             ValidateWroteAll();
 
-            var paxHeaders = new Dictionary<string, string>();
+            var paxEntries = new Dictionary<string, string>();
 
             var state = new WriteState
             {
-                Buffer = _buffer
+                Buffer = _buffer,
+                PaxEntries = paxEntries
             };
 
             PutNul(ref state, _remainingPadding);
@@ -179,102 +217,76 @@ struct header_posix_ustar {
             _remainingPadding = 0;
 
             var nameState = state;
-            if (!TryPutString(ref state, entry.Name, 100))
+            var needsPath = false;
+            if (!TryPutString(ref state, entry.Name, 100, null))
             {
-                paxHeaders["path"] = entry.Name;
+                needsPath = true;
             }
 
-            TryPutOctal(ref state, entry.Mode, 8);
-            if (!TryPutOctal(ref state, entry.UserID, 8))
-            {
-                paxHeaders["uid"] = entry.UserID.ToString();
-            }
+            TryPutOctal(ref state, entry.Mode, 8, null);
+            TryPutOctal(ref state, entry.UserID, 8, TarUtils.PaxUid);
+            TryPutOctal(ref state, entry.GroupID, 8, TarUtils.PaxGid);
+            TryPutOctal(ref state, entry.Length, 12, TarUtils.PaxSize);
+            TryPutTime(ref state, entry.ModifiedTime, 12, TarUtils.PaxMtime);
 
-            if (!TryPutOctal(ref state, entry.GroupID, 8))
-            {
-                paxHeaders["gid"] = entry.GroupID.ToString();
-            }
-
-            if (!TryPutOctal(ref state, entry.Length, 12))
-            {
-                paxHeaders["size"] = entry.Length.ToString();
-            }
-
-            if (!TryPutTime(ref state, entry.ModifiedTime, 12))
-            {
-                paxHeaders["mtime"] = TarTime.ToPaxTime(entry.ModifiedTime);
-            }
-
+            // Remember the offset for the checksum to fill it in later.
             var checksumState = state;
             PutNul(ref state, 7);
+            // The 8th byte of the checksum is always ' '.
             state.Buffer[state.Offset] = (byte)' ';
             state.Offset++;
 
             state.Buffer[state.Offset] = (byte)entry.Type;
             state.Offset++;
 
-            if (!TryPutString(ref state, entry.LinkTarget, 100))
-            {
-                paxHeaders["linkpath"] = entry.LinkTarget;
-            }
-
-            TryPutString(ref state, "ustar", 6);
+            TryPutString(ref state, entry.LinkTarget, 100, TarUtils.PaxLinkpath);
+            TryPutString(ref state, TarUtils.PosixMagic, 6, null);
 
             state.Buffer[state.Offset] = (byte)'0';
             state.Buffer[state.Offset + 1] = (byte)'0';
             state.Offset += 2;
 
-            if (!TryPutString(ref state, entry.UserName, 32))
-            {
-                paxHeaders["uname"] = entry.UserName;
-            }
+            TryPutString(ref state, entry.UserName, 32, TarUtils.PaxUname);
+            TryPutString(ref state, entry.GroupName, 32, TarUtils.PaxGname);
+            TryPutOctal(ref state, entry.DeviceMajor, 8, TarUtils.PaxDevmajor);
+            TryPutOctal(ref state, entry.DeviceMinor, 8, TarUtils.PaxDevminor);
 
-            if (!TryPutString(ref state, entry.GroupName, 32))
-            {
-                paxHeaders["gname"] = entry.GroupName;
-            }
+            // Remember the offset for the prefix in case we need it later.
+            var prefixState = state;
 
-            if (!TryPutOctal(ref state, entry.DeviceMajor, 8))
-            {
-                paxHeaders["SCHILY.devmajor"] = entry.DeviceMajor.ToString();
-            }
-
-            if (!TryPutOctal(ref state, entry.DeviceMinor, 8))
-            {
-                paxHeaders["SCHILY.devminor"] = entry.DeviceMinor.ToString();
-            }
+            PutNul(ref state, padding + TarUtils.BlockSize - state.Offset);
 
             if (entry.AccessTime.HasValue)
             {
-                paxHeaders["atime"] = TarTime.ToPaxTime(entry.AccessTime.Value);
+                paxEntries[TarUtils.PaxAtime] = ToPaxTime(entry.AccessTime.Value);
             }
 
             if (entry.ChangeTime.HasValue)
             {
-                paxHeaders["ctime"] = TarTime.ToPaxTime(entry.ChangeTime.Value);
+                paxEntries[TarUtils.PaxCtime] = ToPaxTime(entry.ChangeTime.Value);
             }
 
-            if (paxHeaders.Count == 1 && paxHeaders.ContainsKey("path"))
+            if (needsPath)
             {
-                byte[] bytes;
                 int splitIndex;
-                if (TrySplitPath(entry.Name, out bytes, out splitIndex))
+                if (paxEntries.Count == 0 && TrySplitPath(entry.Name, out splitIndex))
                 {
-                    Console.WriteLine("splitting {0} at {1}", entry.Name, splitIndex);
-                    TryPutUTF8(ref state, bytes, 0, splitIndex, 155);
-                    TryPutUTF8(ref nameState, bytes, splitIndex + 1, bytes.Length - splitIndex - 1, 100);
-                    paxHeaders.Clear();
+                    TryPutString(ref prefixState, entry.Name.Substring(0, splitIndex), 155, null);
+                    TryPutString(ref nameState, entry.Name.Substring(splitIndex + 1), 100, null);
+                }
+                else
+                {
+                    paxEntries[TarUtils.PaxPath] = entry.Name;
                 }
             }
 
-            PutNul(ref state, padding + TarUtils.BlockSize - state.Offset);
-
             int signedChecksum;
             var checksum = TarUtils.Checksum(_buffer, padding, out signedChecksum);
-            TryPutOctal(ref checksumState, checksum, 7);
+            TryPutOctal(ref checksumState, checksum, 7, null);
 
-            if (paxHeaders.Count > 0)
+            if (paxEntries.Count > 0)
             {
+                // TODO
                 throw new NotSupportedException();
             }
 
@@ -310,7 +322,7 @@ struct header_posix_ustar {
             }
         }
 
-        internal void Write(byte[] buffer, int offset, int count)
+        internal void WriteCurrentFile(byte[] buffer, int offset, int count)
         {
             if (count > _remaining)
             {
@@ -321,7 +333,7 @@ struct header_posix_ustar {
             _remaining -= count;
         }
 
-        internal async Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
+        internal async Task WriteCurrentFileAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
         {
             if (count > _remaining)
             {

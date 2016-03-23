@@ -39,6 +39,7 @@
     <Compile Include="TarEntryType.cs" />
     <Compile Include="TarReader.cs" />
     <Compile Include="TarReaderStream.cs" />
+    <Compile Include="TarTime.cs" />
     <Compile Include="TarUtils.cs" />
     <Compile Include="TarWriter.cs" />
     <Compile Include="TarWriterStream.cs" />

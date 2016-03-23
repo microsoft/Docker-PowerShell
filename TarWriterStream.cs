@@ -66,12 +66,12 @@ namespace Tar
 
         public override void Write(byte[] buffer, int offset, int count)
         {
-            _writer.Write(buffer, offset, count);
+            _writer.WriteCurrentFile(buffer, offset, count);
         }
 
         public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
         {
-            return _writer.WriteAsync(buffer, offset, count, cancellationToken);
+            return _writer.WriteCurrentFileAsync(buffer, offset, count, cancellationToken);
         }
     }
 }
