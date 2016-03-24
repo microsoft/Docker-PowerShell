@@ -12,7 +12,7 @@ namespace Tar
         private Stream _stream;
         private long _remaining;
         private int _remainingPadding;
-        private byte[] _buffer = new byte[3 * TarUtils.BlockSize];
+        private byte[] _buffer = new byte[3 * TarCommon.BlockSize];
         private TarWriterStream _currentStream;
 
         public TarWriter(Stream stream)
@@ -221,10 +221,10 @@ struct header_posix_ustar {
             }
 
             TryPutOctal(ref state, entry.Mode, 8, null);
-            TryPutOctal(ref state, entry.UserID, 8, TarUtils.PaxUid);
-            TryPutOctal(ref state, entry.GroupID, 8, TarUtils.PaxGid);
-            TryPutOctal(ref state, entry.Length, 12, TarUtils.PaxSize);
-            TryPutTime(ref state, entry.ModifiedTime, 12, TarUtils.PaxMtime);
+            TryPutOctal(ref state, entry.UserID, 8, TarCommon.PaxUid);
+            TryPutOctal(ref state, entry.GroupID, 8, TarCommon.PaxGid);
+            TryPutOctal(ref state, entry.Length, 12, TarCommon.PaxSize);
+            TryPutTime(ref state, entry.ModifiedTime, 12, TarCommon.PaxMtime);
 
             // Remember the offset for the checksum to fill it in later.
             var checksumState = state;
@@ -236,33 +236,33 @@ struct header_posix_ustar {
             state.Buffer[state.Offset] = (byte)entry.Type;
             state.Offset++;
 
-            TryPutString(ref state, entry.LinkTarget, 100, TarUtils.PaxLinkpath);
-            TryPutString(ref state, TarUtils.PosixMagic, 6, null);
+            TryPutString(ref state, entry.LinkTarget, 100, TarCommon.PaxLinkpath);
+            TryPutString(ref state, TarCommon.PosixMagic, 6, null);
 
             state.Buffer[state.Offset] = (byte)'0';
             state.Buffer[state.Offset + 1] = (byte)'0';
             state.Offset += 2;
 
-            TryPutString(ref state, entry.UserName, 32, TarUtils.PaxUname);
-            TryPutString(ref state, entry.GroupName, 32, TarUtils.PaxGname);
-            TryPutOctal(ref state, entry.DeviceMajor, 8, TarUtils.PaxDevmajor);
-            TryPutOctal(ref state, entry.DeviceMinor, 8, TarUtils.PaxDevminor);
+            TryPutString(ref state, entry.UserName, 32, TarCommon.PaxUname);
+            TryPutString(ref state, entry.GroupName, 32, TarCommon.PaxGname);
+            TryPutOctal(ref state, entry.DeviceMajor, 8, TarCommon.PaxDevmajor);
+            TryPutOctal(ref state, entry.DeviceMinor, 8, TarCommon.PaxDevminor);
 
             // Remember the offset for the prefix in case we need it later.
             var prefixState = state;
 
-            PutNul(ref state, initialOffset + TarUtils.BlockSize - state.Offset);
+            PutNul(ref state, initialOffset + TarCommon.BlockSize - state.Offset);
 
             if (state.PaxAttributes != null)
             {
                 if (entry.AccessTime.HasValue)
                 {
-                    state.PaxAttributes[TarUtils.PaxAtime] = ToPaxTime(entry.AccessTime.Value);
+                    state.PaxAttributes[TarCommon.PaxAtime] = ToPaxTime(entry.AccessTime.Value);
                 }
 
                 if (entry.ChangeTime.HasValue)
                 {
-                    state.PaxAttributes[TarUtils.PaxCtime] = ToPaxTime(entry.ChangeTime.Value);
+                    state.PaxAttributes[TarCommon.PaxCtime] = ToPaxTime(entry.ChangeTime.Value);
                 }
 
                 if (needsPath)
@@ -275,19 +275,19 @@ struct header_posix_ustar {
                     }
                     else
                     {
-                        state.PaxAttributes[TarUtils.PaxPath] = entry.Name;
+                        state.PaxAttributes[TarCommon.PaxPath] = entry.Name;
                     }
                 }
             }
 
             int signedChecksum;
-            var checksum = TarUtils.Checksum(state.Buffer, initialOffset, out signedChecksum);
+            var checksum = TarCommon.Checksum(state.Buffer, initialOffset, out signedChecksum);
             TryPutOctal(ref checksumState, checksum, 7, null);
         }
 
         private static void WritePaxAttribute(Stream stream, string key, string value)
         {
-            var entryText = TarUtils.UTF8.GetBytes(string.Format(" {0}={1}\n", key, value));
+            var entryText = TarCommon.UTF8.GetBytes(string.Format(" {0}={1}\n", key, value));
             var entryLength = entryText.Length;
             entryLength += entryLength.ToString().Length;
             var entryLengthString = entryLength.ToString();
@@ -297,7 +297,7 @@ struct header_posix_ustar {
                 entryLengthString = entryLength.ToString();
             }
 
-            var entryLengthString8 = TarUtils.UTF8.GetBytes(entryLengthString);
+            var entryLengthString8 = TarCommon.UTF8.GetBytes(entryLengthString);
 
             stream.Write(entryLengthString8, 0, entryLengthString8.Length);
             stream.Write(entryText, 0, entryText.Length);
@@ -308,7 +308,7 @@ struct header_posix_ustar {
             var paxStream = new MemoryStream();
 
             // Skip the tar header, then go back and write it later.
-            var paxDataOffset = padding + TarUtils.BlockSize;
+            var paxDataOffset = padding + TarCommon.BlockSize;
             paxStream.SetLength(paxDataOffset);
             paxStream.Position = paxDataOffset;
 
@@ -320,7 +320,7 @@ struct header_posix_ustar {
             var paxEntry = new TarEntry
             {
                 Name = "PaxHeaders.0", // TODO
-                Type = TarUtils.PaxHeaderType,
+                Type = TarCommon.PaxHeaderType,
                 Length = paxStream.Length - paxDataOffset,
             };
 
@@ -337,7 +337,7 @@ struct header_posix_ustar {
 
             paxStream.Position = 0;
             await paxStream.CopyToAsync(_stream);
-            return TarUtils.Padding(paxEntry.Length);
+            return TarCommon.Padding(paxEntry.Length);
         }
 
         public async Task CreateEntryAsync(TarEntry entry)
@@ -352,7 +352,7 @@ struct header_posix_ustar {
                 PaxAttributes = paxAttributes
             };
 
-            PutNul(ref state, TarUtils.BlockSize);
+            PutNul(ref state, TarCommon.BlockSize);
             var padding = _remainingPadding;
             _remainingPadding = 0;
 
@@ -363,9 +363,9 @@ struct header_posix_ustar {
                 padding = await WritePaxEntry(entry, paxAttributes, padding);
             }
 
-            await _stream.WriteAsync(_buffer, TarUtils.BlockSize - padding, TarUtils.BlockSize + padding);
+            await _stream.WriteAsync(_buffer, TarCommon.BlockSize - padding, TarCommon.BlockSize + padding);
             _remaining = entry.Length;
-            _remainingPadding = TarUtils.Padding(_remaining);
+            _remainingPadding = TarCommon.Padding(_remaining);
         }
 
         private void ZeroArray(byte[] buffer, int offset, int length)
@@ -380,7 +380,7 @@ struct header_posix_ustar {
         {
             ValidateWroteAll();
             ZeroArray(_buffer, 0, _buffer.Length);
-            await _stream.WriteAsync(_buffer, 0, _remainingPadding + TarUtils.BlockSize * 2);
+            await _stream.WriteAsync(_buffer, 0, _remainingPadding + TarCommon.BlockSize * 2);
         }
 
         private void ValidateWroteAll()

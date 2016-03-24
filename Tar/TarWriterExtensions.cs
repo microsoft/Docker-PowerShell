@@ -53,6 +53,10 @@ namespace Tar
 
         public static async Task CreateEntriesFromDirectoryAsync(this TarWriter writer, string path, string entryBase)
         {
+            // Keep a stack of directory enumerations in order to write the
+            // tar in depth-first order (which seems to be more common in tar
+            // implementations than the breadth-first order that SearchOption.AllDirectories
+            // implements.
             var stack = new List<IEnumerator<string>>();
             IEnumerator<string> enumerator = null;
             try
@@ -93,38 +97,6 @@ namespace Tar
                 {
                     e.Dispose();
                 }
-            }
-        }
-
-        public static async Task ExtractDirectory(this TarReader reader, string basePath)
-        {
-            for (;;)
-            {
-                var entry = await reader.GetNextEntryAsync();
-                if (entry == null)
-                {
-                    break;
-                }
-
-                var path = Path.Combine(basePath, entry.Name);
-
-                switch (entry.Type)
-                {
-                    default: // Don't know how to handle these. Pretend they are files.
-                    case TarEntryType.File:
-                        using (var file = File.OpenWrite(path))
-                        {
-                            await reader.CurrentFile.CopyToAsync(file);
-                        }
-                        File.SetLastWriteTimeUtc(path, entry.ModifiedTime);
-                        break;
-
-                    case TarEntryType.Directory:
-                        Directory.CreateDirectory(path);
-                        Directory.SetLastWriteTimeUtc(path, entry.ModifiedTime);
-                        break;
-                }
-
             }
         }
     }

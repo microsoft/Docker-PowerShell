@@ -11,7 +11,7 @@ namespace Tar
     {
         internal Stream _stream;
         internal TarReaderStream _currentStream;
-        private byte[] _buffer = new byte[2 * TarUtils.BlockSize];
+        private byte[] _buffer = new byte[2 * TarCommon.BlockSize];
         private long _remaining;
         private int _remainingPadding;
 
@@ -186,15 +186,15 @@ namespace Tar
             var entry = new TarEntry();
             var initialOffset = state.Offset;
 
-            entry.Name = GetString(ref state, 100, TarUtils.PaxPath);
+            entry.Name = GetString(ref state, 100, TarCommon.PaxPath);
             entry.Mode = GetOctal(ref state, 8, null);
-            entry.UserID = GetOctal(ref state, 8, TarUtils.PaxUid);
-            entry.GroupID = GetOctal(ref state, 8, TarUtils.PaxGid);
-            entry.Length = GetOctalLong(ref state, 12, TarUtils.PaxSize);
-            entry.ModifiedTime = GetTime(ref state, 12, TarUtils.PaxMtime);
+            entry.UserID = GetOctal(ref state, 8, TarCommon.PaxUid);
+            entry.GroupID = GetOctal(ref state, 8, TarCommon.PaxGid);
+            entry.Length = GetOctalLong(ref state, 12, TarCommon.PaxSize);
+            entry.ModifiedTime = GetTime(ref state, 12, TarCommon.PaxMtime);
             var checksum = GetOctal(ref state, 8, null);
             int signedChecksum;
-            var unsignedChecksum = TarUtils.Checksum(state.Buffer, initialOffset, out signedChecksum);
+            var unsignedChecksum = TarCommon.Checksum(state.Buffer, initialOffset, out signedChecksum);
             if (checksum != signedChecksum && checksum != unsignedChecksum)
             {
                 throw new TarParseException("invalid tar checksum");
@@ -209,17 +209,17 @@ namespace Tar
             entry.Type = (TarEntryType)typeFlag;
 
             state.Offset++;
-            entry.LinkTarget = GetString(ref state, 100, TarUtils.PaxLinkpath);
+            entry.LinkTarget = GetString(ref state, 100, TarCommon.PaxLinkpath);
             var magic = GetString(ref state, 8, null);
-            if (magic == TarUtils.PosixMagic || magic == TarUtils.GnuMagic)
+            if (magic == TarCommon.PosixMagic || magic == TarCommon.GnuMagic)
             {
-                entry.UserName = GetString(ref state, 32, TarUtils.PaxUname);
-                entry.GroupName = GetString(ref state, 32, TarUtils.PaxGname);
-                entry.DeviceMajor = GetOctal(ref state, 8, TarUtils.PaxDevmajor);
-                entry.DeviceMinor = GetOctal(ref state, 8, TarUtils.PaxDevminor);
-                if (magic == TarUtils.PosixMagic)
+                entry.UserName = GetString(ref state, 32, TarCommon.PaxUname);
+                entry.GroupName = GetString(ref state, 32, TarCommon.PaxGname);
+                entry.DeviceMajor = GetOctal(ref state, 8, TarCommon.PaxDevmajor);
+                entry.DeviceMinor = GetOctal(ref state, 8, TarCommon.PaxDevminor);
+                if (magic == TarCommon.PosixMagic)
                 {
-                    if (state.PaxAttributes == null || !state.PaxAttributes.ContainsKey(TarUtils.PaxPath))
+                    if (state.PaxAttributes == null || !state.PaxAttributes.ContainsKey(TarCommon.PaxPath))
                     {
                         var prefix = GetString(ref state, 155, null);
                         if (prefix.Length > 0)
@@ -228,13 +228,13 @@ namespace Tar
                         }
                     }
 
-                    string atime = GetPaxValue(ref state, TarUtils.PaxAtime);
+                    string atime = GetPaxValue(ref state, TarCommon.PaxAtime);
                     if (atime != null)
                     {
                         entry.AccessTime = ParsePaxTime(atime);
                     }
 
-                    string ctime = GetPaxValue(ref state, TarUtils.PaxCtime);
+                    string ctime = GetPaxValue(ref state, TarCommon.PaxCtime);
                     if (ctime != null)
                     {
                         entry.ChangeTime = ParsePaxTime(ctime);
@@ -293,7 +293,7 @@ namespace Tar
                 _remaining = 0;
             }
 
-            var read = await _stream.ReadAsync(_buffer, 0, TarUtils.BlockSize + _remainingPadding);
+            var read = await _stream.ReadAsync(_buffer, 0, TarCommon.BlockSize + _remainingPadding);
             var padding = _remainingPadding;
             _remainingPadding = 0;
             if (read <= _remainingPadding)
@@ -301,24 +301,24 @@ namespace Tar
                 // No more entries.
                 return null;
             }
-            else if (read - _remainingPadding < TarUtils.BlockSize)
+            else if (read - _remainingPadding < TarCommon.BlockSize)
             {
                 throw new EndOfStreamException();
             }
 
-            if (IsArrayZero(_buffer, padding, TarUtils.BlockSize))
+            if (IsArrayZero(_buffer, padding, TarCommon.BlockSize))
             {
                 // Verify that the next block is also zero.
-                read = await _stream.ReadAsync(_buffer, 0, TarUtils.BlockSize);
+                read = await _stream.ReadAsync(_buffer, 0, TarCommon.BlockSize);
                 if (read == 0)
                 {
                     return null;
                 }
-                else if (read < TarUtils.BlockSize)
+                else if (read < TarCommon.BlockSize)
                 {
                     throw new EndOfStreamException();
                 }
-                else if (IsArrayZero(_buffer, 0, TarUtils.BlockSize))
+                else if (IsArrayZero(_buffer, 0, TarCommon.BlockSize))
                 {
                     return null;
                 }
@@ -338,13 +338,13 @@ namespace Tar
             var entry = ParseHeader(ref state);
 
             _remaining = entry.Length;
-            _remainingPadding = TarUtils.Padding(_remaining);
+            _remainingPadding = TarCommon.Padding(_remaining);
             return entry;
         }
 
         public async Task<string> ReadGNUEntryData()
         {
-            using (var reader = new StreamReader(CurrentFile, TarUtils.ASCII))
+            using (var reader = new StreamReader(CurrentFile, TarCommon.ASCII))
             {
                 return await reader.ReadToEndAsync();
             }
@@ -366,7 +366,7 @@ namespace Tar
             {
                 switch (entry.Type)
                 {
-                    case TarUtils.PaxHeaderType:
+                    case TarCommon.PaxHeaderType:
                         var paxAttributes = await ReadPaxAttributes();
                         entry = await ReadHeader(paxAttributes);
                         if (entry == null)
@@ -377,11 +377,11 @@ namespace Tar
                         moreHeaders = false;
                         break;
 
-                    case TarUtils.GnuLongPathnameType:
+                    case TarCommon.GnuLongPathnameType:
                         replacementName = await ReadGNUEntryData();
                         break;
 
-                    case TarUtils.GnuLongLinknameType:
+                    case TarCommon.GnuLongLinknameType:
                         replacementLinkTarget = await ReadGNUEntryData();
                         break;
 
@@ -410,11 +410,11 @@ namespace Tar
 
             switch (entry.Type)
             {
-                case TarUtils.PaxHeaderType:
+                case TarCommon.PaxHeaderType:
                     throw new TarParseException("extra PAX header");
 
-                case TarUtils.GnuLongPathnameType:
-                case TarUtils.GnuLongLinknameType:
+                case TarCommon.GnuLongPathnameType:
+                case TarCommon.GnuLongLinknameType:
                     throw new TarParseException("unexpected GNU entry type");
 
                 case TarEntryType.File:
@@ -437,7 +437,7 @@ namespace Tar
 
         private async Task<Dictionary<string, string>> ReadPaxAttributes()
         {
-            var streamReader = new StreamReader(_currentStream, TarUtils.UTF8);
+            var streamReader = new StreamReader(_currentStream, TarCommon.UTF8);
             var values = new Dictionary<string, string>();
             for (;;)
             {

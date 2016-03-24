@@ -1,9 +1,8 @@
-using System;
 using System.Text;
 
 namespace Tar
 {
-    internal static class TarUtils
+    internal static class TarCommon
     {
         public const string PosixMagic = "ustar";
         public const string GnuMagic = "ustar  ";
@@ -35,7 +34,7 @@ namespace Tar
         {
             signedChecksum = 0;
             int unsignedChecksum = 0;
-            for (int i = 0; i < TarUtils.BlockSize; i++)
+            for (int i = 0; i < TarCommon.BlockSize; i++)
             {
                 byte b = buffer[offset + i];
 
