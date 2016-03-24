@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace Tar
 {
@@ -9,6 +10,8 @@ namespace Tar
 
         public const TarEntryType PaxHeaderType = (TarEntryType)'x';
         public const TarEntryType PaxGlobalHeaderType = (TarEntryType)'g';
+        public const TarEntryType GnuLongLinknameType = (TarEntryType)'K';
+        public const TarEntryType GnuLongPathnameType = (TarEntryType)'L';
 
         public const string PaxUid = "uid";
         public const string PaxGid = "gid";
@@ -24,6 +27,9 @@ namespace Tar
         public const string PaxDevminor = "SCHILY.devminor";
 
         public const int BlockSize = 512;
+
+        public static ASCIIEncoding ASCII = new ASCIIEncoding();
+        public static UTF8Encoding UTF8 = new UTF8Encoding(false);
 
         public static int Checksum(byte[] buffer, int offset, out int signedChecksum)
         {
@@ -45,6 +51,17 @@ namespace Tar
             }
 
             return unsignedChecksum;
+        }
+
+        public static int Padding(long fileSize)
+        {
+            int padding = BlockSize - (int)(fileSize % BlockSize);
+            if (padding == BlockSize)
+            {
+                padding = 0;
+            }
+
+            return padding;
         }
     }
 }

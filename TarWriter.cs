@@ -13,7 +13,6 @@ namespace Tar
         private long _remaining;
         private int _remainingPadding;
         private byte[] _buffer = new byte[3 * TarUtils.BlockSize];
-        private byte[] _paxBuffer = new byte[2 * TarUtils.BlockSize];
         private TarWriterStream _currentStream;
 
         public TarWriter(Stream stream)
@@ -66,7 +65,7 @@ struct header_posix_ustar {
         {
             public byte[] Buffer;
             public int Offset;
-            public Dictionary<string, string> PaxEntries;
+            public Dictionary<string, string> PaxAttributes;
         }
 
         private static bool IsASCII(string s)
@@ -105,11 +104,12 @@ struct header_posix_ustar {
                 }
             }
 
-            if (paxKey != null)
+            if (paxKey != null && state.PaxAttributes != null)
             {
-                state.PaxEntries[paxKey] = str;
+                state.PaxAttributes[paxKey] = str;
             }
 
+            PutNul(ref state, n);
             return false;
         }
 
@@ -118,21 +118,31 @@ struct header_posix_ustar {
             if (value >= 0)
             {
                 var str = Convert.ToString(value, 8);
-                if (TryPutString(ref state, str, n, null))
+                if (str.Length < n)
                 {
+                    int leadingZeroes = n - str.Length - 1;
+                    for (int i = 0; i < leadingZeroes; i++)
+                    {
+                        state.Buffer[state.Offset + i] = (byte)'0';
+                    }
+
+                    for (int i = 0; i < str.Length; i++)
+                    {
+                        state.Buffer[state.Offset + leadingZeroes + i] = (byte)str[i];
+                    }
+
+                    state.Buffer[state.Offset + n - 1] = 0;
+                    state.Offset += n;
                     return true;
                 }
             }
-            else
+
+            if (paxKey != null && state.PaxAttributes != null)
             {
-                PutNul(ref state, n);
+                state.PaxAttributes[paxKey] = value.ToString();
             }
 
-            if (paxKey != null)
-            {
-                state.PaxEntries[paxKey] = value.ToString();
-            }
-
+            PutNul(ref state, n);
             return false;
         }
 
@@ -145,9 +155,9 @@ struct header_posix_ustar {
                 return true;
             }
 
-            if (paxKey != null)
+            if (paxKey != null && state.PaxAttributes != null)
             {
-                state.PaxEntries[paxKey] = ToPaxTime(time);
+                state.PaxAttributes[paxKey] = ToPaxTime(time);
             }
 
             return false;
@@ -200,22 +210,9 @@ struct header_posix_ustar {
             return false;
         }
 
-        public async Task AddEntryAsync(TarEntry entry)
+        private static void WriteHeader(ref WriteState state, TarEntry entry)
         {
-            ValidateWroteAll();
-
-            var paxEntries = new Dictionary<string, string>();
-
-            var state = new WriteState
-            {
-                Buffer = _buffer,
-                PaxEntries = paxEntries
-            };
-
-            PutNul(ref state, _remainingPadding);
-            var padding = _remainingPadding;
-            _remainingPadding = 0;
-
+            var initialOffset = state.Offset;
             var nameState = state;
             var needsPath = false;
             if (!TryPutString(ref state, entry.Name, 100, null))
@@ -254,49 +251,121 @@ struct header_posix_ustar {
             // Remember the offset for the prefix in case we need it later.
             var prefixState = state;
 
-            PutNul(ref state, padding + TarUtils.BlockSize - state.Offset);
+            PutNul(ref state, initialOffset + TarUtils.BlockSize - state.Offset);
 
-            if (entry.AccessTime.HasValue)
+            if (state.PaxAttributes != null)
             {
-                paxEntries[TarUtils.PaxAtime] = ToPaxTime(entry.AccessTime.Value);
-            }
-
-            if (entry.ChangeTime.HasValue)
-            {
-                paxEntries[TarUtils.PaxCtime] = ToPaxTime(entry.ChangeTime.Value);
-            }
-
-            if (needsPath)
-            {
-                int splitIndex;
-                if (paxEntries.Count == 0 && TrySplitPath(entry.Name, out splitIndex))
+                if (entry.AccessTime.HasValue)
                 {
-                    TryPutString(ref prefixState, entry.Name.Substring(0, splitIndex), 155, null);
-                    TryPutString(ref nameState, entry.Name.Substring(splitIndex + 1), 100, null);
+                    state.PaxAttributes[TarUtils.PaxAtime] = ToPaxTime(entry.AccessTime.Value);
                 }
-                else
+
+                if (entry.ChangeTime.HasValue)
                 {
-                    paxEntries[TarUtils.PaxPath] = entry.Name;
+                    state.PaxAttributes[TarUtils.PaxCtime] = ToPaxTime(entry.ChangeTime.Value);
+                }
+
+                if (needsPath)
+                {
+                    int splitIndex;
+                    if (state.PaxAttributes.Count == 0 && TrySplitPath(entry.Name, out splitIndex))
+                    {
+                        TryPutString(ref prefixState, entry.Name.Substring(0, splitIndex), 155, null);
+                        TryPutString(ref nameState, entry.Name.Substring(splitIndex + 1), 100, null);
+                    }
+                    else
+                    {
+                        state.PaxAttributes[TarUtils.PaxPath] = entry.Name;
+                    }
                 }
             }
 
             int signedChecksum;
-            var checksum = TarUtils.Checksum(_buffer, padding, out signedChecksum);
+            var checksum = TarUtils.Checksum(state.Buffer, initialOffset, out signedChecksum);
             TryPutOctal(ref checksumState, checksum, 7, null);
+        }
 
-            if (paxEntries.Count > 0)
+        private static void WritePaxAttribute(Stream stream, string key, string value)
+        {
+            var entryText = TarUtils.UTF8.GetBytes(string.Format(" {0}={1}\n", key, value));
+            var entryLength = entryText.Length;
+            entryLength += entryLength.ToString().Length;
+            var entryLengthString = entryLength.ToString();
+            if (entryLengthString.Length + entryText.Length != entryLength)
             {
-                // TODO
-                throw new NotSupportedException();
+                entryLength = entryLengthString.Length + entryText.Length;
+                entryLengthString = entryLength.ToString();
             }
 
-            await _stream.WriteAsync(_buffer, 0, state.Offset);
+            var entryLengthString8 = TarUtils.UTF8.GetBytes(entryLengthString);
+
+            stream.Write(entryLengthString8, 0, entryLengthString8.Length);
+            stream.Write(entryText, 0, entryText.Length);
+        }
+
+        private async Task<int> WritePaxEntry(TarEntry entry, Dictionary<string, string> paxAttributes, int padding)
+        {
+            var paxStream = new MemoryStream();
+
+            // Skip the tar header, then go back and write it later.
+            var paxDataOffset = padding + TarUtils.BlockSize;
+            paxStream.SetLength(paxDataOffset);
+            paxStream.Position = paxDataOffset;
+
+            foreach (var attribute in paxAttributes)
+            {
+                WritePaxAttribute(paxStream, attribute.Key, attribute.Value);
+            }
+
+            var paxEntry = new TarEntry
+            {
+                Name = "PaxHeaders.0", // TODO
+                Type = TarUtils.PaxHeaderType,
+                Length = paxStream.Length - paxDataOffset,
+            };
+
+            ArraySegment<byte> buffer;
+            paxStream.TryGetBuffer(out buffer);
+
+            var paxState = new WriteState
+            {
+                Buffer = buffer.Array,
+                Offset = buffer.Offset + padding,
+            };
+
+            WriteHeader(ref paxState, paxEntry);
+
+            paxStream.Position = 0;
+            await paxStream.CopyToAsync(_stream);
+            return TarUtils.Padding(paxEntry.Length);
+        }
+
+        public async Task CreateEntryAsync(TarEntry entry)
+        {
+            ValidateWroteAll();
+
+            var paxAttributes = new Dictionary<string, string>();
+
+            var state = new WriteState
+            {
+                Buffer = _buffer,
+                PaxAttributes = paxAttributes
+            };
+
+            PutNul(ref state, TarUtils.BlockSize);
+            var padding = _remainingPadding;
+            _remainingPadding = 0;
+
+            WriteHeader(ref state, entry);
+
+            if (paxAttributes.Count > 0)
+            {
+                padding = await WritePaxEntry(entry, paxAttributes, padding);
+            }
+
+            await _stream.WriteAsync(_buffer, TarUtils.BlockSize - padding, TarUtils.BlockSize + padding);
             _remaining = entry.Length;
-            _remainingPadding = TarUtils.BlockSize - (int)(entry.Length % TarUtils.BlockSize);
-            if (_remainingPadding == TarUtils.BlockSize)
-            {
-                _remainingPadding = 0;
-            }
+            _remainingPadding = TarUtils.Padding(_remaining);
         }
 
         private void ZeroArray(byte[] buffer, int offset, int length)
@@ -318,7 +387,7 @@ struct header_posix_ustar {
         {
             if (_remaining > 0)
             {
-                throw new Exception(string.Format("did not finish writing last entry: {0}", _remaining));
+                throw new InvalidOperationException("caller did not finish writing last entry");
             }
         }
 
@@ -326,7 +395,7 @@ struct header_posix_ustar {
         {
             if (count > _remaining)
             {
-                throw new Exception("wrote too much");
+                throw new InvalidOperationException("caller wrote more than the specified number of bytes");
             }
 
             _stream.Write(buffer, offset, count);
@@ -337,7 +406,7 @@ struct header_posix_ustar {
         {
             if (count > _remaining)
             {
-                throw new Exception("wrote too much");
+                throw new InvalidOperationException("caller wrote more than the specified number of bytes");
             }
 
             await _stream.WriteAsync(buffer, offset, count, cancellationToken);

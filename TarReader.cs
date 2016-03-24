@@ -14,7 +14,6 @@ namespace Tar
         private byte[] _buffer = new byte[2 * TarUtils.BlockSize];
         private long _remaining;
         private int _remainingPadding;
-        static private UTF8Encoding _utf8 = new UTF8Encoding(false);
 
         public TarReader(Stream stream)
         {
@@ -31,13 +30,13 @@ namespace Tar
         {
             public byte[] Buffer;
             public int Offset;
-            public Dictionary<string, string> PaxEntries;
+            public Dictionary<string, string> PaxAttributes;
         }
 
         private static string GetPaxValue(ref ReadState state, string paxKey)
         {
             string paxValue;
-            if (paxKey != null && state.PaxEntries != null && state.PaxEntries.TryGetValue(paxKey, out paxValue))
+            if (paxKey != null && state.PaxAttributes != null && state.PaxAttributes.TryGetValue(paxKey, out paxValue))
             {
                 return paxValue;
             }
@@ -50,6 +49,7 @@ namespace Tar
             string paxValue = GetPaxValue(ref state, paxKey);
             if (paxValue != null)
             {
+                state.Offset += length;
                 return paxValue;
             }
 
@@ -59,11 +59,11 @@ namespace Tar
                 var b = state.Buffer[state.Offset + i];
                 if (b == 0)
                 {
-                    return s.ToString();
+                    break;
                 }
                 else if (b > 127)
                 {
-                    throw new Exception("non-ASCII byte in legacy header");
+                    throw new TarParseException("non-ASCII byte in legacy header");
                 }
                 else
                 {
@@ -71,7 +71,8 @@ namespace Tar
                 }
             }
 
-            throw new Exception("missing NUL terminator");
+            state.Offset += length;
+            return s.ToString();
         }
 
         static readonly char[] nulAndSpace = new char[]{' ', '\x00'};
@@ -82,13 +83,34 @@ namespace Tar
             string paxValue = GetPaxValue(ref state, paxKey);
             if (paxValue != null)
             {
+                state.Offset += length;
                 return Convert.ToInt64(paxValue);
             }
 
             if ((state.Buffer[state.Offset] & 128) != 0)
             {
-                // TODO
-                throw new NotSupportedException();
+                ulong result = 0;
+                if ((state.Buffer[state.Offset] & 64) != 0)
+                {
+                    // If the result is negative, then smear the sign bit left so that the final
+                    // result is negative.
+                    result = ~(ulong)0;
+                }
+
+                for (int i = 0; i < length; i++)
+                {
+                    byte b = state.Buffer[state.Offset + i];
+                    if (i == 0)
+                    {
+                        b ^= 128;
+                    }
+
+                    result <<= 8;
+                    result |= b;
+                }
+
+                state.Offset += length;
+                return (long)result;
             }
             else
             {
@@ -106,7 +128,7 @@ namespace Tar
             long value = GetOctalLong(ref state, length, paxKey);
             if ((int)value != value)
             {
-                throw new Exception("value too large");
+                throw new TarParseException("value too large");
             }
 
             return (int)value;
@@ -117,6 +139,7 @@ namespace Tar
             string paxValue = GetPaxValue(ref state, paxKey);
             if (paxValue != null)
             {
+                state.Offset += length;
                 return ParsePaxTime(paxValue);
             }
 
@@ -146,7 +169,7 @@ namespace Tar
             else
             {
                 seconds = Convert.ToInt64(str.Substring(0, point), 10);
-                var nsStr = str.Substring(point + 1, 9);
+                var nsStr = str.Substring(point + 1, Math.Min(9, str.Length - point - 1));
                 if (nsStr.Length < 9)
                 {
                     nsStr += new String('0', 9 - nsStr.Length);
@@ -158,16 +181,10 @@ namespace Tar
             return TarTime.FromUnixTime(seconds, nanoseconds);
         }
 
-        private static TarEntry ParseHeader(byte[] buffer, int offset, Dictionary<string, string> paxEntries)
+        private static TarEntry ParseHeader(ref ReadState state)
         {
-            var state = new ReadState
-            {
-                Buffer = buffer,
-                Offset = offset,
-                PaxEntries = paxEntries,
-            };
-
             var entry = new TarEntry();
+            var initialOffset = state.Offset;
 
             entry.Name = GetString(ref state, 100, TarUtils.PaxPath);
             entry.Mode = GetOctal(ref state, 8, null);
@@ -177,10 +194,10 @@ namespace Tar
             entry.ModifiedTime = GetTime(ref state, 12, TarUtils.PaxMtime);
             var checksum = GetOctal(ref state, 8, null);
             int signedChecksum;
-            var unsignedChecksum = TarUtils.Checksum(buffer, offset, out signedChecksum);
+            var unsignedChecksum = TarUtils.Checksum(state.Buffer, initialOffset, out signedChecksum);
             if (checksum != signedChecksum && checksum != unsignedChecksum)
             {
-                throw new Exception("invalid tar checksum");
+                throw new TarParseException("invalid tar checksum");
             }
 
             var typeFlag = state.Buffer[state.Offset];
@@ -196,31 +213,32 @@ namespace Tar
             var magic = GetString(ref state, 8, null);
             if (magic == TarUtils.PosixMagic || magic == TarUtils.GnuMagic)
             {
-                // POSIX, star, or GNU format
                 entry.UserName = GetString(ref state, 32, TarUtils.PaxUname);
                 entry.GroupName = GetString(ref state, 32, TarUtils.PaxGname);
                 entry.DeviceMajor = GetOctal(ref state, 8, TarUtils.PaxDevmajor);
                 entry.DeviceMinor = GetOctal(ref state, 8, TarUtils.PaxDevminor);
-                if (magic == TarUtils.PosixMagic && (state.PaxEntries == null || !state.PaxEntries.ContainsKey(TarUtils.PaxPath)))
+                if (magic == TarUtils.PosixMagic)
                 {
-                    // POSIX or star
-                    var prefix = GetString(ref state, 155, null);
-                    if (prefix.Length > 0)
+                    if (state.PaxAttributes == null || !state.PaxAttributes.ContainsKey(TarUtils.PaxPath))
                     {
-                        entry.Name = prefix + "/" + entry.Name;
+                        var prefix = GetString(ref state, 155, null);
+                        if (prefix.Length > 0)
+                        {
+                            entry.Name = prefix + "/" + entry.Name;
+                        }
                     }
-                }
 
-                string atime = GetPaxValue(ref state, TarUtils.PaxAtime);
-                if (atime != null)
-                {
-                    entry.AccessTime = ParsePaxTime(atime);
-                }
+                    string atime = GetPaxValue(ref state, TarUtils.PaxAtime);
+                    if (atime != null)
+                    {
+                        entry.AccessTime = ParsePaxTime(atime);
+                    }
 
-                string ctime = GetPaxValue(ref state, TarUtils.PaxCtime);
-                if (ctime != null)
-                {
-                    entry.ChangeTime = ParsePaxTime(ctime);
+                    string ctime = GetPaxValue(ref state, TarUtils.PaxCtime);
+                    if (ctime != null)
+                    {
+                        entry.ChangeTime = ParsePaxTime(ctime);
+                    }
                 }
             }
 
@@ -267,7 +285,7 @@ namespace Tar
             get { return _currentStream; }
         }
 
-        private async Task<TarEntry> ReadHeader(Dictionary<string, string> paxEntries)
+        private async Task<TarEntry> ReadHeader(Dictionary<string, string> paxAttributes)
         {
             if (_remaining > 0)
             {
@@ -306,20 +324,30 @@ namespace Tar
                 }
                 else
                 {
-                    throw new Exception("non-zero header after zero header");
+                    throw new TarParseException("non-zero header after zero header");
                 }
             }
 
-            var entry = ParseHeader(_buffer, padding, paxEntries);
+            var state = new ReadState
+            {
+                Buffer = _buffer,
+                Offset = padding,
+                PaxAttributes = paxAttributes,
+            };
+
+            var entry = ParseHeader(ref state);
 
             _remaining = entry.Length;
-            _remainingPadding = TarUtils.BlockSize - (int)(_remaining % TarUtils.BlockSize);
-            if (_remainingPadding == TarUtils.BlockSize)
-            {
-                _remainingPadding = 0;
-            }
-
+            _remainingPadding = TarUtils.Padding(_remaining);
             return entry;
+        }
+
+        public async Task<string> ReadGNUEntryData()
+        {
+            using (var reader = new StreamReader(CurrentFile, TarUtils.ASCII))
+            {
+                return await reader.ReadToEndAsync();
+            }
         }
 
         public async Task<TarEntry> GetNextEntryAsync()
@@ -330,42 +358,86 @@ namespace Tar
                 return null;
             }
 
-            if (entry.Type == TarUtils.PaxHeaderType)
+            string replacementName = null;
+            string replacementLinkTarget = null;
+
+            bool moreHeaders = true;
+            for (;;)
             {
-                var paxEntries = await ReadPaxEntries();
-                entry = await ReadHeader(paxEntries);
-                if (entry == null)
+                switch (entry.Type)
                 {
-                    throw new Exception("missing entry after PAX entry");
+                    case TarUtils.PaxHeaderType:
+                        var paxAttributes = await ReadPaxAttributes();
+                        entry = await ReadHeader(paxAttributes);
+                        if (entry == null)
+                        {
+                            throw new TarParseException("missing entry after PAX entry");
+                        }
+
+                        moreHeaders = false;
+                        break;
+
+                    case TarUtils.GnuLongPathnameType:
+                        replacementName = await ReadGNUEntryData();
+                        break;
+
+                    case TarUtils.GnuLongLinknameType:
+                        replacementLinkTarget = await ReadGNUEntryData();
+                        break;
+
+                    default:
+                        moreHeaders = false;
+                        break;
                 }
+
+                if (!moreHeaders)
+                {
+                    break;
+                }
+
+                entry = await ReadHeader(null);
+            }
+
+            if (replacementName != null)
+            {
+                entry.Name = replacementName;
+            }
+
+            if (replacementLinkTarget != null)
+            {
+                entry.LinkTarget = replacementLinkTarget;
             }
 
             switch (entry.Type)
             {
-            case TarUtils.PaxHeaderType:
-                throw new Exception("extra PAX header");
+                case TarUtils.PaxHeaderType:
+                    throw new TarParseException("extra PAX header");
 
-            case TarEntryType.File:
-            case TarEntryType.HardLink:
-            case TarEntryType.SymbolicLink:
-            case TarEntryType.CharacterDevice:
-            case TarEntryType.BlockDevice:
-            case TarEntryType.Directory:
-            case TarEntryType.FIFO:
-                break;
+                case TarUtils.GnuLongPathnameType:
+                case TarUtils.GnuLongLinknameType:
+                    throw new TarParseException("unexpected GNU entry type");
 
-            default:
-                // Don't return enum values that this implementation doesn't understand.
-                entry.Type = TarEntryType.File;
-                break;
+                case TarEntryType.File:
+                case TarEntryType.HardLink:
+                case TarEntryType.SymbolicLink:
+                case TarEntryType.CharacterDevice:
+                case TarEntryType.BlockDevice:
+                case TarEntryType.Directory:
+                case TarEntryType.FIFO:
+                    break;
+
+                default:
+                    // Don't return enum values that this implementation doesn't understand.
+                    entry.Type = TarEntryType.File;
+                    break;
             }
 
             return entry;
         }
 
-        private async Task<Dictionary<string, string>> ReadPaxEntries()
+        private async Task<Dictionary<string, string>> ReadPaxAttributes()
         {
-            var streamReader = new StreamReader(_currentStream, _utf8);
+            var streamReader = new StreamReader(_currentStream, TarUtils.UTF8);
             var values = new Dictionary<string, string>();
             for (;;)
             {
@@ -378,13 +450,13 @@ namespace Tar
                 var space = line.IndexOf(' ');
                 if (space < 0)
                 {
-                    throw new Exception("invalid PAX line");
+                    throw new TarParseException("invalid PAX line");
                 }
 
                 var equals = line.IndexOf('=', space);
                 if (equals < 0)
                 {
-                    throw new Exception("invalid PAX line");
+                    throw new TarParseException("invalid PAX line");
                 }
 
                 var key = line.Substring(space + 1, equals - space - 1);
