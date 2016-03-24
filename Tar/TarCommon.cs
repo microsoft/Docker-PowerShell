@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 
 namespace Tar
@@ -12,31 +13,21 @@ namespace Tar
         public const TarEntryType GnuLongLinknameType = (TarEntryType)'K';
         public const TarEntryType GnuLongPathnameType = (TarEntryType)'L';
 
-        public const string PaxUid = "uid";
-        public const string PaxGid = "gid";
-        public const string PaxUname = "uname";
-        public const string PaxGname = "gname";
-        public const string PaxSize = "size";
-        public const string PaxLinkpath = "linkpath";
-        public const string PaxPath = "path";
         public const string PaxCtime = "ctime";
         public const string PaxAtime = "atime";
-        public const string PaxMtime = "mtime";
-        public const string PaxDevmajor = "SCHILY.devmajor";
-        public const string PaxDevminor = "SCHILY.devminor";
 
         public const int BlockSize = 512;
 
         public static ASCIIEncoding ASCII = new ASCIIEncoding();
         public static UTF8Encoding UTF8 = new UTF8Encoding(false);
 
-        public static int Checksum(byte[] buffer, int offset, out int signedChecksum)
+        public static int Checksum(ArraySegment<byte> buffer, out int signedChecksum)
         {
             signedChecksum = 0;
             int unsignedChecksum = 0;
             for (int i = 0; i < TarCommon.BlockSize; i++)
             {
-                byte b = buffer[offset + i];
+                byte b = buffer.Array[buffer.Offset + i];
 
                 // The checksum portion of the header is cleared with space characters.
                 if (i >= 148 && i < 156)
@@ -61,6 +52,36 @@ namespace Tar
             }
 
             return padding;
+        }
+
+        public static bool IsASCII(string s)
+        {
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] > 127)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static string MakeASCII(string s)
+        {
+            var sb = new StringBuilder();
+            for (int i =0 ; i < s.Length; i++)
+            {
+                if (s[i] <= 127)
+                {
+                    sb.Append(s[i]);
+                }
+                else
+                {
+                    sb.Append('?');
+                }
+            }
+            return sb.ToString();
         }
     }
 }

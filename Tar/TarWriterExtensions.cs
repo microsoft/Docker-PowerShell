@@ -12,7 +12,7 @@ namespace Tar
         {
             var entry = new TarEntry
             {
-                Name = entryName.Replace('\\', '/'),
+                Name = entryName.Replace('\\', '/').TrimEnd(new char[]{'/'}),
                 AccessTime = fi.LastAccessTimeUtc,
                 ModifiedTime = fi.LastWriteTimeUtc,
                 Type = TarEntryType.File,
@@ -23,6 +23,7 @@ namespace Tar
             {
                 entry.Type = TarEntryType.Directory;
                 entry.Mode = Convert.ToInt32("755", 8);
+                entry.Name += "/";
             }
             else
             {
@@ -53,6 +54,8 @@ namespace Tar
 
         public static async Task CreateEntriesFromDirectoryAsync(this TarWriter writer, string path, string entryBase)
         {
+            await CreateEntryFromFileAsync(writer, path, entryBase);
+
             // Keep a stack of directory enumerations in order to write the
             // tar in depth-first order (which seems to be more common in tar
             // implementations than the breadth-first order that SearchOption.AllDirectories

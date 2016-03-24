@@ -9,8 +9,8 @@ namespace Tar
 {
     public class TarReader
     {
-        internal Stream _stream;
-        internal TarReaderStream _currentStream;
+        private Stream _stream;
+        private TarReaderStream _currentEntryStream;
         private byte[] _buffer = new byte[2 * TarCommon.BlockSize];
         private long _remaining;
         private int _remainingPadding;
@@ -23,184 +23,28 @@ namespace Tar
             }
 
             _stream = stream;
-            _currentStream = new TarReaderStream(this);
+            _currentEntryStream = new TarReaderStream(this);
         }
 
-        private struct ReadState
-        {
-            public byte[] Buffer;
-            public int Offset;
-            public Dictionary<string, string> PaxAttributes;
-        }
-
-        private static string GetPaxValue(ref ReadState state, string paxKey)
-        {
-            string paxValue;
-            if (paxKey != null && state.PaxAttributes != null && state.PaxAttributes.TryGetValue(paxKey, out paxValue))
-            {
-                return paxValue;
-            }
-
-            return null;
-        }
-
-        private static string GetString(ref ReadState state, int length, string paxKey)
-        {
-            string paxValue = GetPaxValue(ref state, paxKey);
-            if (paxValue != null)
-            {
-                state.Offset += length;
-                return paxValue;
-            }
-
-            var s = new StringBuilder();
-            for (int i = 0; i < length; i++)
-            {
-                var b = state.Buffer[state.Offset + i];
-                if (b == 0)
-                {
-                    break;
-                }
-                else if (b > 127)
-                {
-                    throw new TarParseException("non-ASCII byte in legacy header");
-                }
-                else
-                {
-                    s.Append((char)b);
-                }
-            }
-
-            state.Offset += length;
-            return s.ToString();
-        }
-
-        static readonly char[] nulAndSpace = new char[]{' ', '\x00'};
-        static readonly char[] nul = new char[]{'\x00'};
-
-        private static long GetOctalLong(ref ReadState state, int length, string paxKey)
-        {
-            string paxValue = GetPaxValue(ref state, paxKey);
-            if (paxValue != null)
-            {
-                state.Offset += length;
-                return Convert.ToInt64(paxValue);
-            }
-
-            if ((state.Buffer[state.Offset] & 128) != 0)
-            {
-                ulong result = 0;
-                if ((state.Buffer[state.Offset] & 64) != 0)
-                {
-                    // If the result is negative, then smear the sign bit left so that the final
-                    // result is negative.
-                    result = ~(ulong)0;
-                }
-
-                for (int i = 0; i < length; i++)
-                {
-                    byte b = state.Buffer[state.Offset + i];
-                    if (i == 0)
-                    {
-                        b ^= 128;
-                    }
-
-                    result <<= 8;
-                    result |= b;
-                }
-
-                state.Offset += length;
-                return (long)result;
-            }
-            else
-            {
-                var str = GetString(ref state, length, null).Trim(nulAndSpace);
-                if (str.Length == 0)
-                {
-                    return 0;
-                }
-                return Convert.ToInt64(str, 8);
-            }
-        }
-
-        private static int GetOctal(ref ReadState state, int length, string paxKey)
-        {
-            long value = GetOctalLong(ref state, length, paxKey);
-            if ((int)value != value)
-            {
-                throw new TarParseException("value too large");
-            }
-
-            return (int)value;
-        }
-
-        private static DateTime GetTime(ref ReadState state, int length, string paxKey)
-        {
-            string paxValue = GetPaxValue(ref state, paxKey);
-            if (paxValue != null)
-            {
-                state.Offset += length;
-                return ParsePaxTime(paxValue);
-            }
-
-            long unixTime = GetOctalLong(ref state, length, null);
-            if (unixTime < TarTime.MinUnixTime)
-            {
-                unixTime = TarTime.MinUnixTime;
-            }
-            else if (unixTime > TarTime.MaxUnixTime)
-            {
-                unixTime = TarTime.MaxUnixTime;
-            }
-
-            return TarTime.FromUnixTime(unixTime, 0);
-        }
-
-        public static DateTime ParsePaxTime(string str)
-        {
-            var point = str.IndexOf('.');
-            long seconds;
-            uint nanoseconds;
-            if (point < 0)
-            {
-                seconds = Convert.ToInt64(str, 10);
-                nanoseconds = 0;
-            }
-            else
-            {
-                seconds = Convert.ToInt64(str.Substring(0, point), 10);
-                var nsStr = str.Substring(point + 1, Math.Min(9, str.Length - point - 1));
-                if (nsStr.Length < 9)
-                {
-                    nsStr += new String('0', 9 - nsStr.Length);
-                }
-
-                nanoseconds = Convert.ToUInt32(nsStr, 10);
-            }
-
-            return TarTime.FromUnixTime(seconds, nanoseconds);
-        }
-
-        private static TarEntry ParseHeader(ref ReadState state)
+        private static TarEntry ParseHeader(ref TarHeaderView header)
         {
             var entry = new TarEntry();
-            var initialOffset = state.Offset;
 
-            entry.Name = GetString(ref state, 100, TarCommon.PaxPath);
-            entry.Mode = GetOctal(ref state, 8, null);
-            entry.UserID = GetOctal(ref state, 8, TarCommon.PaxUid);
-            entry.GroupID = GetOctal(ref state, 8, TarCommon.PaxGid);
-            entry.Length = GetOctalLong(ref state, 12, TarCommon.PaxSize);
-            entry.ModifiedTime = GetTime(ref state, 12, TarCommon.PaxMtime);
-            var checksum = GetOctal(ref state, 8, null);
+            entry.Name = header.GetString(TarHeader.Name);
+            entry.Mode = header.GetOctal(TarHeader.Mode);
+            entry.UserID = header.GetOctal(TarHeader.UserID);
+            entry.GroupID = header.GetOctal(TarHeader.GroupID);
+            entry.Length = header.GetOctalLong(TarHeader.Length);
+            entry.ModifiedTime = header.GetTime(TarHeader.ModifiedTime);
+            var checksum = header.GetOctal(TarHeader.Checksum);
             int signedChecksum;
-            var unsignedChecksum = TarCommon.Checksum(state.Buffer, initialOffset, out signedChecksum);
+            var unsignedChecksum = TarCommon.Checksum(header.Field(TarHeader.FullHeader), out signedChecksum);
             if (checksum != signedChecksum && checksum != unsignedChecksum)
             {
                 throw new TarParseException("invalid tar checksum");
             }
 
-            var typeFlag = state.Buffer[state.Offset];
+            var typeFlag = header[TarHeader.TypeFlag.Offset];
             if (typeFlag == 0)
             {
                 typeFlag = (byte)'0';
@@ -208,36 +52,35 @@ namespace Tar
 
             entry.Type = (TarEntryType)typeFlag;
 
-            state.Offset++;
-            entry.LinkTarget = GetString(ref state, 100, TarCommon.PaxLinkpath);
-            var magic = GetString(ref state, 8, null);
+            entry.LinkTarget = header.GetString(TarHeader.LinkTarget);
+            var magic = header.GetString(TarHeader.FullMagic);
             if (magic == TarCommon.PosixMagic || magic == TarCommon.GnuMagic)
             {
-                entry.UserName = GetString(ref state, 32, TarCommon.PaxUname);
-                entry.GroupName = GetString(ref state, 32, TarCommon.PaxGname);
-                entry.DeviceMajor = GetOctal(ref state, 8, TarCommon.PaxDevmajor);
-                entry.DeviceMinor = GetOctal(ref state, 8, TarCommon.PaxDevminor);
+                entry.UserName = header.GetString(TarHeader.UserName);
+                entry.GroupName = header.GetString(TarHeader.GroupName);
+                entry.DeviceMajor = header.GetOctal(TarHeader.DeviceMajor);
+                entry.DeviceMinor = header.GetOctal(TarHeader.DeviceMinor);
                 if (magic == TarCommon.PosixMagic)
                 {
-                    if (state.PaxAttributes == null || !state.PaxAttributes.ContainsKey(TarCommon.PaxPath))
+                    if (header.PaxAttributes == null || !header.PaxAttributes.ContainsKey(TarHeader.Name.PaxAttribute))
                     {
-                        var prefix = GetString(ref state, 155, null);
+                        var prefix = header.GetString(TarHeader.Prefix);
                         if (prefix.Length > 0)
                         {
                             entry.Name = prefix + "/" + entry.Name;
                         }
                     }
 
-                    string atime = GetPaxValue(ref state, TarCommon.PaxAtime);
+                    string atime = header.GetPaxValue(TarCommon.PaxAtime);
                     if (atime != null)
                     {
-                        entry.AccessTime = ParsePaxTime(atime);
+                        entry.AccessTime = TarTime.FromPaxTime(atime);
                     }
 
-                    string ctime = GetPaxValue(ref state, TarCommon.PaxCtime);
+                    string ctime = header.GetPaxValue(TarCommon.PaxCtime);
                     if (ctime != null)
                     {
-                        entry.ChangeTime = ParsePaxTime(ctime);
+                        entry.ChangeTime = TarTime.FromPaxTime(ctime);
                     }
                 }
             }
@@ -282,7 +125,7 @@ namespace Tar
 
         public Stream CurrentFile
         {
-            get { return _currentStream; }
+            get { return _currentEntryStream; }
         }
 
         private async Task<TarEntry> ReadHeader(Dictionary<string, string> paxAttributes)
@@ -328,14 +171,8 @@ namespace Tar
                 }
             }
 
-            var state = new ReadState
-            {
-                Buffer = _buffer,
-                Offset = padding,
-                PaxAttributes = paxAttributes,
-            };
-
-            var entry = ParseHeader(ref state);
+            var header = new TarHeaderView(_buffer, padding, paxAttributes);
+            var entry = ParseHeader(ref header);
 
             _remaining = entry.Length;
             _remainingPadding = TarCommon.Padding(_remaining);
@@ -344,7 +181,7 @@ namespace Tar
 
         public async Task<string> ReadGNUEntryData()
         {
-            using (var reader = new StreamReader(CurrentFile, TarCommon.ASCII))
+            using (var reader = new StreamReader(CurrentFile, TarCommon.UTF8))
             {
                 return await reader.ReadToEndAsync();
             }
@@ -437,7 +274,7 @@ namespace Tar
 
         private async Task<Dictionary<string, string>> ReadPaxAttributes()
         {
-            var streamReader = new StreamReader(_currentStream, TarCommon.UTF8);
+            var streamReader = new StreamReader(_currentEntryStream, TarCommon.UTF8);
             var values = new Dictionary<string, string>();
             for (;;)
             {
