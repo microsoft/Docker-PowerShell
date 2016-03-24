@@ -31,17 +31,17 @@ namespace Docker.PowerShell.Cmdlets
 
             foreach (var entry in ParameterResolvers.GetContainerIdMap(Container, Id, HostAddress))
             {
-                HostAddress = entry.Value;
+                HostAddress = entry.Host;
 
                 if (!DkrClient.Containers.StartContainerAsync(
-                        entry.Key, new HostConfig()).AwaitResult())
+                        entry.Id, new HostConfig()).AwaitResult())
                 {
                     throw new ApplicationFailedException("The container has already started.");
                 }
 
                 if (PassThru.ToBool())
                 {
-                    WriteObject(ContainerOperations.GetContainerById(entry.Key, DkrClient));
+                    WriteObject(ContainerOperations.GetContainerById(entry.Id, DkrClient));
                 }
             }
         }

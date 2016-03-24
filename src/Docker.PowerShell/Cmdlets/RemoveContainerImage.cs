@@ -30,8 +30,8 @@ namespace Docker.PowerShell.Cmdlets
 
             foreach (var entry in ParameterResolvers.GetImageIdMap(Image, Id, HostAddress))
             {
-                HostAddress = entry.Value;
-                DkrClient.Images.DeleteImageAsync(entry.Key,
+                HostAddress = entry.Host;
+                DkrClient.Images.DeleteImageAsync(entry.Id,
                     new DotNet.Models.DeleteImageParameters() { Force = Force.ToBool() }
                     ).WaitUnwrap();
             }

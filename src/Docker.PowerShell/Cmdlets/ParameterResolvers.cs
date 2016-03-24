@@ -8,6 +8,12 @@ namespace Docker.PowerShell.Cmdlets
 {
     internal static class ParameterResolvers
     {
+        internal struct IdHostPair 
+        {
+            public string Id;
+            public string Host;
+        }
+
         /// <summary>
         /// Translates a list of images or list of ids and a host address into a map of
         /// image id to host address.
@@ -18,17 +24,17 @@ namespace Docker.PowerShell.Cmdlets
         /// <param name="hostAddress">The default host address to pair with the entries
         /// in <paramref name="ids"/>.</param>
         /// <returns></returns>
-        internal static Dictionary<string, string> GetImageIdMap(Image[] images, string[] ids, string hostAddress)
+        internal static List<IdHostPair> GetImageIdMap(Image[] images, string[] ids, string hostAddress)
         {
-            var idMap = new Dictionary<string, string>();
+            var idMap = new List<IdHostPair>();
 
             if (images != null)
             {
-                images.ToList().ForEach(i => idMap.Add(i.Id, i.HostAddress));
+                images.ToList().ForEach(i => idMap.Add(new IdHostPair() { Id = i.Id, Host= i.HostAddress }));
             }
             else
             {
-                ids.ToList().ForEach(i => idMap.Add(i, hostAddress));
+                ids.ToList().ForEach(i => idMap.Add(new IdHostPair() { Id = i, Host = hostAddress }));
             }
 
             return idMap;
@@ -44,17 +50,17 @@ namespace Docker.PowerShell.Cmdlets
         /// <param name="hostAddress">The default host address to pair with the entries
         /// in <paramref name="ids"/>.</param>
         /// <returns></returns>
-        internal static Dictionary<string, string> GetContainerIdMap(Container[] containers, string[] ids, string hostAddress)
+        internal static List<IdHostPair> GetContainerIdMap(Container[] containers, string[] ids, string hostAddress)
         {
-            var idMap = new Dictionary<string, string>();
+            var idMap = new List<IdHostPair>();
 
             if (containers != null)
             {
-                containers.ToList().ForEach(i => idMap.Add(i.Id, i.HostAddress));
+                containers.ToList().ForEach(i => idMap.Add(new IdHostPair() { Id = i.Id, Host = i.HostAddress }));
             }
             else
             {
-                ids.ToList().ForEach(i => idMap.Add(i, hostAddress));
+                ids.ToList().ForEach(i => idMap.Add(new IdHostPair() { Id = i, Host = hostAddress }));
             }
 
             return idMap;

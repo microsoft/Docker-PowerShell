@@ -54,11 +54,11 @@ namespace Docker.PowerShell.Cmdlets
 
             foreach (var entry in ParameterResolvers.GetContainerIdMap(Container, Id, HostAddress))
             {
-                HostAddress = entry.Value;
+                HostAddress = entry.Host;
 
                 var commitResult = DkrClient.Miscellaneous.CommitContainerChangesAsync(
                     new DotNet.Models.CommitContainerChangesParameters() {
-                        ContainerId = entry.Key,
+                        ContainerId = entry.Id,
                         Repo = Repository,
                         Tag = Tag,
                         Message = Message,

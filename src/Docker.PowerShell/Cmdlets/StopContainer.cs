@@ -37,18 +37,18 @@ namespace Docker.PowerShell.Cmdlets
 
             foreach (var entry in ParameterResolvers.GetContainerIdMap(Container, Id, HostAddress))
             {
-                HostAddress = entry.Value;
+                HostAddress = entry.Host;
 
                 if (Force.ToBool())
                 {
                     DkrClient.Containers.KillContainerAsync(
-                        entry.Key,
+                        entry.Id,
                         new DotNet.Models.KillContainerParameters()).WaitUnwrap();
                 }
                 else
                 {
                     if (!DkrClient.Containers.StopContainerAsync(
-                            entry.Key,
+                            entry.Id,
                             new DotNet.Models.StopContainerParameters(),
                             CancelSignal.Token).AwaitResult())
                     {
@@ -58,7 +58,7 @@ namespace Docker.PowerShell.Cmdlets
 
                 if (PassThru.ToBool())
                 {
-                    WriteObject(ContainerOperations.GetContainerById(entry.Key, DkrClient));
+                    WriteObject(ContainerOperations.GetContainerById(entry.Id, DkrClient));
                 }
             }
         }

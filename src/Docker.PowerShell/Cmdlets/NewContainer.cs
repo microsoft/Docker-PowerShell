@@ -23,9 +23,9 @@ namespace Docker.PowerShell.Cmdlets
 
             foreach (var entry in ParameterResolvers.GetImageIdMap(Image, Id, HostAddress))
             {
-                HostAddress = entry.Value;
+                HostAddress = entry.Host;
                 var createResult = ContainerOperations.CreateContainer(
-                    entry.Key,
+                    entry.Id,
                     Configuration,
                     Command,
                     ContainerName,

@@ -31,17 +31,17 @@ namespace Docker.PowerShell.Cmdlets
 
             foreach (var entry in ParameterResolvers.GetContainerIdMap(Container, Id, HostAddress))
             {
-                HostAddress = entry.Value;
+                HostAddress = entry.Host;
 
                 var waitResponse = DkrClient.Containers.WaitContainerAsync(
-                    entry.Key,
+                    entry.Id,
                     CancelSignal.Token).AwaitResult();
 
                 if (PassThru.ToBool())
                 {
                     WriteVerbose("Status Code: " + waitResponse.StatusCode.ToString());
 
-                    WriteObject(ContainerOperations.GetContainerById(entry.Key, DkrClient));
+                    WriteObject(ContainerOperations.GetContainerById(entry.Id, DkrClient));
 
                 }
                 else
