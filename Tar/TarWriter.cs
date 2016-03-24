@@ -134,6 +134,7 @@ namespace Tar
             stream.Write(entryText, 0, entryText.Length);
         }
 
+        // Create a name to use for the PAX entry for tar implementations that do not support PAX.
         private ArraySegment<byte> GetPaxName(string name)
         {
             var path = name.TrimEnd(new char[]{'/', '\\'});
@@ -144,15 +145,7 @@ namespace Tar
                 dirName = ".";
             }
 
-            var paxName = TarCommon.UTF8.GetBytes(string.Format("{0}/PaxHeaders.0/{1}", dirName, fileName));
-            if (paxName.Length < TarHeader.Name.Length)
-            {
-                return new ArraySegment<byte>(paxName);
-            }
-            else
-            {
-                return new ArraySegment<byte>(paxName, paxName.Length - TarHeader.Name.Length, TarHeader.Name.Length);
-            }
+            return new ArraySegment<byte>(TarCommon.UTF8.GetBytes(string.Format("{0}/PaxHeaders.0/{1}", dirName, fileName)));
         }
 
         private async Task<int> WritePaxEntry(TarEntry entry, Dictionary<string, string> paxAttributes, int padding)
