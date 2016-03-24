@@ -28,6 +28,9 @@ namespace Docker.PowerShell.Cmdlets
         [ValidateNotNullOrEmpty]
         public virtual string[] Command { get; set; }
 
+        /// <summary>
+        /// The advanced configuration to use for the created container.
+        /// </summary>
         [Parameter(ParameterSetName = CommonParameterSetNames.Default)]
         [Parameter(ParameterSetName = CommonParameterSetNames.ImageObject)]
         [Parameter(ParameterSetName = CommonParameterSetNames.ConfigObject,
