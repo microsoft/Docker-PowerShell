@@ -77,7 +77,7 @@ namespace Docker.PowerShell.Cmdlets
                 if (!string.IsNullOrEmpty(Repository))
                 {
                     repoTag = Repository;
-                    if (string.IsNullOrEmpty(Tag))
+                    if (!string.IsNullOrEmpty(Tag))
                     {
                         repoTag += ":";
                         repoTag += Tag;
@@ -105,7 +105,7 @@ namespace Docker.PowerShell.Cmdlets
                             if (message.Stream.StartsWith(_successfullyBuilt))
                             {
                                 // This is probably the image ID.
-                                imageId = message.Stream.Substring(_successfullyBuilt.Length);
+                                imageId = message.Stream.Substring(_successfullyBuilt.Length).Trim();
                             }
 
                             var infoRecord = new HostInformationMessage();
@@ -128,23 +128,7 @@ namespace Docker.PowerShell.Cmdlets
                     throw new Exception("Could not find image, but no error was returned");
                 }
 
-                /*
-                WriteVerbose(_successfullyBuilt + imageId);
-
-                var imageDetails = DkrClient.Images.InspectImageAsync(imageId).AwaitResult();
-                var imageListResponse = new ImageListResponse
-                {
-                    Created = imageDetails.Created,
-                    Id = imageDetails.Id,
-                    ParentId = imageDetails.Parent,
-                    RepoTags = new string[] { repoTag }, // Available in newer Docker API versions
-                    Size = imageDetails.Size,
-                    VirtualSize = 0, // Available in newer Docker API versions
-                };
-
-                var image = new Image(imageListResponse, HostAddress);
-                WriteObject(image);
-                */
+                WriteObject(ContainerOperations.GetImageById(imageId, DkrClient));
             }
         }
 

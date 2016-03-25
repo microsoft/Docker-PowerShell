@@ -72,7 +72,7 @@ namespace Docker.PowerShell.Objects
             return new Image(
                 dkrClient.Images.ListImagesAsync(
                     new DotNet.Models.ListImagesParameters() { All = true }).AwaitResult().Where(
-                        c => c.Id.StartsWith(id)).Single(),
+                        c => c.Id.StartsWith("sha256:"+id)).Single(),
                     dkrClient.Configuration.EndpointBaseUri.ToString());
         }
     }
