@@ -50,7 +50,7 @@ namespace Tar
             return false;
         }
 
-        private static void GenerateHeader(ref TarHeaderView header, TarEntry entry)
+        private static void GenerateHeader(ref TarHeaderView header, TarEntry entry, ArraySegment<byte> name)
         {
             var needsPath = false;
 
@@ -58,7 +58,11 @@ namespace Tar
 
             // Try to write the name, but don't write the PAX attribute yet in case we can
             // just write a split name later.
-            if (!header.TryPutString(entry.Name, TarHeader.Name.WithoutPax))
+            if (name.Count > 0)
+            {
+                header.PutBytes(name, TarHeader.Name);
+            }
+            else if (!header.TryPutString(entry.Name, TarHeader.Name.WithoutPax))
             {
                 needsPath = true;
             }
@@ -172,10 +176,7 @@ namespace Tar
             paxStream.TryGetBuffer(out buffer);
 
             var paxHeader = new TarHeaderView(buffer.Array, buffer.Offset + padding, null);
-            GenerateHeader(ref paxHeader, paxEntry);
-
-            // Add the PAX name.
-            paxHeader.PutBytes(GetPaxName(entry.Name), TarHeader.Name);
+            GenerateHeader(ref paxHeader, paxEntry, GetPaxName(entry.Name));
 
             paxStream.Position = 0;
             await paxStream.CopyToAsync(_stream);
@@ -198,7 +199,7 @@ namespace Tar
             var padding = _remainingPadding;
             _remainingPadding = 0;
 
-            GenerateHeader(ref state, entry);
+            GenerateHeader(ref state, entry, default(ArraySegment<byte>));
 
             if (paxAttributes.Count > 0)
             {
