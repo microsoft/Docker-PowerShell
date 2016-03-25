@@ -68,11 +68,16 @@ namespace Docker.PowerShell.Objects
         /// <returns>The single image object matching the id.</returns>
         internal static Image GetImageById(string id, DotNet.DockerClient dkrClient)
         {
+            var shaId = id;
+            if (!shaId.StartsWith("sha256:"))
+            {
+                shaId = "sha256:" + shaId;
+            }
             // TODO - Have a better way to get the image list response given the ID.
             return new Image(
                 dkrClient.Images.ListImagesAsync(
                     new DotNet.Models.ListImagesParameters() { All = true }).AwaitResult().Where(
-                        c => c.Id.StartsWith("sha256:"+id)).Single(),
+                        c => c.Id.StartsWith(shaId)).Single(),
                     dkrClient.Configuration.EndpointBaseUri.ToString());
         }
     }
