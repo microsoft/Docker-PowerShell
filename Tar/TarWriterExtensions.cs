@@ -59,7 +59,7 @@ namespace Tar
             // Keep a stack of directory enumerations in order to write the
             // tar in depth-first order (which seems to be more common in tar
             // implementations than the breadth-first order that SearchOption.AllDirectories
-            // implements.
+            // implements).
             var stack = new List<IEnumerator<string>>();
             IEnumerator<string> enumerator = null;
             try
