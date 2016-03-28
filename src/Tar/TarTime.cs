@@ -31,7 +31,7 @@ namespace Tar
         public static string ToPaxTime(DateTime time)
         {
             uint nanoseconds;
-            long seconds = TarTime.ToUnixTime(time, out nanoseconds);
+            long seconds = ToUnixTime(time, out nanoseconds);
             if (nanoseconds != 0)
             {
                 return string.Format("{0}.{1:D7}", seconds, nanoseconds / 100);
@@ -63,7 +63,7 @@ namespace Tar
                 nanoseconds = Convert.ToUInt32(nsStr, 10);
             }
 
-            return TarTime.FromUnixTime(seconds, nanoseconds);
+            return FromUnixTime(seconds, nanoseconds);
         }
 
         public const int TicksPerSecond = 10 * 1000 * 1000;

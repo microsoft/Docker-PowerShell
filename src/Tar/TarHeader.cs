@@ -7,10 +7,7 @@ namespace Tar
             public int Offset;
             public int Length;
             public string PaxAttribute;
-            public HeaderField WithoutPax
-            {
-                get { return new HeaderField { Offset = Offset, Length = Length }; }
-            }
+            public HeaderField WithoutPax => new HeaderField { Offset = Offset, Length = Length };
         }
 
         public static HeaderField Field(int offset, int size, string paxAttribute = null)

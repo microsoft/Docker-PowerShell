@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,9 +8,9 @@ namespace Tar
 {
     public class TarReader
     {
-        private Stream _stream;
-        private TarReaderStream _currentEntryStream;
-        private byte[] _buffer = new byte[2 * TarCommon.BlockSize];
+        private readonly Stream _stream;
+        private readonly TarReaderStream _currentEntryStream;
+        private readonly byte[] _buffer = new byte[2 * TarCommon.BlockSize];
         private long _remaining;
         private int _remainingPadding;
 
@@ -28,14 +27,16 @@ namespace Tar
 
         private static TarEntry ParseHeader(ref TarHeaderView header)
         {
-            var entry = new TarEntry();
+            var entry = new TarEntry
+            {
+                Name = header.GetString(TarHeader.Name),
+                Mode = header.GetOctal(TarHeader.Mode),
+                UserID = header.GetOctal(TarHeader.UserID),
+                GroupID = header.GetOctal(TarHeader.GroupID),
+                Length = header.GetOctalLong(TarHeader.Length),
+                ModifiedTime = header.GetTime(TarHeader.ModifiedTime)
+            };
 
-            entry.Name = header.GetString(TarHeader.Name);
-            entry.Mode = header.GetOctal(TarHeader.Mode);
-            entry.UserID = header.GetOctal(TarHeader.UserID);
-            entry.GroupID = header.GetOctal(TarHeader.GroupID);
-            entry.Length = header.GetOctalLong(TarHeader.Length);
-            entry.ModifiedTime = header.GetTime(TarHeader.ModifiedTime);
             var checksum = header.GetOctal(TarHeader.Checksum);
             int signedChecksum;
             var unsignedChecksum = TarCommon.Checksum(header.Field(TarHeader.FullHeader), out signedChecksum);
@@ -110,7 +111,7 @@ namespace Tar
             }
         }
 
-        private bool IsArrayZero(byte[] buffer, int offset, int length)
+        private bool IsArrayZero(int offset, int length)
         {
             for (var i = 0; i < length; i++)
             {
@@ -123,10 +124,7 @@ namespace Tar
             return true;
         }
 
-        public Stream CurrentFile
-        {
-            get { return _currentEntryStream; }
-        }
+        public Stream CurrentFile => _currentEntryStream;
 
         private async Task<TarEntry> ReadHeader(Dictionary<string, string> paxAttributes)
         {
@@ -149,7 +147,7 @@ namespace Tar
                 throw new EndOfStreamException();
             }
 
-            if (IsArrayZero(_buffer, padding, TarCommon.BlockSize))
+            if (IsArrayZero(padding, TarCommon.BlockSize))
             {
                 // Verify that the next block is also zero.
                 read = await _stream.ReadAsync(_buffer, 0, TarCommon.BlockSize);
@@ -161,7 +159,7 @@ namespace Tar
                 {
                     throw new EndOfStreamException();
                 }
-                else if (IsArrayZero(_buffer, 0, TarCommon.BlockSize))
+                else if (IsArrayZero(0, TarCommon.BlockSize))
                 {
                     return null;
                 }

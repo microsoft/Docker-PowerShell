@@ -8,11 +8,11 @@ namespace Tar
 {
     public class TarWriter
     {
-        private Stream _stream;
+        private readonly Stream _stream;
         private long _remaining;
         private int _remainingPadding;
-        private byte[] _buffer = new byte[3 * TarCommon.BlockSize];
-        private TarWriterStream _currentEntryStream;
+        private readonly byte[] _buffer = new byte[3 * TarCommon.BlockSize];
+        private readonly TarWriterStream _currentEntryStream;
 
         public TarWriter(Stream stream)
         {
@@ -20,10 +20,7 @@ namespace Tar
             _currentEntryStream = new TarWriterStream(this);
         }
 
-        public Stream CurrentFile
-        {
-            get { return _currentEntryStream; }
-        }
+        public Stream CurrentFile => _currentEntryStream;
 
         // Tries to split a path at a '/' character so that the two pieces will fit into
         // the prefix and name fields.
@@ -141,7 +138,7 @@ namespace Tar
         // Create a name to use for the PAX entry for tar implementations that do not support PAX.
         private ArraySegment<byte> GetPaxName(string name)
         {
-            var path = name.TrimEnd(new char[]{'/', '\\'});
+            var path = name.TrimEnd('/', '\\');
             var dirName = Path.GetDirectoryName(path).Replace('\\', '/');
             var fileName = Path.GetFileName(path);
             if (dirName == "")
