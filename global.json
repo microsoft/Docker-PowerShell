@@ -1,0 +1,7 @@
+{
+  "projects": [
+    "src/Docker.DotNet/Docker.DotNet",
+    "src/Docker.PowerShell",
+    "src/dotnet-tar/src"
+  ]
+}

@@ -1,16 +1,15 @@
 {
   "version": "1.0.0-*",
   "description": "Docker.PowerShell Cmdlet Library",
-    "frameworks": {
-        "net46": {
-            "dependencies": {
-            },
-            "frameworkAssemblies": {
-                "System.Management.Automation": ""
-            }
-        }
-    },
-    "dependencies": {
-        "Docker.DotNet": "1.2.2"
+  "dependencies": {
+    "Docker.DotNet": "1.2.2",
+    "Tar": "1.0.0-*"
+  },
+  "frameworks": {
+    "net46": {
+      "frameworkAssemblies": {
+        "System.Management.Automation": ""
+      }
     }
+  }
 }

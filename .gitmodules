@@ -1,3 +1,7 @@
 [submodule "src/Docker.DotNet"]
 	path = src/Docker.DotNet
 	url = https://github.com/swernli/Docker.DotNet.git
+[submodule "src/dotnet-tar"]
+	path = src/dotnet-tar
+	url = https://github.com/Microsoft/dotnet-tar.git
+	branch = master
