@@ -2,20 +2,22 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D1635359-C62D-4764-83EB-E170FF06A307}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{E9FBA3C2-7BA4-481A-8F74-5AA5029B7711}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Tar</RootNamespace>
     <AssemblyName>Tar</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +27,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,27 +35,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
-    <Compile Include="Tar\TarEntry.cs" />
-    <Compile Include="Tar\TarEntryType.cs" />
-    <Compile Include="Tar\TarHeader.cs" />
-    <Compile Include="Tar\TarHeaderView.cs" />
-    <Compile Include="Tar\TarParseException.cs" />
-    <Compile Include="Tar\TarReader.cs" />
-    <Compile Include="Tar\TarReaderExtensions.cs" />
-    <Compile Include="Tar\TarReaderStream.cs" />
-    <Compile Include="Tar\TarTime.cs" />
-    <Compile Include="Tar\TarCommon.cs" />
-    <Compile Include="Tar\TarWriter.cs" />
-    <Compile Include="Tar\TarWriterExtensions.cs" />
-    <Compile Include="Tar\TarWriterStream.cs" />
+    <None Include="project.json" />
+    <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="project.json" />
+    <Compile Include="TarCommon.cs" />
+    <Compile Include="TarEntry.cs" />
+    <Compile Include="TarEntryType.cs" />
+    <Compile Include="TarHeader.cs" />
+    <Compile Include="TarHeaderView.cs" />
+    <Compile Include="TarParseException.cs" />
+    <Compile Include="TarReader.cs" />
+    <Compile Include="TarReaderExtensions.cs" />
+    <Compile Include="TarReaderStream.cs" />
+    <Compile Include="TarTime.cs" />
+    <Compile Include="TarWriter.cs" />
+    <Compile Include="TarWriterExtensions.cs" />
+    <Compile Include="TarWriterStream.cs" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
