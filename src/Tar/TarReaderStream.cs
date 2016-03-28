@@ -7,32 +7,20 @@ namespace Tar
 {
     internal class TarReaderStream : Stream
     {
-        private TarReader _reader;
+        private readonly TarReader _reader;
 
         public TarReaderStream(TarReader reader)
         {
             _reader = reader;
         }
 
-        public override bool CanRead
-        {
-            get { return true; }
-        }
+        public override bool CanRead => true;
 
-        public override bool CanSeek
-        {
-            get { return false; }
-        }
+        public override bool CanSeek => false;
 
-        public override bool CanTimeout
-        {
-            get { return false; /* should return underlying stream */ }
-        }
+        public override bool CanTimeout => false;
 
-        public override bool CanWrite
-        {
-            get { return false; }
-        }
+        public override bool CanWrite => false;
 
         public override long Length
         {

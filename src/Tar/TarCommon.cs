@@ -18,14 +18,14 @@ namespace Tar
 
         public const int BlockSize = 512;
 
-        public static ASCIIEncoding ASCII = new ASCIIEncoding();
-        public static UTF8Encoding UTF8 = new UTF8Encoding(false);
+        public static readonly ASCIIEncoding ASCII = new ASCIIEncoding();
+        public static readonly UTF8Encoding UTF8 = new UTF8Encoding(false);
 
         public static int Checksum(ArraySegment<byte> buffer, out int signedChecksum)
         {
             signedChecksum = 0;
             int unsignedChecksum = 0;
-            for (int i = 0; i < TarCommon.BlockSize; i++)
+            for (int i = 0; i < BlockSize; i++)
             {
                 byte b = buffer.Array[buffer.Offset + i];
 
@@ -72,14 +72,7 @@ namespace Tar
             var sb = new StringBuilder();
             for (int i =0 ; i < s.Length; i++)
             {
-                if (s[i] <= 127)
-                {
-                    sb.Append(s[i]);
-                }
-                else
-                {
-                    sb.Append('?');
-                }
+                sb.Append(s[i] <= 127 ? s[i] : '?');
             }
             return sb.ToString();
         }

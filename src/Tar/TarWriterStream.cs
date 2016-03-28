@@ -7,32 +7,20 @@ namespace Tar
 {
     internal class TarWriterStream : Stream
     {
-        private TarWriter _writer;
+        private readonly TarWriter _writer;
 
         public TarWriterStream(TarWriter writer)
         {
             _writer = writer;
         }
 
-        public override bool CanRead
-        {
-            get { return false; }
-        }
+        public override bool CanRead => false;
 
-        public override bool CanSeek
-        {
-            get { return false; }
-        }
+        public override bool CanSeek => false;
 
-        public override bool CanTimeout
-        {
-            get { return false; /* should return underlying stream */ }
-        }
+        public override bool CanTimeout => false;
 
-        public override bool CanWrite
-        {
-            get { return true; }
-        }
+        public override bool CanWrite => true;
 
         public override long Length
         {

@@ -12,7 +12,7 @@ namespace Tar
         {
             var entry = new TarEntry
             {
-                Name = entryName.Replace('\\', '/').TrimEnd(new char[]{'/'}),
+                Name = entryName.Replace('\\', '/').TrimEnd('/'),
                 AccessTime = fi.LastAccessTimeUtc,
                 ModifiedTime = fi.LastWriteTimeUtc,
                 Type = TarEntryType.File,
@@ -91,10 +91,7 @@ namespace Tar
             }
             finally
             {
-                if (enumerator != null)
-                {
-                    enumerator.Dispose();
-                }
+                enumerator?.Dispose();
 
                 foreach (var e in stack)
                 {
