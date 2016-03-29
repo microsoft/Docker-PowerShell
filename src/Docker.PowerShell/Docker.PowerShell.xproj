@@ -18,8 +18,8 @@
     <ProduceOutputsOnBuild>True</ProduceOutputsOnBuild>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Docker.DotNet\Docker.DotNet\Docker.DotNet.csproj" />
-    <ProjectReference Include="..\dotnet-tar\src\Tar\Tar.csproj" />
+    <ProjectReference Include="..\Docker.DotNet\Docker.DotNet\Docker.DotNet.xproj" />
+    <ProjectReference Include="..\dotnet-tar\src\Tar\Tar.xproj" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>
