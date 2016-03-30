@@ -15,6 +15,10 @@ namespace Tar
 
         public const string PaxCtime = "ctime";
         public const string PaxAtime = "atime";
+        public const string PaxCreationTime = "LIBARCHIVE.creationtime";
+        public const string PaxWindowsSecurityDescriptor = "MSWINDOWS.sd";
+        public const string PaxWindowsFileAttributes = "MSWINDOWS.fileattr";
+        public const string PaxWindowsMountPoint = "MSWINDOWS.mountpoint";
 
         public const int BlockSize = 512;
 
