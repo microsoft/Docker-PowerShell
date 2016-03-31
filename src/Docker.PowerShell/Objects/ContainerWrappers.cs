@@ -12,7 +12,7 @@ namespace Docker.PowerShell.Objects
 
         public Container(DotNet.Models.ContainerListResponse c, string hostAddress)
         {
-            Id = c.Id;
+            ID = c.ID;
             Names = c.Names;
             Image = c.Image;
             Created = c.Created;
@@ -25,14 +25,14 @@ namespace Docker.PowerShell.Objects
         }
     }
 
-    public class Image : DotNet.Models.ImageListResponse
+    public class Image : DotNet.Models.ImagesListResponse
     {
         public string HostAddress;
 
-        public Image(DotNet.Models.ImageListResponse i, string hostAddress)
+        public Image(DotNet.Models.ImagesListResponse i, string hostAddress)
         {
-            Id = i.Id;
-            ParentId = i.ParentId;
+            ID = i.ID;
+            ParentID = i.ParentID;
             RepoTags = i.RepoTags;
             Created = i.Created;
             Size = i.Size;

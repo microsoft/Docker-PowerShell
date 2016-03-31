@@ -30,7 +30,7 @@ namespace Docker.PowerShell.Cmdlets
 
             if (images != null)
             {
-                images.ToList().ForEach(i => idMap.Add(new IdHostPair() { Id = i.Id, Host= i.HostAddress }));
+                images.ToList().ForEach(i => idMap.Add(new IdHostPair() { Id = i.ID, Host= i.HostAddress }));
             }
             else
             {
@@ -56,7 +56,7 @@ namespace Docker.PowerShell.Cmdlets
 
             if (containers != null)
             {
-                containers.ToList().ForEach(i => idMap.Add(new IdHostPair() { Id = i.Id, Host = i.HostAddress }));
+                containers.ToList().ForEach(i => idMap.Add(new IdHostPair() { Id = i.ID, Host = i.HostAddress }));
             }
             else
             {

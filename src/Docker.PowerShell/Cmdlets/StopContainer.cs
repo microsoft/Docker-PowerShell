@@ -43,13 +43,13 @@ namespace Docker.PowerShell.Cmdlets
                 {
                     DkrClient.Containers.KillContainerAsync(
                         entry.Id,
-                        new DotNet.Models.KillContainerParameters()).WaitUnwrap();
+                        new DotNet.Models.ContainerKillParameters()).WaitUnwrap();
                 }
                 else
                 {
                     if (!DkrClient.Containers.StopContainerAsync(
                             entry.Id,
-                            new DotNet.Models.StopContainerParameters(),
+                            new DotNet.Models.ContainerStopParameters(),
                             CancelSignal.Token).AwaitResult())
                     {
                         throw new ApplicationFailedException("The container has already stopped.");

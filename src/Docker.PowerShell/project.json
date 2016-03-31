@@ -2,7 +2,7 @@
   "version": "1.0.0-*",
   "description": "Docker.PowerShell Cmdlet Library",
   "dependencies": {
-    "Docker.DotNet": "1.2.2",
+    "Docker.DotNet": "1.2.4",
     "Tar": "1.0.0-*"
   },
   "frameworks": {
