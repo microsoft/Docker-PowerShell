@@ -66,11 +66,11 @@ namespace Docker.PowerShell.Cmdlets
                     }
                 });
 
-                var parameters = new BuildImageFromDockerfileParameters
+                var parameters = new ImageBuildParameters
                 {
                     NoCache = SkipCache.ToBool(),
-                    ForceRemoveIntermediateContainers = ForceRemoveIntermediateContainers.ToBool(),
-                    RemoveIntermediateContainers  = !PreserveIntermediateContainers.ToBool(),
+                    ForceRemove = ForceRemoveIntermediateContainers.ToBool(),
+                    Remove  = !PreserveIntermediateContainers.ToBool(),
                 };
 
                 string repoTag = null;
@@ -82,7 +82,7 @@ namespace Docker.PowerShell.Cmdlets
                         repoTag += ":";
                         repoTag += Tag;
                     }
-                    parameters.RepositoryTagName = repoTag;
+                    parameters.Tags.Add(repoTag);
                 }
                 else if (!string.IsNullOrEmpty(Tag))
                 {

@@ -3,6 +3,8 @@ using System.Linq;
 
 namespace Docker.PowerShell.Objects
 {
+    using DotNet.Models;
+
     internal static class ContainerOperations
     {
         /// <summary>
@@ -39,7 +41,7 @@ namespace Docker.PowerShell.Objects
             return dkrClient.Containers.CreateContainerAsync(
                 new DotNet.Models.CreateContainerParameters()
                 {
-                    ContainerName = name,
+                    Name = name,
                     Config = configuration
                 }).AwaitResult();
         }
@@ -54,9 +56,8 @@ namespace Docker.PowerShell.Objects
         {
             // TODO - Have a better way to get the container list response given the ID.
             return new Container(
-                dkrClient.Containers.ListContainersAsync(
-                    new DotNet.Models.ListContainersParameters() { All = true }).AwaitResult().Where(
-                        c => c.Id.StartsWith(id) || c.Names.Any(n => n.Equals("/" + id))).Single(),
+                dkrClient.Containers.ListContainersAsync(new ContainersListParameters() { All = true }).AwaitResult(
+                        ).Single(c => c.ID.StartsWith(id) || c.Names.Any(n => n.Equals("/" + id))),
                     dkrClient.Configuration.EndpointBaseUri.ToString());
         }
 
@@ -75,9 +76,8 @@ namespace Docker.PowerShell.Objects
             }
             // TODO - Have a better way to get the image list response given the ID.
             return new Image(
-                dkrClient.Images.ListImagesAsync(
-                    new DotNet.Models.ListImagesParameters() { All = true }).AwaitResult().Where(
-                        c => c.Id.StartsWith(shaId)).Single(),
+                dkrClient.Images.ListImagesAsync(new ImagesListParameters() { All = true }).AwaitResult(
+                        ).Single(c => c.ID.StartsWith(shaId)),
                     dkrClient.Configuration.EndpointBaseUri.ToString());
         }
     }

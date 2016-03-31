@@ -66,28 +66,28 @@ namespace Docker.PowerShell.Cmdlets
                     }
                 }
 
-                if (!String.IsNullOrEmpty(createResult.Id))
+                if (!String.IsNullOrEmpty(createResult.ID))
                 {
                     if (!DkrClient.Containers.StartContainerAsync(
-                        createResult.Id, HostConfiguration).AwaitResult())
+                        createResult.ID, HostConfiguration).AwaitResult())
                     {
                         throw new ApplicationFailedException("The container has already started.");
                     }
 
                     var waitResponse = DkrClient.Containers.WaitContainerAsync(
-                        createResult.Id, 
+                        createResult.ID, 
                         CancelSignal.Token).AwaitResult();
 
                     WriteVerbose("Status Code: " + waitResponse.StatusCode.ToString());
 
                     if (RemoveAutomatically.ToBool())
                     {
-                        DkrClient.Containers.RemoveContainerAsync(createResult.Id,
-                            new DotNet.Models.RemoveContainerParameters()).WaitUnwrap();
+                        DkrClient.Containers.RemoveContainerAsync(createResult.ID,
+                            new DotNet.Models.ContainerRemoveParameters()).WaitUnwrap();
                     }
                     else if (PassThru.ToBool())
                     {
-                        WriteObject(ContainerOperations.GetContainerById(createResult.Id, DkrClient));
+                        WriteObject(ContainerOperations.GetContainerById(createResult.ID, DkrClient));
                     }
                 }
             }

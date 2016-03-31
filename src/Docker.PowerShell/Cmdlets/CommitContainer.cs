@@ -58,15 +58,15 @@ namespace Docker.PowerShell.Cmdlets
 
                 var commitResult = DkrClient.Miscellaneous.CommitContainerChangesAsync(
                     new DotNet.Models.CommitContainerChangesParameters() {
-                        ContainerId = entry.Id,
-                        Repo = Repository,
+                        ContainerID = entry.Id,
+                        RepositoryName = Repository,
                         Tag = Tag,
-                        Message = Message,
+                        Comment = Message,
                         Author = Author,
                         Config = Configuration
                     }).AwaitResult();
 
-                WriteObject(ContainerOperations.GetImageById(commitResult.Id, DkrClient));
+                WriteObject(ContainerOperations.GetImageById(commitResult.ID, DkrClient));
             }
         }
 

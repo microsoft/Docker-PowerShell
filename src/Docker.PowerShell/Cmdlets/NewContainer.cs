@@ -42,9 +42,9 @@ namespace Docker.PowerShell.Cmdlets
                     }
                 }
 
-                if (!String.IsNullOrEmpty(createResult.Id))
+                if (!String.IsNullOrEmpty(createResult.ID))
                 {
-                    WriteObject(ContainerOperations.GetContainerById(createResult.Id, DkrClient));
+                    WriteObject(ContainerOperations.GetContainerById(createResult.ID, DkrClient));
                 }
             }
         }
