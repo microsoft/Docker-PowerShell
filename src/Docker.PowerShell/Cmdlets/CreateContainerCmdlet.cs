@@ -24,9 +24,11 @@ namespace Docker.PowerShell.Cmdlets
         /// The command to use by default when starting new container.
         /// </summary>
         [Parameter(ParameterSetName = CommonParameterSetNames.Default,
-            ValueFromRemainingArguments = true)]
+            ValueFromRemainingArguments = true,
+            Position = 1)]
         [Parameter(ParameterSetName = CommonParameterSetNames.ImageObject,
-            ValueFromRemainingArguments = true)]
+            ValueFromRemainingArguments = true,
+            Position = 1)]
         [ValidateNotNullOrEmpty]
         public virtual string[] Command { get; set; }
 
@@ -41,6 +43,14 @@ namespace Docker.PowerShell.Cmdlets
             Mandatory = true)]
         [ValidateNotNullOrEmpty]
         public virtual Config Configuration { get; set; }
+
+        /// <summary>
+        /// The configuration for host settings when running the container.
+        /// </summary>
+        [Parameter(ParameterSetName = CommonParameterSetNames.Default)]
+        [Parameter(ParameterSetName = CommonParameterSetNames.ImageObject)]
+        [Parameter(ParameterSetName = CommonParameterSetNames.ConfigObject)]
+        public virtual HostConfig HostConfiguration { get; set; }
 
         #endregion
     }

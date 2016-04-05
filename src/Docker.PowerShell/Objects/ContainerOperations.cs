@@ -42,7 +42,8 @@ namespace Docker.PowerShell.Objects
                 new DotNet.Models.CreateContainerParameters()
                 {
                     Name = name,
-                    Config = configuration
+                    Cmd = configuration.Cmd,
+                    Image = configuration.Image
                 }).AwaitResult();
         }
 
