@@ -44,9 +44,7 @@ namespace Docker.PowerShell.Cmdlets
                 HostAddress = entry.Host;
                 var createResult = ContainerOperations.CreateContainer(
                     entry.Id,
-                    Configuration,
-                    Command,
-                    ContainerName,
+                    this.MemberwiseClone() as CreateContainerCmdlet,
                     DkrClient);
 
                 if (createResult.Warnings != null)

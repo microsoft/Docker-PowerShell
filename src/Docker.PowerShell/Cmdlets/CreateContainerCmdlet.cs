@@ -33,6 +33,14 @@ namespace Docker.PowerShell.Cmdlets
         public virtual string[] Command { get; set; }
 
         /// <summary>
+        /// The name to use for the new container.
+        /// </summary>
+        [Parameter(ParameterSetName = CommonParameterSetNames.Default)]
+        [Parameter(ParameterSetName = CommonParameterSetNames.ImageObject)]
+        [ValidateNotNullOrEmpty]
+        public virtual IsolationType Isolation { get; set; }
+
+        /// <summary>
         /// The advanced configuration to use for the created container.
         /// </summary>
         [Parameter(ParameterSetName = CommonParameterSetNames.Default)]
