@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Docker.PowerShell.Cmdlets;
 
 namespace Docker.PowerShell.Objects
 {
@@ -8,21 +9,18 @@ namespace Docker.PowerShell.Objects
     internal static class ContainerOperations
     {
         /// <summary>
-        /// Creates a container from the given inputs.
+        /// Creates the container 
         /// </summary>
-        /// <param name="id">The Id of the image to create the container from.</param>
-        /// <param name="configuration">The configuration of the container. May be null.</param>
-        /// <param name="command">The command array for the container.</param>
-        /// <param name="name">The name for the container.</param>
-        /// <param name="dkrClient">The client to use when creating the container.</param>
-        /// <returns>The http response object for the create call.</returns>
+        /// <param name="id"></param>
+        /// <param name="cmdlet"></param>
+        /// <param name="dkrClient"></param>
+        /// <returns></returns>
         internal static DotNet.Models.CreateContainerResponse CreateContainer(
             string id,
-            Config configuration,
-            string[] command,
-            string name,
+            CreateContainerCmdlet cmdlet,
             DotNet.DockerClient dkrClient)
         {
+            var configuration = cmdlet.Configuration;
             if (configuration == null)
             {
                 configuration = new Config();
@@ -33,16 +31,29 @@ namespace Docker.PowerShell.Objects
                 configuration.Image = id;
             }
 
-            if (command != null)
+            if (cmdlet.Command != null)
             {
-                configuration.Cmd = command;
+                configuration.Cmd = cmdlet.Command;
+            }
+
+            var hostConfiguration = cmdlet.HostConfiguration;
+            if (hostConfiguration == null)
+            {
+                hostConfiguration = new HostConfig();
+            }
+
+            if (String.IsNullOrEmpty(hostConfiguration.Isolation))
+            {
+                hostConfiguration.Isolation = cmdlet.Isolation.ToString();
             }
 
             return dkrClient.Containers.CreateContainerAsync(
                 new DotNet.Models.CreateContainerParameters()
                 {
-                    Name = name,
-                    Config = configuration
+                    Name = cmdlet.ContainerName,
+                    Cmd = configuration.Cmd,
+                    Image = configuration.Image,
+                    HostConfig = hostConfiguration
                 }).AwaitResult();
         }
 

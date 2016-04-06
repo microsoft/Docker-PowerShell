@@ -15,12 +15,6 @@ namespace Docker.PowerShell.Cmdlets
         #region Parameters
 
         /// <summary>
-        /// The configuration for host settings when running the container.
-        /// </summary>
-        [Parameter]
-        public virtual HostConfig HostConfiguration { get; set; }
-
-        /// <summary>
         /// If specified, the resulting container will get deleted after it has finished
         /// running.
         /// </summary>
@@ -50,9 +44,7 @@ namespace Docker.PowerShell.Cmdlets
                 HostAddress = entry.Host;
                 var createResult = ContainerOperations.CreateContainer(
                     entry.Id,
-                    Configuration,
-                    Command,
-                    ContainerName,
+                    this.MemberwiseClone() as CreateContainerCmdlet,
                     DkrClient);
 
                 if (createResult.Warnings != null)
