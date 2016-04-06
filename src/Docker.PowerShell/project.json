@@ -1,8 +1,11 @@
 {
   "version": "1.0.0-*",
   "description": "Docker.PowerShell Cmdlet Library",
+  "runtimes": {
+    "win": {}
+  },
   "dependencies": {
-    "Docker.DotNet": "1.2.4",
+    "Docker.DotNet": "2.124.0",
     "Tar": "1.0.0-*",
     "Microsoft.PowerShell.5.ReferenceAssemblies": "1.0.0"
   },
