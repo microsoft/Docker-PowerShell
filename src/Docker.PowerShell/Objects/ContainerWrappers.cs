@@ -6,6 +6,13 @@ using Docker.DotNet;
 
 namespace Docker.PowerShell.Objects
 {
+    public enum IsolationType
+    {
+        Default,
+        None,
+        HyperV
+    }
+
     public class Container : DotNet.Models.ContainerListResponse
     {
         public string HostAddress;
