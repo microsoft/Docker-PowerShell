@@ -23,8 +23,10 @@ namespace Docker.PowerShell.Cmdlets
         /// <summary>
         /// The command to use by default when starting new container.
         /// </summary>
-        [Parameter(ParameterSetName = CommonParameterSetNames.Default)]
-        [Parameter(ParameterSetName = CommonParameterSetNames.ImageObject)]
+        [Parameter(ParameterSetName = CommonParameterSetNames.Default,
+            ValueFromRemainingArguments = true)]
+        [Parameter(ParameterSetName = CommonParameterSetNames.ImageObject,
+            ValueFromRemainingArguments = true)]
         [ValidateNotNullOrEmpty]
         public virtual string[] Command { get; set; }
 
