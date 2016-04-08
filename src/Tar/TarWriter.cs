@@ -97,6 +97,26 @@ namespace Tar
                     header.PaxAttributes[TarCommon.PaxCtime] = TarTime.ToPaxTime(entry.ChangeTime.Value);
                 }
 
+                if (entry.CreationTime.HasValue)
+                {
+                    header.PaxAttributes[TarCommon.PaxCreationTime] = TarTime.ToPaxTime(entry.CreationTime.Value);
+                }
+
+                if (entry.FileAttributes.HasValue)
+                {
+                    header.PaxAttributes[TarCommon.PaxWindowsFileAttributes] = Convert.ToString((uint)entry.FileAttributes.Value);
+                }
+
+                if (entry.IsMountPoint)
+                {
+                    header.PaxAttributes[TarCommon.PaxWindowsMountPoint] = "1";
+                }
+
+                if (entry.SecurityDescriptor != null)
+                {
+                    header.PaxAttributes[TarCommon.PaxWindowsSecurityDescriptor] = entry.SecurityDescriptor;
+                }
+
                 if (needsPath)
                 {
                     int splitIndex;

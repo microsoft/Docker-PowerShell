@@ -83,6 +83,24 @@ namespace Tar
                     {
                         entry.ChangeTime = TarTime.FromPaxTime(ctime);
                     }
+
+                    string creationtime = header.GetPaxValue(TarCommon.PaxCreationTime);
+                    if (creationtime != null)
+                    {
+                        entry.CreationTime = TarTime.FromPaxTime(creationtime);
+                    }
+
+                    string fileAttributes = header.GetPaxValue(TarCommon.PaxWindowsFileAttributes);
+                    if (fileAttributes != null)
+                    {
+                        entry.FileAttributes = (FileAttributes)Convert.ToUInt32(fileAttributes);
+                    }
+
+                    entry.SecurityDescriptor = header.GetPaxValue(TarCommon.PaxWindowsSecurityDescriptor);
+                    if (header.GetPaxValue(TarCommon.PaxWindowsMountPoint) != null)
+                    {
+                        entry.IsMountPoint = true;
+                    }
                 }
             }
 
