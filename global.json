@@ -1,7 +1,7 @@
 {
   "projects": [
-    "src/Docker.DotNet/Docker.DotNet",
-    "src/Docker.PowerShell",
+    "src",
+    "src/Docker.DotNet",
     "src/dotnet-tar/src"
   ],
   "sdk": {
