@@ -48,11 +48,9 @@ namespace Docker.PowerShell.Objects
             }
 
             return dkrClient.Containers.CreateContainerAsync(
-                new DotNet.Models.CreateContainerParameters()
+                new DotNet.Models.CreateContainerParameters(configuration)
                 {
                     Name = cmdlet.ContainerName,
-                    Cmd = configuration.Cmd,
-                    Image = configuration.Image,
                     HostConfig = hostConfiguration
                 }).AwaitResult();
         }
