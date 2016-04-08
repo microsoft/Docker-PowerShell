@@ -13,7 +13,7 @@ namespace Docker.PowerShell.Cmdlets
         /// Specifies whether all images should be shown, or just top level images.
         /// </summary>
         [Parameter(ParameterSetName = CommonParameterSetNames.Default)]
-        public virtual SwitchParameter All { get; set; }
+        public SwitchParameter All { get; set; }
 
         #endregion
 

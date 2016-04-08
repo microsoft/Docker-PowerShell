@@ -14,7 +14,7 @@ namespace Docker.PowerShell.Cmdlets
         /// finished.
         /// </summary>
         [Parameter]
-        public virtual SwitchParameter PassThru { get; set; }
+        public SwitchParameter PassThru { get; set; }
 
         #endregion
 

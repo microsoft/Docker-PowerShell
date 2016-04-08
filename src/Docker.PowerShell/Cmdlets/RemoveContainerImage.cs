@@ -13,7 +13,7 @@ namespace Docker.PowerShell.Cmdlets
         /// Whether or not to force the removal of the container.
         /// </summary>
         [Parameter]
-        public virtual SwitchParameter Force { get; set; }
+        public SwitchParameter Force { get; set; }
 
         #endregion
 
