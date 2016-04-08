@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Management.Automation;
-using Docker.DotNet;
 using Docker.PowerShell.Objects;
 
 namespace Docker.PowerShell.Cmdlets
