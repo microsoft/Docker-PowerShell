@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Management.Automation;
-using Docker.DotNet;
 using Docker.PowerShell.Objects;
 using System.IO.Pipes;
 using Docker.DotNet.Models;
@@ -11,7 +8,6 @@ using Tar;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
-using System.Threading;
 
 namespace Docker.PowerShell.Cmdlets
 {

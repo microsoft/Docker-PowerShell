@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Docker.DotNet;
-
-namespace Docker.PowerShell.Objects
+﻿namespace Docker.PowerShell.Objects
 {
     public enum IsolationType
     {
