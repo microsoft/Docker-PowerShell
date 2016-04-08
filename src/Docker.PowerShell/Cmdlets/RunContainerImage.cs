@@ -15,14 +15,14 @@ namespace Docker.PowerShell.Cmdlets
         /// running.
         /// </summary>
         [Parameter]
-        public virtual SwitchParameter RemoveAutomatically { get; set; }
+        public SwitchParameter RemoveAutomatically { get; set; }
 
         /// <summary>
         /// If specified, the resulting container object will be output after it has finished
         /// running.
         /// </summary>
         [Parameter]
-        public virtual SwitchParameter PassThru { get; set; }
+        public SwitchParameter PassThru { get; set; }
 
         #endregion
 

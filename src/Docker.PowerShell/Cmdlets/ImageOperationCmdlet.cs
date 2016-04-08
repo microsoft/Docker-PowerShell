@@ -15,7 +15,7 @@ namespace Docker.PowerShell.Cmdlets
                    Position = 0,
                    Mandatory = true)]
         [ValidateNotNullOrEmpty]
-        public virtual string[] Id { get; set; }
+        public string[] Id { get; set; }
 
         /// <summary>
         /// The containers to remove.
@@ -25,7 +25,7 @@ namespace Docker.PowerShell.Cmdlets
                    Position = 0,
                    Mandatory = true)]
         [ValidateNotNullOrEmpty]
-        public virtual Image[] Image { get; set; }
+        public Image[] Image { get; set; }
 
         #endregion
     }

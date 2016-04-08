@@ -22,7 +22,7 @@ namespace Docker.PowerShell.Cmdlets
     {
         #region Private members
 
-        protected const string ApiVersion = "1.23";
+        protected const string ApiVersion = "1.24";
         protected const string KeyFileName = "key.pfx";
         protected CancellationTokenSource CancelSignal = new CancellationTokenSource();
 
@@ -30,7 +30,7 @@ namespace Docker.PowerShell.Cmdlets
         {
             get
             {
-                if (dkrClient == null || !dkrClient.Configuration.EndpointBaseUri.ToString().Equals(hostAddress))
+                if (dkrClient == null || !dkrClient.Configuration.EndpointBaseUri.ToString().Equals(HostAddress))
                 {
                     Credentials cred = null;
                     if (!String.IsNullOrEmpty(CertificateLocation))
@@ -52,8 +52,6 @@ namespace Docker.PowerShell.Cmdlets
             }
         }
 
-        private string hostAddress;
-        private string certLoc;
         private string certPass = "p@ssw0rd";
         private DockerClient dkrClient;
 
@@ -66,26 +64,7 @@ namespace Docker.PowerShell.Cmdlets
         /// </summary>
         [Parameter(ParameterSetName = CommonParameterSetNames.Default)]
         [ValidateNotNullOrEmpty]
-        public virtual string HostAddress 
-        {
-            get
-            {
-                if (String.IsNullOrEmpty(hostAddress))
-                {
-                    hostAddress = Environment.GetEnvironmentVariable("DOCKER_HOST");
-                    if (String.IsNullOrEmpty(hostAddress))
-                    {
-                        hostAddress = "http://127.0.0.1:2375";
-                    }
-                }
-
-                return hostAddress;
-            }
-            set
-            {
-                hostAddress = value;
-            }
-        }
+        public string HostAddress { get; set; } = Environment.GetEnvironmentVariable("DOCKER_HOST") ?? "http://127.0.0.1:2375";
         
         ///<summary>
         /// The common parameter for specifying the location to find certificates for use in secure
@@ -93,22 +72,7 @@ namespace Docker.PowerShell.Cmdlets
         ///</summary>
         [Parameter]
         [ValidateNotNullOrEmpty]
-        public virtual string CertificateLocation 
-        {
-            get 
-            {
-                if (String.IsNullOrEmpty(certLoc))
-                {
-                    certLoc = Environment.GetEnvironmentVariable("DOCKER_CERT_PATH");
-                }
-                
-                return certLoc;
-            }
-            set
-            {
-                certLoc = value;
-            }
-        }
+        public string CertificateLocation { get; set; } = Environment.GetEnvironmentVariable("DOCKER_CERT_PATH");
 
         #endregion
 

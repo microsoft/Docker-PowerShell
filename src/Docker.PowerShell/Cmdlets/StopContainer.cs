@@ -13,14 +13,14 @@ namespace Docker.PowerShell.Cmdlets
         /// Whether or not to force the termination of the container.
         /// </summary>
         [Parameter]
-        public virtual SwitchParameter Force { get; set; }
+        public SwitchParameter Force { get; set; }
 
         /// <summary>
         /// If specified, the resulting container object will be output after it has finished
         /// starting.
         /// </summary>
         [Parameter]
-        public virtual SwitchParameter PassThru { get; set; }
+        public SwitchParameter PassThru { get; set; }
 
         #endregion
 
