@@ -1,10 +1,12 @@
 ﻿using System.Management.Automation;
 using Docker.PowerShell.Objects;
+using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.Get, "Container",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
+    [OutputType(typeof(ContainerListResponse))]
     public class GetContainer : DkrCmdlet
     {
 
@@ -17,9 +19,9 @@ namespace Docker.PowerShell.Cmdlets
             base.ProcessRecord();
 
             foreach (var c in DkrClient.Containers.ListContainersAsync(
-                new DotNet.Models.ContainersListParameters() { All = true }).AwaitResult())
+                new ContainersListParameters() { All = true }).AwaitResult())
             {
-                WriteObject(new Container(c, HostAddress));
+                WriteObject(c);
             }
         }
 

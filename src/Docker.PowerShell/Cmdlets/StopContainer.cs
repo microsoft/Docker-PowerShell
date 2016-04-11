@@ -1,10 +1,12 @@
 ﻿using System.Management.Automation;
 using Docker.PowerShell.Objects;
+using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
     [Cmdlet("Stop", "Container",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
+    [OutputType(typeof(ContainerListResponse))]
     public class StopContainer : ContainerOperationCmdlet
     {
         #region Parameters
@@ -30,21 +32,19 @@ namespace Docker.PowerShell.Cmdlets
         {
             base.ProcessRecord();
 
-            foreach (var entry in ParameterResolvers.GetContainerIdMap(Container, Id, HostAddress))
+            foreach (var id in ParameterResolvers.GetContainerIds(Container, Id))
             {
-                HostAddress = entry.Host;
-
                 if (Force.ToBool())
                 {
                     DkrClient.Containers.KillContainerAsync(
-                        entry.Id,
-                        new DotNet.Models.ContainerKillParameters()).WaitUnwrap();
+                        id,
+                        new ContainerKillParameters()).WaitUnwrap();
                 }
                 else
                 {
                     if (!DkrClient.Containers.StopContainerAsync(
-                            entry.Id,
-                            new DotNet.Models.ContainerStopParameters(),
+                            id,
+                            new ContainerStopParameters(),
                             CancelSignal.Token).AwaitResult())
                     {
                         throw new ApplicationFailedException("The container has already stopped.");
@@ -53,7 +53,7 @@ namespace Docker.PowerShell.Cmdlets
 
                 if (PassThru.ToBool())
                 {
-                    WriteObject(ContainerOperations.GetContainerById(entry.Id, DkrClient));
+                    WriteObject(ContainerOperations.GetContainerById(id, DkrClient));
                 }
             }
         }

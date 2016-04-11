@@ -1,10 +1,12 @@
 ﻿using System.Management.Automation;
 using Docker.PowerShell.Objects;
+using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
     [Cmdlet("Commit", "Container",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
+    [OutputType(typeof(ImagesListResponse))]
     public class CommitContainer : ContainerOperationCmdlet
     {
         #region Parameters
@@ -47,13 +49,11 @@ namespace Docker.PowerShell.Cmdlets
         {
             base.ProcessRecord();
 
-            foreach (var entry in ParameterResolvers.GetContainerIdMap(Container, Id, HostAddress))
+            foreach (var id in ParameterResolvers.GetContainerIds(Container, Id))
             {
-                HostAddress = entry.Host;
-
                 var commitResult = DkrClient.Miscellaneous.CommitContainerChangesAsync(
-                    new DotNet.Models.CommitContainerChangesParameters() {
-                        ContainerID = entry.Id,
+                    new CommitContainerChangesParameters() {
+                        ContainerID = id,
                         RepositoryName = Repository,
                         Tag = Tag,
                         Comment = Message,

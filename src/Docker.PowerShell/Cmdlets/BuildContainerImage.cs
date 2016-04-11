@@ -13,7 +13,7 @@ namespace Docker.PowerShell.Cmdlets
 {
     [Cmdlet("Build", "ContainerImage",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
-    [OutputType(typeof(Image))]
+    [OutputType(typeof(ImagesListResponse))]
     public class BuildContainerImage : DkrCmdlet
     {
         private string _successfullyBuilt = "Successfully built ";

@@ -1,5 +1,5 @@
 ﻿using System.Management.Automation;
-using Docker.PowerShell.Objects;
+using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -25,7 +25,7 @@ namespace Docker.PowerShell.Cmdlets
                    Position = 0,
                    Mandatory = true)]
         [ValidateNotNullOrEmpty]
-        public Image[] Image { get; set; }
+        public ImagesListResponse[] Image { get; set; }
 
         #endregion
     }

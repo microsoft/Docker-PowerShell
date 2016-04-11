@@ -1,10 +1,12 @@
 ﻿using System.Management.Automation;
 using Docker.PowerShell.Objects;
+using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
     [Cmdlet("Start", "Container",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
+    [OutputType(typeof(ContainerListResponse))]
     public class StartContainer : ContainerOperationCmdlet
     {
         #region Parameters
@@ -24,19 +26,17 @@ namespace Docker.PowerShell.Cmdlets
         {
             base.ProcessRecord();
 
-            foreach (var entry in ParameterResolvers.GetContainerIdMap(Container, Id, HostAddress))
+            foreach (var id in ParameterResolvers.GetContainerIds(Container, Id))
             {
-                HostAddress = entry.Host;
-
                 if (!DkrClient.Containers.StartContainerAsync(
-                        entry.Id, new HostConfig()).AwaitResult())
+                        id, new HostConfig()).AwaitResult())
                 {
                     throw new ApplicationFailedException("The container has already started.");
                 }
 
                 if (PassThru.ToBool())
                 {
-                    WriteObject(ContainerOperations.GetContainerById(entry.Id, DkrClient));
+                    WriteObject(ContainerOperations.GetContainerById(id, DkrClient));
                 }
             }
         }
