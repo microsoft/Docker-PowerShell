@@ -1,5 +1,6 @@
 ﻿using System.Management.Automation;
 using Docker.PowerShell.Objects;
+using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -23,11 +24,10 @@ namespace Docker.PowerShell.Cmdlets
         {
             base.ProcessRecord();
 
-            foreach (var entry in ParameterResolvers.GetImageIdMap(Image, Id, HostAddress))
+            foreach (var id in ParameterResolvers.GetImageIds(Image, Id))
             {
-                HostAddress = entry.Host;
-                DkrClient.Images.DeleteImageAsync(entry.Id,
-                    new DotNet.Models.ImageDeleteParameters() { Force = Force.ToBool() }
+                DkrClient.Images.DeleteImageAsync(id,
+                    new ImageDeleteParameters() { Force = Force.ToBool() }
                     ).WaitUnwrap();
             }
         }

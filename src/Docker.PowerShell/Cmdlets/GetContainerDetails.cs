@@ -1,10 +1,12 @@
 using System.Management.Automation;
 using Docker.PowerShell.Objects;
+using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.Get, "ContainerDetails",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
+    [OutputType(typeof(ContainerInspectResponse))]
     public class GetContainerDetails : ContainerOperationCmdlet
     {
         #region Overrides
@@ -13,11 +15,9 @@ namespace Docker.PowerShell.Cmdlets
         {
             base.ProcessRecord();
 
-            foreach (var entry in ParameterResolvers.GetContainerIdMap(Container, Id, HostAddress))
+            foreach (var id in ParameterResolvers.GetContainerIds(Container, Id))
             {
-                HostAddress = entry.Host;
-                
-                WriteObject(DkrClient.Containers.InspectContainerAsync(entry.Id).AwaitResult());
+                WriteObject(DkrClient.Containers.InspectContainerAsync(id).AwaitResult());
             }
         }
 

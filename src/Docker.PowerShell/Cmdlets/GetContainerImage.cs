@@ -1,10 +1,12 @@
 ﻿using System.Management.Automation;
 using Docker.PowerShell.Objects;
+using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.Get, "ContainerImage",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
+    [OutputType(typeof(ImagesListResponse))]
     public class GetContainerImage : DkrCmdlet
     {
         #region Parameters
@@ -26,9 +28,9 @@ namespace Docker.PowerShell.Cmdlets
             base.ProcessRecord();
 
             foreach (var img in DkrClient.Images.ListImagesAsync(
-                new DotNet.Models.ImagesListParameters() { All = All.ToBool() }).AwaitResult())
+                new ImagesListParameters() { All = All.ToBool() }).AwaitResult())
             {
-                WriteObject(new Image(img, HostAddress));
+                WriteObject(img);
             }
         }
 

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Management.Automation;
 using Docker.PowerShell.Objects;
+using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
     [Cmdlet("Run", "ContainerImage",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
+    [OutputType(typeof(ContainerListResponse))]
     public class RunContainerImage : CreateContainerCmdlet
     {
         #region Parameters
@@ -35,11 +37,10 @@ namespace Docker.PowerShell.Cmdlets
         {
             base.ProcessRecord();
 
-            foreach (var entry in ParameterResolvers.GetImageIdMap(Image, Id, HostAddress))
+            foreach (var id in ParameterResolvers.GetImageIds(Image, Id))
             {
-                HostAddress = entry.Host;
                 var createResult = ContainerOperations.CreateContainer(
-                    entry.Id,
+                    id,
                     this.MemberwiseClone() as CreateContainerCmdlet,
                     DkrClient);
 
@@ -67,11 +68,12 @@ namespace Docker.PowerShell.Cmdlets
                         CancelSignal.Token).AwaitResult();
 
                     WriteVerbose("Status Code: " + waitResponse.StatusCode.ToString());
+                    ContainerOperations.ThrowOnProcessExitCode(waitResponse.StatusCode);
 
                     if (RemoveAutomatically.ToBool())
                     {
                         DkrClient.Containers.RemoveContainerAsync(createResult.ID,
-                            new DotNet.Models.ContainerRemoveParameters()).WaitUnwrap();
+                            new ContainerRemoveParameters()).WaitUnwrap();
                     }
                     else if (PassThru.ToBool())
                     {

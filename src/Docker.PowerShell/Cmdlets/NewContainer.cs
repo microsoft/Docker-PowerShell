@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Management.Automation;
 using Docker.PowerShell.Objects;
+using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.New, "Container",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
+    [OutputType(typeof(ContainerListResponse))]
     public class NewContainer : CreateContainerCmdlet
     {
         #region Overrides
@@ -17,11 +19,10 @@ namespace Docker.PowerShell.Cmdlets
         {
             base.ProcessRecord();
 
-            foreach (var entry in ParameterResolvers.GetImageIdMap(Image, Id, HostAddress))
+            foreach (var id in ParameterResolvers.GetImageIds(Image, Id))
             {
-                HostAddress = entry.Host;
                 var createResult = ContainerOperations.CreateContainer(
-                    entry.Id,
+                    id,
                     this.MemberwiseClone() as CreateContainerCmdlet,
                     DkrClient);
                 

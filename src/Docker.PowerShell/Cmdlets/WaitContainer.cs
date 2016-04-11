@@ -1,10 +1,12 @@
 ﻿using System.Management.Automation;
 using Docker.PowerShell.Objects;
+using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
     [Cmdlet("Wait", "Container",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
+    [OutputType(typeof(ContainerListResponse))]
     public class WaitContainer : ContainerOperationCmdlet
     {
         #region Parameters
@@ -24,24 +26,18 @@ namespace Docker.PowerShell.Cmdlets
         {
             base.ProcessRecord();
 
-            foreach (var entry in ParameterResolvers.GetContainerIdMap(Container, Id, HostAddress))
+            foreach (var id in ParameterResolvers.GetContainerIds(Container, Id))
             {
-                HostAddress = entry.Host;
-
                 var waitResponse = DkrClient.Containers.WaitContainerAsync(
-                    entry.Id,
+                    id,
                     CancelSignal.Token).AwaitResult();
+                
+                WriteVerbose("Status Code: " + waitResponse.StatusCode.ToString());
+                ContainerOperations.ThrowOnProcessExitCode(waitResponse.StatusCode);
 
                 if (PassThru.ToBool())
                 {
-                    WriteVerbose("Status Code: " + waitResponse.StatusCode.ToString());
-
-                    WriteObject(ContainerOperations.GetContainerById(entry.Id, DkrClient));
-
-                }
-                else
-                {
-                    WriteObject(waitResponse.StatusCode);
+                    WriteObject(ContainerOperations.GetContainerById(id, DkrClient));
                 }
             }
         }

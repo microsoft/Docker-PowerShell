@@ -1,5 +1,6 @@
 ﻿using System.Management.Automation;
 using Docker.PowerShell.Objects;
+using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -23,11 +24,10 @@ namespace Docker.PowerShell.Cmdlets
         {
             base.ProcessRecord();
 
-            foreach (var entry in ParameterResolvers.GetContainerIdMap(Container, Id, HostAddress))
+            foreach (var id in ParameterResolvers.GetContainerIds(Container, Id))
             {
-                HostAddress = entry.Host;
-                DkrClient.Containers.RemoveContainerAsync(entry.Id,
-                    new DotNet.Models.ContainerRemoveParameters() { Force = Force.ToBool() }
+                DkrClient.Containers.RemoveContainerAsync(id,
+                    new ContainerRemoveParameters() { Force = Force.ToBool() }
                     ).WaitUnwrap();
             }
         }

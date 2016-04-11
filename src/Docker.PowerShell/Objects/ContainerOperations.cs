@@ -6,6 +6,18 @@ namespace Docker.PowerShell.Objects
 {
     using DotNet.Models;
 
+    public enum IsolationType
+    {
+        Default,
+        None,
+        HyperV
+    }
+    
+    public class ContainerProcessExitException : Exception 
+    { 
+        public ContainerProcessExitException(int exitCode) : base(String.Format("Container process exited with non-zero exit code: {0}", exitCode)) { }
+    }
+
     internal static class ContainerOperations
     {
         /// <summary>
@@ -15,7 +27,7 @@ namespace Docker.PowerShell.Objects
         /// <param name="cmdlet"></param>
         /// <param name="dkrClient"></param>
         /// <returns></returns>
-        internal static DotNet.Models.CreateContainerResponse CreateContainer(
+        internal static CreateContainerResponse CreateContainer(
             string id,
             CreateContainerCmdlet cmdlet,
             DotNet.DockerClient dkrClient)
@@ -48,7 +60,7 @@ namespace Docker.PowerShell.Objects
             }
 
             return dkrClient.Containers.CreateContainerAsync(
-                new DotNet.Models.CreateContainerParameters(configuration)
+                new CreateContainerParameters(configuration)
                 {
                     Name = cmdlet.ContainerName,
                     HostConfig = hostConfiguration
@@ -61,13 +73,11 @@ namespace Docker.PowerShell.Objects
         /// <param name="id">The container identifier to retrieve.</param>
         /// <param name="dkrClient">The client to request the container from.</param>
         /// <returns>The single container object matching the id.</returns>
-        internal static Container GetContainerById(string id, DotNet.DockerClient dkrClient)
+        internal static ContainerListResponse GetContainerById(string id, DotNet.DockerClient dkrClient)
         {
             // TODO - Have a better way to get the container list response given the ID.
-            return new Container(
-                dkrClient.Containers.ListContainersAsync(new ContainersListParameters() { All = true }).AwaitResult(
-                        ).Single(c => c.ID.StartsWith(id) || c.Names.Any(n => n.Equals("/" + id))),
-                    dkrClient.Configuration.EndpointBaseUri.ToString());
+            return dkrClient.Containers.ListContainersAsync(new ContainersListParameters() { All = true }).AwaitResult(
+                        ).Single(c => c.ID.StartsWith(id) || c.Names.Any(n => n.Equals("/" + id)));
         }
 
         /// <summary>
@@ -76,7 +86,7 @@ namespace Docker.PowerShell.Objects
         /// <param name="id">The image identifier to retrieve.</param>
         /// <param name="dkrClient">The client to request the image from.</param>
         /// <returns>The single image object matching the id.</returns>
-        internal static Image GetImageById(string id, DotNet.DockerClient dkrClient)
+        internal static ImagesListResponse GetImageById(string id, DotNet.DockerClient dkrClient)
         {
             var shaId = id;
             if (!shaId.StartsWith("sha256:"))
@@ -84,10 +94,20 @@ namespace Docker.PowerShell.Objects
                 shaId = "sha256:" + shaId;
             }
             // TODO - Have a better way to get the image list response given the ID.
-            return new Image(
-                dkrClient.Images.ListImagesAsync(new ImagesListParameters() { All = true }).AwaitResult(
-                        ).Single(c => c.ID.StartsWith(shaId)),
-                    dkrClient.Configuration.EndpointBaseUri.ToString());
+            return dkrClient.Images.ListImagesAsync(new ImagesListParameters() { All = true }).AwaitResult(
+                        ).Single(c => c.ID.StartsWith(shaId));
+        }
+        
+        /// <summary>
+        /// Throws a ContainerProcessExitException if the given exit code is non-zero.
+        /// </summary>
+        /// <param name="exitCode">The process exit code.</param>
+        internal static void ThrowOnProcessExitCode(int exitCode)
+        {
+            if (exitCode != 0)
+            {
+                throw new ContainerProcessExitException(exitCode);
+            }
         }
     }
 }

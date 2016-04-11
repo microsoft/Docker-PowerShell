@@ -1,67 +1,40 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Docker.PowerShell.Objects;
+﻿using System.Linq;
+using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
     internal static class ParameterResolvers
     {
-        internal struct IdHostPair 
-        {
-            public string Id;
-            public string Host;
-        }
-
         /// <summary>
-        /// Translates a list of images or list of ids and a host address into a map of
-        /// image id to host address.
+        /// Uses either the list of IDs, or gets the list of IDs from the list of Images.
         /// </summary>
         /// <param name="images">The list of image objects to get values from.</param>
-        /// <param name="ids">The list of ids that should be paired with the given
-        /// host address.</param>
-        /// <param name="hostAddress">The default host address to pair with the entries
-        /// in <paramref name="ids"/>.</param>
-        /// <returns></returns>
-        internal static List<IdHostPair> GetImageIdMap(Image[] images, string[] ids, string hostAddress)
+        /// <param name="ids">The list of ids.</param>
+        /// <returns>List of IDs to process.</returns>
+        internal static string[] GetImageIds(ImagesListResponse[] images, string[] ids)
         {
-            var idMap = new List<IdHostPair>();
-
-            if (images != null)
+            if (ids != null && ids.Length != 0)
             {
-                images.ToList().ForEach(i => idMap.Add(new IdHostPair() { Id = i.ID, Host= i.HostAddress }));
+                return ids;
             }
-            else
-            {
-                ids.ToList().ForEach(i => idMap.Add(new IdHostPair() { Id = i, Host = hostAddress }));
-            }
-
-            return idMap;
+            
+            return images.Select(i => i.ID).ToArray();
         }
 
         /// <summary>
-        /// Translates a list of containers or list of ids and a host address into a map of
-        /// container id to host address.
+        /// Uses either the list of IDs, or gets the list of IDs from the list of containers.
         /// </summary>
-        /// <param name="containers">The list of container objects to get values from.</param>
-        /// <param name="ids">The list of ids that should be paired with the given
-        /// host address.</param>
-        /// <param name="hostAddress">The default host address to pair with the entries
-        /// in <paramref name="ids"/>.</param>
-        /// <returns></returns>
-        internal static List<IdHostPair> GetContainerIdMap(Container[] containers, string[] ids, string hostAddress)
+        /// <param name="conatiners">The list of container objects to get values from.</param>
+        /// <param name="ids">The list of ids.</param>
+        /// <returns>List of IDs to process.</returns>
+        internal static string[] GetContainerIds(ContainerListResponse[] containers, string[] ids)
         {
-            var idMap = new List<IdHostPair>();
-
-            if (containers != null)
+            if (ids != null && ids.Length != 0)
             {
-                containers.ToList().ForEach(i => idMap.Add(new IdHostPair() { Id = i.ID, Host = i.HostAddress }));
+                return ids;
             }
-            else
-            {
-                ids.ToList().ForEach(i => idMap.Add(new IdHostPair() { Id = i, Host = hostAddress }));
-            }
-
-            return idMap;
+            
+            return containers.Select(c => c.ID).ToArray();
         }
 
     }
