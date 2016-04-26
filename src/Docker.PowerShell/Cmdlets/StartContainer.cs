@@ -4,7 +4,7 @@ using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
-    [Cmdlet("Start", "Container",
+    [Cmdlet(VerbsLifecycle.Start, "Container",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
     [OutputType(typeof(ContainerListResponse))]
     public class StartContainer : ContainerOperationCmdlet

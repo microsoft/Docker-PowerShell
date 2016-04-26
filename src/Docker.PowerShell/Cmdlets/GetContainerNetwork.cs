@@ -4,7 +4,7 @@ using Docker.PowerShell.Objects;
 
 namespace Docker.PowerShell.Cmdlets
 {
-    [Cmdlet("Get", "ContainerNetwork")]
+    [Cmdlet(VerbsCommon.Get, "ContainerNetwork")]
     [OutputType(typeof(NetworkResponse))]
     public class GetContainerNetwork : DkrCmdlet
     {

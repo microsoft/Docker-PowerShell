@@ -33,7 +33,7 @@
 		{
 			"taskName": "test",
 			"suppressTaskName": true,
-			"args": ["start", "powershell", "-executionpolicy", "bypass", "-noexit", "-c", "ipmo", "-disablenamechecking", ".\\src\\Docker.PowerShell\\bin\\Module\\Docker.PowerShell"],
+			"args": ["start", "powershell", "-executionpolicy", "bypass", "-noexit", "-c", "ipmo", ".\\src\\Docker.PowerShell\\bin\\Module\\Docker.PowerShell"],
 			"showOutput": "never",
 			"isTestCommand": true
 		}

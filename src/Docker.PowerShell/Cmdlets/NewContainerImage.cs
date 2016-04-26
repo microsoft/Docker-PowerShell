@@ -11,10 +11,11 @@ using Newtonsoft.Json;
 
 namespace Docker.PowerShell.Cmdlets
 {
-    [Cmdlet("Build", "ContainerImage",
+    [Cmdlet(VerbsCommon.New, "ContainerImage",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
+    [Alias("Build-ContainerImage")]
     [OutputType(typeof(ImagesListResponse))]
-    public class BuildContainerImage : DkrCmdlet
+    public class NewContainerImage : DkrCmdlet
     {
         private string _successfullyBuilt = "Successfully built ";
 
