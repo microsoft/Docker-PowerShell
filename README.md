@@ -1,5 +1,7 @@
 #PowerShell for Docker
 The goal of this project is to create a PowerShell module for the [Docker Engine]( https://github.com/docker/docker/), which can be utilized as an alternative or in conjunction with the Docker client (CLI).
+##Current version
+  0.1.0-alpha (pre-release)
 
 ##Requirements and Goals
 ### Requirements
