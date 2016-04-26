@@ -1,0 +1,42 @@
+// Available variables which can be used inside of strings.
+// ${workspaceRoot}: the root folder of the team
+// ${file}: the current opened file
+// ${fileBasename}: the current opened file's basename
+// ${fileDirname}: the current opened file's dirname
+// ${fileExtname}: the current opened file's extension
+// ${cwd}: the current working directory of the spawned process
+
+{ 
+	"version": "0.1.0", 
+	"command": "cmd", 
+	"isShellCommand": true, 
+	"showOutput": "silent", 
+	"args": [ 
+		"/c" 
+		], 
+	"tasks": [ 
+		{ 
+			"taskName": "restore",
+			"suppressTaskName": true,
+			"args" : ["dotnet", "restore"],
+			"showOutput": "always",
+			"problemMatcher": "$msCompile" 
+		},
+		{ 
+			"taskName": "build",
+			"suppressTaskName": true,
+			"args" : ["dotnet", "publish", ".\\src\\Docker.PowerShell", "-o", ".\\src\\Docker.PowerShell\\bin\\Module\\Docker.PowerShell", "-r", "win"],
+			"showOutput": "always",
+			"isBuildCommand": true,
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"taskName": "test",
+			"suppressTaskName": true,
+			"args": ["start", "powershell", "-executionpolicy", "bypass", "-noexit", "-c", "ipmo", "-disablenamechecking", ".\\src\\Docker.PowerShell\\bin\\Module\\Docker.PowerShell"],
+			"showOutput": "never",
+			"isTestCommand": true
+		}
+	]
+}
+
