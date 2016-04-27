@@ -5,10 +5,11 @@ using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
-    [Cmdlet("Run", "ContainerImage",
+    [Cmdlet(VerbsLifecycle.Invoke, "ContainerImage",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
+    [Alias("Run-ContainerImage")]
     [OutputType(typeof(ContainerListResponse))]
-    public class RunContainerImage : CreateContainerCmdlet
+    public class InvokeContainerImage : CreateContainerCmdlet
     {
         #region Parameters
 

@@ -4,10 +4,11 @@ using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
-    [Cmdlet("Commit", "Container",
+    [Cmdlet(VerbsData.ConvertTo, "ContainerImage",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
+    [Alias("Commit-Container")]
     [OutputType(typeof(ImagesListResponse))]
-    public class CommitContainer : ContainerOperationCmdlet
+    public class ConvertToContainerImage : ContainerOperationCmdlet
     {
         #region Parameters
 
