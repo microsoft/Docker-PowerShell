@@ -36,6 +36,12 @@
 			"args": ["start", "powershell", "-executionpolicy", "bypass", "-noexit", "-c", "ipmo", ".\\src\\Docker.PowerShell\\bin\\Module\\Docker.PowerShell"],
 			"showOutput": "never",
 			"isTestCommand": true
+		},
+		{
+			"taskName": "clean",
+			"suppressTaskName": true,
+			"args": ["del", "/Q", "/S", ".\\src\\*project.lock.json", "&&", "rmdir", "/Q", "/S", ".\\src\\Docker.PowerShell\\bin"],
+			"showOutput": "always"
 		}
 	]
 }
