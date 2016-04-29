@@ -6,26 +6,26 @@
 // ${fileExtname}: the current opened file's extension
 // ${cwd}: the current working directory of the spawned process
 
-{ 
-	"version": "0.1.0", 
-	"command": "cmd", 
-	"isShellCommand": true, 
-	"showOutput": "silent", 
-	"args": [ 
-		"/c" 
-		], 
-	"tasks": [ 
-		{ 
+{
+	"version": "0.1.0",
+	"command": "cmd",
+	"isShellCommand": true,
+	"showOutput": "silent",
+	"args": [
+		"/c"
+		],
+	"tasks": [
+		{
 			"taskName": "restore",
 			"suppressTaskName": true,
 			"args" : ["dotnet", "restore"],
 			"showOutput": "always",
-			"problemMatcher": "$msCompile" 
+			"problemMatcher": "$msCompile"
 		},
-		{ 
+		{
 			"taskName": "build",
 			"suppressTaskName": true,
-			"args" : ["dotnet", "publish", ".\\src\\Docker.PowerShell", "-o", ".\\src\\Docker.PowerShell\\bin\\Module\\Docker.PowerShell", "-r", "win"],
+			"args" : ["dotnet", "publish", ".\\src\\Docker.PowerShell", "-o", ".\\src\\Docker.PowerShell\\bin\\Module\\Docker", "-r", "win"],
 			"showOutput": "always",
 			"isBuildCommand": true,
 			"problemMatcher": "$msCompile"
@@ -33,7 +33,7 @@
 		{
 			"taskName": "test",
 			"suppressTaskName": true,
-			"args": ["start", "powershell", "-executionpolicy", "bypass", "-noexit", "-c", "ipmo", ".\\src\\Docker.PowerShell\\bin\\Module\\Docker.PowerShell"],
+			"args": ["start", "powershell", "-executionpolicy", "bypass", "-noexit", "-c", "ipmo", ".\\src\\Docker.PowerShell\\bin\\Module\\Docker"],
 			"showOutput": "never",
 			"isTestCommand": true
 		},

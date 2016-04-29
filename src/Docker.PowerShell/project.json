@@ -13,5 +13,5 @@
   "frameworks": {
     "net46": {}
   },
-  "content" : ["Docker.PowerShell.psd1"]
+  "content" : ["Docker.psd1"]
 }
