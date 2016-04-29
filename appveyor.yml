@@ -1,4 +1,4 @@
-version: '{build}'
+version: '0.0.0.{build}'
 pull_requests:
   do_not_increment_build_number: true
 init:
@@ -6,8 +6,28 @@ init:
 - ps: Start-Process c:\dotnet-install.exe -ArgumentList "/install","/quiet" -Wait
 install:
 - cmd: git submodule update --init --recursive
+nuget:
+  disable_publish_on_pr: true
 build_script:
-- cmd: path c:\program files\dotnet;%path%
-- cmd: dotnet restore
-- cmd: dotnet publish -r win -o bin -c Release src/Docker.PowerShell
+- ps: |
+    $env:PATH = "c:\program files\dotnet;$env:PATH"
+
+    $version = $env:APPVEYOR_BUILD_VERSION
+    if ($env:APPVEYOR_REPO_TAG -eq "true") {
+      # Tags do not get build versions.
+      $version = $version.Remove($version.LastIndexOf(".")) + ".0"
+    }
+
+    $projectFile = "src\Docker.PowerShell\project.json"
+    $project =  Get-Content $projectFile -Raw | ConvertFrom-Json
+    $project.version = $version
+    ConvertTo-Json $project | Out-File -Encoding UTF8 $projectFile
+
+    $manifest = "src\Docker.PowerShell\Docker.psd1"
+    (Get-Content $manifest -Raw) -replace "ModuleVersion.+","ModuleVersion = '$version'" | Out-File $manifest
+- ps: dotnet restore
+- ps: dotnet publish -r win -o bin -c Release src/Docker.PowerShell
+- ps: nuget pack src/Docker.PowerShell/Docker.nuspec -BasePath bin -OutputDirectory bin -Version $version
 test: off
+artifacts:
+- path: bin/*.nupkg

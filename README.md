@@ -1,7 +1,22 @@
 # PowerShell for Docker
 The goal of this project is to create a PowerShell module for the [Docker Engine]( https://github.com/docker/docker/), which can be utilized as an alternative or in conjunction with the Docker client (CLI).
 ## Current version
-  0.1.0-alpha (pre-release)
+  0.0.0-alpha (pre-release)
+
+## Installation
+Currently there are no released versions to try. The following information will
+allow you to install development builds -- do understand that these are early
+builds and will change (hopefully with your feedback).
+
+The dev builds are updated for every commit to master and are released to https://ci.appveyor.com/nuget/docker-powershell-dev. To install the latest build, in PowerShell run:
+
+    > Register-PSRepository -Name DockerPS-Dev -SourceLocation https://ci.appveyor.com/nuget/docker-powershell-dev
+
+    > Install-Module Docker -Repository DockerPS-Dev
+
+After this, you can update to new development builds with just:
+
+    > Update-Module Docker
 
 ## Requirements and Goals
 ### Requirements
@@ -26,11 +41,11 @@ The goal of this project is to create a PowerShell module for the [Docker Engine
 ## Compilation
 To compile this project, use the dotnet CLI (https://github.com/dotnet/cli) to execute a restore command followed by a publish command:
 
-`dotnet restore`
+    > dotnet restore
 
-`dotnet publish .\\src\\Docker.PowerShell -o .\\src\\Docker.PowerShell\\bin\\Module\\Docker -r win`
+    > dotnet publish .\src\Docker.PowerShell -o .\src\Docker.PowerShell\bin\Module\Docker -r win
 
-This will produce the PowerShell module  at ".\src\Docker.PowerShell\bin\Module\Docker" in the project folder.  If Visual Studio is not already installed, the dotnet CLI may require an additional installation of the .NET 4.6 developer pack (https://www.microsoft.com/en-us/download/details.aspx?id=48136).
+This will produce the PowerShell module at `.\src\Docker.PowerShell\bin\Module\Docker` in the project folder.  If Visual Studio is not already installed, the dotnet CLI may require an additional installation of the .NET 4.6 developer pack (https://www.microsoft.com/en-us/download/details.aspx?id=48136).
 
 ### Git submodules for Docker.DotNet
 This project uses Docker.DotNet as a git submodule (`git submodule --help` to view manual pages for submodule).  When first starting a new clone of Docker.Powershell, this requires one-time initializtion of the submodule with `git submodule update --init --remote` to prepare the directories used by the submodule. When making changes to Docker.PowerShell that use corresponding changes made to Docker.DotNet master branch, use `git submodule update --remote` to sync the submodule to the latest in master, and include the updated commit id for the submodule in the changes submitted to Docker.Powershell.
