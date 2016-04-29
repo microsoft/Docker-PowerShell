@@ -1,0 +1,13 @@
+version: '{build}'
+pull_requests:
+  do_not_increment_build_number: true
+init:
+- ps: (new-object net.webclient).DownloadFile('https://dotnetcli.blob.core.windows.net/dotnet/beta/Installers/Latest/dotnet-dev-win-x64.latest.exe', "c:/dotnet-install.exe")
+- ps: Start-Process c:\dotnet-install.exe -ArgumentList "/install","/quiet" -Wait
+install:
+- cmd: git submodule update --init --recursive
+build_script:
+- cmd: path c:\program files\dotnet;%path%
+- cmd: dotnet restore
+- cmd: dotnet publish -r win -o bin -c Release src/Docker.PowerShell
+test: off
