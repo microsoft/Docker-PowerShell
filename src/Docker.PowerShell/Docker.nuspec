@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Docker</id>
+    <version>0.0.0.0</version>
+    <authors>Microsoft</authors>
+    <owners>microsoft</owners>
+    <licenseUrl>https://raw.githubusercontent.com/Microsoft/Docker-PowerShell/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Microsoft/Docker-PowerShell</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <copyright>Copyright (c) Microsoft</copyright>
+    <description>This package contains Docker PowerShell cmdlets that can be used to interact with Windows and Linux Docker hosts.</description>
+  </metadata>
+  <files>
+    <file src="*.dll" target="" />
+    <file src="Docker.psd1" target="" />
+  </files>
+</package>
