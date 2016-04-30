@@ -1,6 +1,7 @@
 ﻿using System.Management.Automation;
 using Docker.PowerShell.Objects;
 using Docker.DotNet.Models;
+using System.Threading.Tasks;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -22,22 +23,20 @@ namespace Docker.PowerShell.Cmdlets
 
         #region Overrides
 
-        protected override void ProcessRecord()
+        protected override async Task ProcessRecordAsync()
         {
-            base.ProcessRecord();
-
             foreach (var id in ParameterResolvers.GetContainerIds(Container, Id))
             {
-                var waitResponse = DkrClient.Containers.WaitContainerAsync(
+                var waitResponse = await DkrClient.Containers.WaitContainerAsync(
                     id,
-                    CancelSignal.Token).AwaitResult();
-                
+                    CancelSignal.Token);
+
                 WriteVerbose("Status Code: " + waitResponse.StatusCode.ToString());
                 ContainerOperations.ThrowOnProcessExitCode(waitResponse.StatusCode);
 
                 if (PassThru.ToBool())
                 {
-                    WriteObject(ContainerOperations.GetContainerById(id, DkrClient));
+                    WriteObject(await ContainerOperations.GetContainerById(id, DkrClient));
                 }
             }
         }

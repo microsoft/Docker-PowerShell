@@ -1,6 +1,7 @@
 ﻿using System.Management.Automation;
 using Docker.PowerShell.Objects;
 using Docker.DotNet.Models;
+using System.Threading.Tasks;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -46,13 +47,11 @@ namespace Docker.PowerShell.Cmdlets
 
         #region Overrides
 
-        protected override void ProcessRecord()
+        protected override async Task ProcessRecordAsync()
         {
-            base.ProcessRecord();
-
             foreach (var id in ParameterResolvers.GetContainerIds(Container, Id))
             {
-                var commitResult = DkrClient.Miscellaneous.CommitContainerChangesAsync(
+                var commitResult = await DkrClient.Miscellaneous.CommitContainerChangesAsync(
                     new CommitContainerChangesParameters() {
                         ContainerID = id,
                         RepositoryName = Repository,
@@ -60,9 +59,9 @@ namespace Docker.PowerShell.Cmdlets
                         Comment = Message,
                         Author = Author,
                         Config = Configuration
-                    }).AwaitResult();
+                    });
 
-                WriteObject(ContainerOperations.GetImageById(commitResult.ID, DkrClient));
+                WriteObject(await ContainerOperations.GetImageById(commitResult.ID, DkrClient));
             }
         }
 

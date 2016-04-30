@@ -2,6 +2,7 @@
 using System.Management.Automation;
 using Docker.PowerShell.Objects;
 using Docker.DotNet.Models;
+using System.Threading.Tasks;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -15,17 +16,15 @@ namespace Docker.PowerShell.Cmdlets
         /// <summary>
         /// Creates a new container and lists it to output.
         /// </summary>
-        protected override void ProcessRecord()
+        protected override async Task ProcessRecordAsync()
         {
-            base.ProcessRecord();
-
             foreach (var id in ParameterResolvers.GetImageIds(Image, Id))
             {
-                var createResult = ContainerOperations.CreateContainer(
+                var createResult = await ContainerOperations.CreateContainer(
                     id,
                     this.MemberwiseClone() as CreateContainerCmdlet,
                     DkrClient);
-                
+
                 if (createResult.Warnings != null)
                 {
                     foreach (var w in createResult.Warnings)
@@ -39,7 +38,7 @@ namespace Docker.PowerShell.Cmdlets
 
                 if (!String.IsNullOrEmpty(createResult.ID))
                 {
-                    WriteObject(ContainerOperations.GetContainerById(createResult.ID, DkrClient));
+                    WriteObject(await ContainerOperations.GetContainerById(createResult.ID, DkrClient));
                 }
             }
         }

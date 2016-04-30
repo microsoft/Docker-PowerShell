@@ -1,6 +1,6 @@
 ﻿using System.Management.Automation;
-using Docker.PowerShell.Objects;
 using Docker.DotNet.Models;
+using System.Threading.Tasks;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -20,15 +20,13 @@ namespace Docker.PowerShell.Cmdlets
 
         #region Overrides
 
-        protected override void ProcessRecord()
+        protected override async Task ProcessRecordAsync()
         {
-            base.ProcessRecord();
-
             foreach (var id in ParameterResolvers.GetImageIds(Image, Id))
             {
-                DkrClient.Images.DeleteImageAsync(id,
+                await DkrClient.Images.DeleteImageAsync(id,
                     new ImageDeleteParameters() { Force = Force.ToBool() }
-                    ).WaitUnwrap();
+                    );
             }
         }
 
