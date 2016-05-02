@@ -8,6 +8,7 @@ using Tar;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -50,6 +51,9 @@ namespace Docker.PowerShell.Cmdlets
         {
             base.ProcessRecord();
 
+            var directory = System.IO.Path.Combine(SessionState.Path.CurrentFileSystemLocation.Path, Path ?? "");
+            WriteVerbose(string.Format("Archiving the contents of {0}", directory));
+
             using (var reader = new AnonymousPipeServerStream(PipeDirection.In, HandleInheritability.None, 65536))
             {
                 var tarTask = Task.Run(async () =>
@@ -57,7 +61,7 @@ namespace Docker.PowerShell.Cmdlets
                     using (var writer = new AnonymousPipeClientStream(PipeDirection.Out, reader.ClientSafePipeHandle))
                     {
                         var tar = new TarWriter(writer);
-                        await tar.CreateEntriesFromDirectoryAsync(string.IsNullOrEmpty(Path) ? "." : Path, ".");
+                        await tar.CreateEntriesFromDirectoryAsync(directory, ".");
                         await tar.CloseAsync();
                         writer.Close();
                     }
@@ -67,7 +71,7 @@ namespace Docker.PowerShell.Cmdlets
                 {
                     NoCache = SkipCache.ToBool(),
                     ForceRemove = ForceRemoveIntermediateContainers.ToBool(),
-                    Remove  = !PreserveIntermediateContainers.ToBool(),
+                    Remove = !PreserveIntermediateContainers.ToBool(),
                 };
 
                 string repoTag = null;
@@ -79,7 +83,11 @@ namespace Docker.PowerShell.Cmdlets
                         repoTag += ":";
                         repoTag += Tag;
                     }
-                    parameters.Tags.Add(repoTag);
+
+                    parameters.Tags = new List<string>
+                    {
+                        repoTag
+                    };
                 }
                 else if (!string.IsNullOrEmpty(Tag))
                 {
