@@ -1,6 +1,6 @@
 ﻿using System.Management.Automation;
-using Docker.PowerShell.Objects;
 using Docker.DotNet.Models;
+using System.Threading.Tasks;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -23,12 +23,10 @@ namespace Docker.PowerShell.Cmdlets
         /// <summary>
         /// Outputs container image objects for each image matching the provided parameters.
         /// </summary>
-        protected override void ProcessRecord()
+        protected override async Task ProcessRecordAsync()
         {
-            base.ProcessRecord();
-
-            foreach (var img in DkrClient.Images.ListImagesAsync(
-                new ImagesListParameters() { All = All.ToBool() }).AwaitResult())
+            foreach (var img in await DkrClient.Images.ListImagesAsync(
+                new ImagesListParameters() { All = All.ToBool() }))
             {
                 WriteObject(img);
             }

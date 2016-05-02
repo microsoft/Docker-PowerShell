@@ -2,6 +2,7 @@
 using System.Management.Automation;
 using Docker.PowerShell.Objects;
 using Docker.DotNet.Models;
+using System.Threading.Tasks;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -34,13 +35,11 @@ namespace Docker.PowerShell.Cmdlets
         /// <summary>
         /// Creates a new container and lists it to output.
         /// </summary>
-        protected override void ProcessRecord()
+        protected override async Task ProcessRecordAsync()
         {
-            base.ProcessRecord();
-
             foreach (var id in ParameterResolvers.GetImageIds(Image, Id))
             {
-                var createResult = ContainerOperations.CreateContainer(
+                var createResult = await ContainerOperations.CreateContainer(
                     id,
                     this.MemberwiseClone() as CreateContainerCmdlet,
                     DkrClient);
@@ -58,27 +57,27 @@ namespace Docker.PowerShell.Cmdlets
 
                 if (!String.IsNullOrEmpty(createResult.ID))
                 {
-                    if (!DkrClient.Containers.StartContainerAsync(
-                        createResult.ID, HostConfiguration).AwaitResult())
+                    if (!await DkrClient.Containers.StartContainerAsync(
+                        createResult.ID, HostConfiguration))
                     {
                         throw new ApplicationFailedException("The container has already started.");
                     }
 
-                    var waitResponse = DkrClient.Containers.WaitContainerAsync(
-                        createResult.ID, 
-                        CancelSignal.Token).AwaitResult();
+                    var waitResponse = await DkrClient.Containers.WaitContainerAsync(
+                        createResult.ID,
+                        CancelSignal.Token);
 
                     WriteVerbose("Status Code: " + waitResponse.StatusCode.ToString());
                     ContainerOperations.ThrowOnProcessExitCode(waitResponse.StatusCode);
 
                     if (RemoveAutomatically.ToBool())
                     {
-                        DkrClient.Containers.RemoveContainerAsync(createResult.ID,
-                            new ContainerRemoveParameters()).WaitUnwrap();
+                        await DkrClient.Containers.RemoveContainerAsync(createResult.ID,
+                            new ContainerRemoveParameters());
                     }
                     else if (PassThru.ToBool())
                     {
-                        WriteObject(ContainerOperations.GetContainerById(createResult.ID, DkrClient));
+                        WriteObject(await ContainerOperations.GetContainerById(createResult.ID, DkrClient));
                     }
                 }
             }

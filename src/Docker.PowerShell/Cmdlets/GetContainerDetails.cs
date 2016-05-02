@@ -1,6 +1,6 @@
 using System.Management.Automation;
-using Docker.PowerShell.Objects;
 using Docker.DotNet.Models;
+using System.Threading.Tasks;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -11,13 +11,11 @@ namespace Docker.PowerShell.Cmdlets
     {
         #region Overrides
 
-        protected override void ProcessRecord()
+        protected override async Task ProcessRecordAsync()
         {
-            base.ProcessRecord();
-
             foreach (var id in ParameterResolvers.GetContainerIds(Container, Id))
             {
-                WriteObject(DkrClient.Containers.InspectContainerAsync(id).AwaitResult());
+                WriteObject(await DkrClient.Containers.InspectContainerAsync(id));
             }
         }
 

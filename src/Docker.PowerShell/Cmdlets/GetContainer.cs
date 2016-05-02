@@ -1,6 +1,6 @@
 ﻿using System.Management.Automation;
-using Docker.PowerShell.Objects;
 using Docker.DotNet.Models;
+using System.Threading.Tasks;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -14,12 +14,10 @@ namespace Docker.PowerShell.Cmdlets
         /// <summary>
         /// Outputs container objects for each container matching the provided parameters.
         /// </summary>
-        protected override void ProcessRecord()
+        protected override async Task ProcessRecordAsync()
         {
-            base.ProcessRecord();
-
-            foreach (var c in DkrClient.Containers.ListContainersAsync(
-                new ContainersListParameters() { All = true }).AwaitResult())
+            foreach (var c in await DkrClient.Containers.ListContainersAsync(
+                new ContainersListParameters() { All = true }))
             {
                 WriteObject(c);
             }

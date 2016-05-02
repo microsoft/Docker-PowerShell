@@ -4,6 +4,7 @@ using System.Management.Automation;
 using Docker.DotNet;
 using System.Threading;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -18,7 +19,7 @@ namespace Docker.PowerShell.Cmdlets
         public const string ConfigObject = "ConfigObject";
     }
 
-    public class DkrCmdlet : PSCmdlet
+    public abstract class DkrCmdlet : PSCmdlet
     {
         #region Private members
 
@@ -37,14 +38,14 @@ namespace Docker.PowerShell.Cmdlets
                     {
                         //BUGBUG(swernli) - Remove this later in favor of something better.
                         ServicePointManager.ServerCertificateValidationCallback += (o, c, ch, er) => true;
-                         
+
                         // Try to find a certificate for secure connections.
                         cred = new DotNet.X509.CertificateCredentials(
                                 new X509Certificate2(
-                                    System.IO.Path.Combine(CertificateLocation, KeyFileName), 
+                                    System.IO.Path.Combine(CertificateLocation, KeyFileName),
                                     certPass));
                     }
-                    
+
                     dkrClient = new DockerClientConfiguration(new Uri(HostAddress), cred).CreateClient(new Version(ApiVersion));
                 }
 
@@ -65,7 +66,7 @@ namespace Docker.PowerShell.Cmdlets
         [Parameter(ParameterSetName = CommonParameterSetNames.Default)]
         [ValidateNotNullOrEmpty]
         public string HostAddress { get; set; } = Environment.GetEnvironmentVariable("DOCKER_HOST") ?? "http://127.0.0.1:2375";
-        
+
         ///<summary>
         /// The common parameter for specifying the location to find certificates for use in secure
         /// connections.
@@ -88,6 +89,13 @@ namespace Docker.PowerShell.Cmdlets
 
             CancelSignal.Cancel();
         }
+
+        protected sealed override void ProcessRecord()
+        {
+            AsyncPump.Run(ProcessRecordAsync);
+        }
+
+        protected abstract Task ProcessRecordAsync();
 
         #endregion
     }

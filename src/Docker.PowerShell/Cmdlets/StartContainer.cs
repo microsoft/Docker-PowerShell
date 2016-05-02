@@ -1,6 +1,7 @@
 ﻿using System.Management.Automation;
 using Docker.PowerShell.Objects;
 using Docker.DotNet.Models;
+using System.Threading.Tasks;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -22,21 +23,19 @@ namespace Docker.PowerShell.Cmdlets
 
         #region Overrides
 
-        protected override void ProcessRecord()
+        protected override async Task ProcessRecordAsync()
         {
-            base.ProcessRecord();
-
             foreach (var id in ParameterResolvers.GetContainerIds(Container, Id))
             {
-                if (!DkrClient.Containers.StartContainerAsync(
-                        id, new HostConfig()).AwaitResult())
+                if (!await DkrClient.Containers.StartContainerAsync(
+                        id, new HostConfig()))
                 {
                     throw new ApplicationFailedException("The container has already started.");
                 }
 
                 if (PassThru.ToBool())
                 {
-                    WriteObject(ContainerOperations.GetContainerById(id, DkrClient));
+                    WriteObject(await ContainerOperations.GetContainerById(id, DkrClient));
                 }
             }
         }

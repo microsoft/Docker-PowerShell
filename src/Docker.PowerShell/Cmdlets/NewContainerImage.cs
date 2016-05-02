@@ -47,10 +47,8 @@ namespace Docker.PowerShell.Cmdlets
 
         #region Overrides
 
-        protected override void ProcessRecord()
+        protected override async Task ProcessRecordAsync()
         {
-            base.ProcessRecord();
-
             var directory = System.IO.Path.Combine(SessionState.Path.CurrentFileSystemLocation.Path, Path ?? "");
             WriteVerbose(string.Format("Archiving the contents of {0}", directory));
 
@@ -98,7 +96,7 @@ namespace Docker.PowerShell.Cmdlets
                 bool failed = false;
 
                 var buildTask = DkrClient.Miscellaneous.BuildImageFromDockerfileAsync(reader, parameters, CancelSignal.Token);
-                using (var progress = buildTask.AwaitResult())
+                using (var progress = await buildTask)
                 using (var progressReader = new StreamReader(progress, new UTF8Encoding(false)))
                 {
                     string line;
@@ -127,13 +125,13 @@ namespace Docker.PowerShell.Cmdlets
                     }
                 }
 
-                tarTask.WaitUnwrap();
+                await tarTask;
                 if (imageId == null && !failed)
                 {
                     throw new Exception("Could not find image, but no error was returned");
                 }
 
-                WriteObject(ContainerOperations.GetImageById(imageId, DkrClient));
+                WriteObject(await ContainerOperations.GetImageById(imageId, DkrClient));
             }
         }
 

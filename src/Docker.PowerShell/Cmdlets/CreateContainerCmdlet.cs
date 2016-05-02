@@ -4,7 +4,7 @@ using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
-    public class CreateContainerCmdlet : ImageOperationCmdlet
+    public abstract class CreateContainerCmdlet : ImageOperationCmdlet
     {
         #region Parameters
 
