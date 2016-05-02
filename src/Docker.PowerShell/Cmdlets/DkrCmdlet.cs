@@ -85,8 +85,6 @@ namespace Docker.PowerShell.Cmdlets
         /// </summary>
         protected override void StopProcessing()
         {
-            base.StopProcessing();
-
             CancelSignal.Cancel();
         }
 

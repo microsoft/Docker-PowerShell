@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Tar
 {
     public static class TarWriterExtensions
     {
-        private static async Task CreateEntryFromFileInfoAsync(this TarWriter writer, FileInfo fi, string entryName)
+        private static async Task CreateEntryFromFileInfoAsync(this TarWriter writer, FileInfo fi, string entryName, CancellationToken cancellationToken)
         {
             var entry = new TarEntry
             {
@@ -41,20 +42,21 @@ namespace Tar
             {
                 using (var file = fi.OpenRead())
                 {
-                    await file.CopyToAsync(writer.CurrentFile);
+                    const int bufferSize = 81920; // This is the documented default for CopyToAsync().
+                    await file.CopyToAsync(writer.CurrentFile, bufferSize, cancellationToken);
                 }
             }
         }
 
-        public static Task CreateEntryFromFileAsync(this TarWriter writer, string path, string entryName)
+        public static Task CreateEntryFromFileAsync(this TarWriter writer, string path, string entryName, CancellationToken cancellationToken)
         {
             var fi = new FileInfo(path);
-            return writer.CreateEntryFromFileInfoAsync(fi, entryName);
+            return writer.CreateEntryFromFileInfoAsync(fi, entryName, cancellationToken);
         }
 
-        public static async Task CreateEntriesFromDirectoryAsync(this TarWriter writer, string path, string entryBase)
+        public static async Task CreateEntriesFromDirectoryAsync(this TarWriter writer, string path, string entryBase, CancellationToken cancellationToken)
         {
-            await CreateEntryFromFileAsync(writer, path, entryBase);
+            await CreateEntryFromFileAsync(writer, path, entryBase, cancellationToken);
 
             // Keep a stack of directory enumerations in order to write the
             // tar in depth-first order (which seems to be more common in tar
@@ -67,12 +69,13 @@ namespace Tar
                 enumerator = Directory.EnumerateFileSystemEntries(path).GetEnumerator();
                 while (enumerator != null)
                 {
+                    cancellationToken.ThrowIfCancellationRequested();
                     while (enumerator.MoveNext())
                     {
                         var filePath = enumerator.Current;
                         var fileName = filePath.Substring(path.Length + 1);
                         var fi = new FileInfo(filePath);
-                        await writer.CreateEntryFromFileInfoAsync(fi, Path.Combine(entryBase, fileName));
+                        await writer.CreateEntryFromFileInfoAsync(fi, Path.Combine(entryBase, fileName), cancellationToken);
                         if (fi.Attributes.HasFlag(FileAttributes.Directory))
                         {
                             stack.Add(enumerator);
