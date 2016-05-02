@@ -13,5 +13,7 @@
   "frameworks": {
     "net46": {}
   },
-  "content" : ["Docker.psd1"]
+  "publishOptions": {
+    "include": ["Docker.psd1"]
+  }
 }
