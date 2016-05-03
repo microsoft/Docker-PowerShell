@@ -54,16 +54,16 @@ namespace Docker.PowerShell.Cmdlets
 
             using (var reader = new AnonymousPipeServerStream(PipeDirection.In, HandleInheritability.None, 65536))
             {
-                var tarTask = Task.Run(async () =>
+                var tarTask = Task.Factory.StartNew(async () =>
                 {
                     using (var writer = new AnonymousPipeClientStream(PipeDirection.Out, reader.ClientSafePipeHandle))
                     {
                         var tar = new TarWriter(writer);
-                        await tar.CreateEntriesFromDirectoryAsync(directory, ".");
+                        await tar.CreateEntriesFromDirectoryAsync(directory, ".", CancelSignal.Token);
                         await tar.CloseAsync();
                         writer.Close();
                     }
-                });
+                }, CancelSignal.Token);
 
                 var parameters = new ImageBuildParameters
                 {
@@ -89,43 +89,66 @@ namespace Docker.PowerShell.Cmdlets
                 }
                 else if (!string.IsNullOrEmpty(Tag))
                 {
-                    throw new Exception("tag without a repo???");
+                    throw new Exception("You must specify a repository name in order to specify a tag.");
                 }
 
                 string imageId = null;
                 bool failed = false;
 
-                var buildTask = DkrClient.Miscellaneous.BuildImageFromDockerfileAsync(reader, parameters, CancelSignal.Token);
-                using (var progress = await buildTask)
-                using (var progressReader = new StreamReader(progress, new UTF8Encoding(false)))
+                var progress = new Progress<ProgressReader.Status>();
+                var progressRecord = new ProgressRecord(0, "Dockerfile context", "Uploading");
+                progress.ProgressChanged += (o, status) =>
                 {
-                    string line;
-                    while ((line = progressReader.ReadLine()) != null)
+                    if (status.Complete)
                     {
-                        var message = JsonConvert.DeserializeObject<JsonMessage>(line);
-                        if (message.Stream != null)
+                        progressRecord.CurrentOperation = null;
+                        progressRecord.StatusDescription = "Processing";
+                    }
+                    else
+                    {
+                        progressRecord.StatusDescription = string.Format("Uploaded {0} bytes", status.TotalBytesRead);
+                    }
+
+                    WriteProgress(progressRecord);
+                };
+
+                var progressReader = new ProgressReader(reader, progress, 512 * 1024);
+                var buildTask = DkrClient.Miscellaneous.BuildImageFromDockerfileAsync(progressReader, parameters, CancelSignal.Token);
+                var messageWriter = new JsonMessageWriter(this);
+
+                using (var buildStream = await buildTask)
+                {
+                    // Complete the upload progress bar.
+                    progressRecord.RecordType = ProgressRecordType.Completed;
+                    WriteProgress(progressRecord);
+
+                    // ReadLineAsync is not cancellable without closing the whole stream, so register a callback to do just that.
+                    using (CancelSignal.Token.Register(() => buildStream.Close()))
+                    using (var buildReader = new StreamReader(buildStream, new UTF8Encoding(false)))
+                    {
+                        string line;
+                        while ((line = await buildReader.ReadLineAsync()) != null)
                         {
-                            if (message.Stream.StartsWith(_successfullyBuilt))
+                            var message = JsonConvert.DeserializeObject<JsonMessage>(line);
+                            if (message.Stream != null && message.Stream.StartsWith(_successfullyBuilt))
                             {
                                 // This is probably the image ID.
                                 imageId = message.Stream.Substring(_successfullyBuilt.Length).Trim();
                             }
 
-                            var infoRecord = new HostInformationMessage();
-                            infoRecord.Message = message.Stream;
-                            WriteInformation(infoRecord, new string[] { "PSHOST" });
-                        }
+                            if (message.Error != null)
+                            {
+                                failed = true;
+                            }
 
-                        if (message.Error != null)
-                        {
-                            var error = new ErrorRecord(new Exception(message.Error.Message), null, ErrorCategory.OperationStopped, null);
-                            WriteError(error);
-                            failed = true;
+                            messageWriter.WriteJsonMessage(message);
                         }
                     }
                 }
 
+                messageWriter.ClearProgress();
                 await tarTask;
+
                 if (imageId == null && !failed)
                 {
                     throw new Exception("Could not find image, but no error was returned");
