@@ -1,5 +1,4 @@
-﻿using System;
-using System.Management.Automation;
+﻿using System.Management.Automation;
 using Docker.DotNet;
 using System.Threading;
 using System.Threading.Tasks;
