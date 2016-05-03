@@ -1,14 +1,18 @@
+using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Tar
 {
     public static class TarReaderExtensions
     {
-        public static async Task ExtractDirectoryAsync(this TarReader reader, string basePath)
+        public static async Task ExtractDirectoryAsync(this TarReader reader, string basePath, CancellationToken cancellationToken, IProgress<string> progress = null)
         {
             for (; ;)
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 var entry = await reader.GetNextEntryAsync();
                 if (entry == null)
                 {
@@ -16,6 +20,10 @@ namespace Tar
                 }
 
                 var path = Path.Combine(basePath, entry.Name);
+                if (progress != null)
+                {
+                    progress.Report(entry.Name);
+                }
 
                 switch (entry.Type)
                 {
@@ -23,7 +31,8 @@ namespace Tar
                     case TarEntryType.File:
                         using (var file = File.OpenWrite(path))
                         {
-                            await reader.CurrentFile.CopyToAsync(file);
+                            const int bufferSize = 81920; // Default buffer size for CopyToAsync.
+                            await reader.CurrentFile.CopyToAsync(file, bufferSize, cancellationToken);
                         }
                         File.SetLastWriteTimeUtc(path, entry.ModifiedTime);
                         break;

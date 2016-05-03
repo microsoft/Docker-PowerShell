@@ -8,7 +8,7 @@ namespace Docker.PowerShell.Cmdlets
     [Cmdlet(VerbsLifecycle.Start, "Container",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
     [OutputType(typeof(ContainerListResponse))]
-    public class StartContainer : ContainerOperationCmdlet
+    public class StartContainer : MultiContainerOperationCmdlet
     {
         #region Parameters
 

@@ -7,7 +7,7 @@ namespace Docker.PowerShell.Cmdlets
     [Cmdlet(VerbsCommon.Get, "ContainerDetail",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
     [OutputType(typeof(ContainerInspectResponse))]
-    public class GetContainerDetail : ContainerOperationCmdlet
+    public class GetContainerDetail : MultiContainerOperationCmdlet
     {
         #region Overrides
 

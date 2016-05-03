@@ -33,6 +33,7 @@ Copyright = 'Copyright (c) 2016 Microsoft'
 # Cmdlets to export from this module
 CmdletsToExport = @(
     'ConvertTo-ContainerImage',
+    'Copy-ContainerFile',
     'Get-Container',
     'Get-ContainerDetail',
     'Get-ContainerImage',

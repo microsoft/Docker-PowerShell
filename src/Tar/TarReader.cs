@@ -327,6 +327,11 @@ namespace Tar
                 count = (int)_remaining;
             }
 
+            if (count == 0)
+            {
+                return 0;
+            }
+
             int read = _stream.Read(buffer, offset, count);
             if (read == 0 && count > 0)
             {
@@ -342,6 +347,11 @@ namespace Tar
             if (count > _remaining)
             {
                 count = (int)_remaining;
+            }
+
+            if (count == 0)
+            {
+                return 0;
             }
 
             int read = await _stream.ReadAsync(buffer, offset, count, cancellationToken);

@@ -6,7 +6,7 @@ namespace Docker.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.Remove, "Container",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
-    public class RemoveContainer : ContainerOperationCmdlet
+    public class RemoveContainer : MultiContainerOperationCmdlet
     {
         #region Parameters
 
