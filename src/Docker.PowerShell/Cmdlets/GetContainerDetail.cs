@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace Docker.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Get, "ContainerDetails",
+    [Cmdlet(VerbsCommon.Get, "ContainerDetail",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
     [OutputType(typeof(ContainerInspectResponse))]
-    public class GetContainerDetails : ContainerOperationCmdlet
+    public class GetContainerDetail : ContainerOperationCmdlet
     {
         #region Overrides
 
