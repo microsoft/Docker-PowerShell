@@ -14,6 +14,6 @@
     "net46": {}
   },
   "publishOptions": {
-    "include": ["Docker.psd1"]
+    "include": ["Docker.psd1", "Docker.Format.ps1xml"]
   }
 }
