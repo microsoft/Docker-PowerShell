@@ -44,7 +44,7 @@ namespace Docker.PowerShell.Cmdlets
                     if (!await DkrClient.Containers.StopContainerAsync(
                             id,
                             new ContainerStopParameters(),
-                            CancelSignal.Token))
+                            CmdletCancellationToken))
                     {
                         throw new ApplicationFailedException("The container has already stopped.");
                     }

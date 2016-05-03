@@ -29,7 +29,7 @@ namespace Docker.PowerShell.Cmdlets
             {
                 var waitResponse = await DkrClient.Containers.WaitContainerAsync(
                     id,
-                    CancelSignal.Token);
+                    CmdletCancellationToken);
 
                 WriteVerbose("Status Code: " + waitResponse.StatusCode.ToString());
                 ContainerOperations.ThrowOnProcessExitCode(waitResponse.StatusCode);

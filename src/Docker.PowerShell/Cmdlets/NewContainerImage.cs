@@ -52,19 +52,8 @@ namespace Docker.PowerShell.Cmdlets
             var directory = System.IO.Path.Combine(SessionState.Path.CurrentFileSystemLocation.Path, Path ?? "");
             WriteVerbose(string.Format("Archiving the contents of {0}", directory));
 
-            using (var reader = new AnonymousPipeServerStream(PipeDirection.In, HandleInheritability.None, 65536))
+            using (var reader = Archiver.CreateTarStream(directory, CmdletCancellationToken))
             {
-                var tarTask = Task.Factory.StartNew(async () =>
-                {
-                    using (var writer = new AnonymousPipeClientStream(PipeDirection.Out, reader.ClientSafePipeHandle))
-                    {
-                        var tar = new TarWriter(writer);
-                        await tar.CreateEntriesFromDirectoryAsync(directory, ".", CancelSignal.Token);
-                        await tar.CloseAsync();
-                        writer.Close();
-                    }
-                }, CancelSignal.Token);
-
                 var parameters = new ImageBuildParameters
                 {
                     NoCache = SkipCache.ToBool(),
@@ -113,7 +102,7 @@ namespace Docker.PowerShell.Cmdlets
                 };
 
                 var progressReader = new ProgressReader(reader, progress, 512 * 1024);
-                var buildTask = DkrClient.Miscellaneous.BuildImageFromDockerfileAsync(progressReader, parameters, CancelSignal.Token);
+                var buildTask = DkrClient.Miscellaneous.BuildImageFromDockerfileAsync(progressReader, parameters, CmdletCancellationToken);
                 var messageWriter = new JsonMessageWriter(this);
 
                 using (var buildStream = await buildTask)
@@ -123,7 +112,7 @@ namespace Docker.PowerShell.Cmdlets
                     WriteProgress(progressRecord);
 
                     // ReadLineAsync is not cancellable without closing the whole stream, so register a callback to do just that.
-                    using (CancelSignal.Token.Register(() => buildStream.Close()))
+                    using (CmdletCancellationToken.Register(() => buildStream.Close()))
                     using (var buildReader = new StreamReader(buildStream, new UTF8Encoding(false)))
                     {
                         string line;
@@ -147,14 +136,14 @@ namespace Docker.PowerShell.Cmdlets
                 }
 
                 messageWriter.ClearProgress();
-                await tarTask;
-
-                if (imageId == null && !failed)
+                if (imageId != null)
+                {
+                    WriteObject(await ContainerOperations.GetImageById(imageId, DkrClient));
+                }
+                else if (!failed)
                 {
                     throw new Exception("Could not find image, but no error was returned");
                 }
-
-                WriteObject(await ContainerOperations.GetImageById(imageId, DkrClient));
             }
         }
 
