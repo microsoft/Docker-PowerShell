@@ -15,6 +15,7 @@ namespace Docker.PowerShell.Cmdlets
                    Position = 0,
                    Mandatory = true)]
         [ValidateNotNullOrEmpty]
+        [ArgumentCompleter(typeof(ContainerArgumentCompleter))]
         public string[] Id { get; set; }
 
         /// <summary>
