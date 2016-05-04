@@ -34,7 +34,7 @@ Copyright = 'Copyright (c) 2016 Microsoft'
 CmdletsToExport = @(
     'ConvertTo-ContainerImage',
     'Get-Container',
-    'Get-ContainerDetails',
+    'Get-ContainerDetail',
     'Get-ContainerImage',
     'Get-ContainerNetwork',
     'New-Container',
