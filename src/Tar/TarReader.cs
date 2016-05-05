@@ -195,7 +195,7 @@ namespace Tar
             return entry;
         }
 
-        public async Task<string> ReadGNUEntryData()
+        private async Task<string> ReadGNUEntryData()
         {
             using (var reader = new StreamReader(CurrentFile, TarCommon.UTF8))
             {

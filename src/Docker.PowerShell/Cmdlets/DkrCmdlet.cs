@@ -20,7 +20,9 @@ namespace Docker.PowerShell.Cmdlets
     {
         #region Private members
 
-        protected CancellationTokenSource CancelSignal = new CancellationTokenSource();
+        private CancellationTokenSource CancelSignal = new CancellationTokenSource();
+
+        protected CancellationToken CmdletCancellationToken => CancelSignal.Token;
 
         protected DockerClient DkrClient
         {

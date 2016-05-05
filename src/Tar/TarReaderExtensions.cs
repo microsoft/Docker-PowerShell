@@ -5,7 +5,7 @@ namespace Tar
 {
     public static class TarReaderExtensions
     {
-        public static async Task ExtractDirectory(this TarReader reader, string basePath)
+        public static async Task ExtractDirectoryAsync(this TarReader reader, string basePath)
         {
             for (; ;)
             {
