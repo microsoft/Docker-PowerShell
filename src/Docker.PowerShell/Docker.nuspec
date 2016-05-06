@@ -11,8 +11,4 @@
     <copyright>Copyright (c) Microsoft</copyright>
     <description>This package contains Docker PowerShell cmdlets that can be used to interact with Windows and Linux Docker hosts.</description>
   </metadata>
-  <files>
-    <file src="*.dll" target="" />
-    <file src="Docker.psd1" target="" />
-  </files>
 </package>

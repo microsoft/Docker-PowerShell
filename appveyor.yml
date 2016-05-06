@@ -27,7 +27,7 @@ build_script:
     (Get-Content $manifest -Raw) -replace "ModuleVersion.+","ModuleVersion = '$version'" | Out-File $manifest
 - ps: dotnet restore
 - ps: dotnet publish -r win -o bin -c Release src/Docker.PowerShell
-- ps: nuget pack src/Docker.PowerShell/Docker.nuspec -BasePath bin -OutputDirectory bin -Version $version
+- ps: nuget pack src/Docker.PowerShell/Docker.nuspec -BasePath bin -OutputDirectory bin -Symbols -Version $version
 test: off
 artifacts:
 - path: bin/*.nupkg
