@@ -2,9 +2,7 @@
 using System.Threading.Tasks;
 using System.Management.Automation;
 using Docker.PowerShell.Objects;
-using System.IO.Pipes;
 using Docker.DotNet.Models;
-using Tar;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
