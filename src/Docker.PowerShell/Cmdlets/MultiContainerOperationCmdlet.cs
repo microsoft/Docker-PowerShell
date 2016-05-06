@@ -3,7 +3,7 @@ using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
-    public abstract class ContainerOperationCmdlet : DkrCmdlet
+    public abstract class MultiContainerOperationCmdlet : DkrCmdlet
     {
         #region Parameters
 

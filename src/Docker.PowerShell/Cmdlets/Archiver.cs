@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace Docker.PowerShell.Cmdlets
 {
     internal static class Archiver
     {
-        public static Stream CreateTarStream(string path, CancellationToken cancellationToken)
+        public static Stream CreateTarStream(IList<string> paths, CancellationToken cancellationToken, IProgress<string> progress = null)
         {
             var pipe = new Pipe();
             var reader = new PipeReadStream(pipe);
@@ -21,7 +22,24 @@ namespace Docker.PowerShell.Cmdlets
                         try
                         {
                             var tar = new TarWriter(writer);
-                            await tar.CreateEntriesFromDirectoryAsync(path, ".", cancellationToken);
+                            foreach (var path in paths)
+                            {
+                                var fi = new FileInfo(path);
+                                if (fi.Attributes.HasFlag(FileAttributes.Directory))
+                                {
+                                    await tar.CreateEntriesFromDirectoryAsync(path, ".", cancellationToken, progress);
+                                }
+                                else
+                                {
+                                    if (progress != null)
+                                    {
+                                        progress.Report(path);
+                                    }
+
+                                    await tar.CreateEntryFromFileAsync(path, Path.GetFileName(path), cancellationToken);
+                                }
+                            }
+                            await tar.CloseAsync();
                         }
                         catch (Exception e)
                         {

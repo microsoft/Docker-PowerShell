@@ -54,8 +54,13 @@ namespace Tar
             return writer.CreateEntryFromFileInfoAsync(fi, entryName, cancellationToken);
         }
 
-        public static async Task CreateEntriesFromDirectoryAsync(this TarWriter writer, string path, string entryBase, CancellationToken cancellationToken)
+        public static async Task CreateEntriesFromDirectoryAsync(this TarWriter writer, string path, string entryBase, CancellationToken cancellationToken, IProgress<string> progress = null)
         {
+            if (progress != null)
+            {
+                progress.Report(path);
+            }
+
             await CreateEntryFromFileAsync(writer, path, entryBase, cancellationToken);
 
             // Keep a stack of directory enumerations in order to write the
@@ -75,6 +80,12 @@ namespace Tar
                         var filePath = enumerator.Current;
                         var fileName = filePath.Substring(path.Length + 1);
                         var fi = new FileInfo(filePath);
+                        var tarPath = Path.Combine(entryBase, fileName);
+                        if (progress != null)
+                        {
+                            progress.Report(filePath);
+                        }
+
                         await writer.CreateEntryFromFileInfoAsync(fi, Path.Combine(entryBase, fileName), cancellationToken);
                         if (fi.Attributes.HasFlag(FileAttributes.Directory))
                         {

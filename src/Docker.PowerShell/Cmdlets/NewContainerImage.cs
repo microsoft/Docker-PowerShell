@@ -48,9 +48,16 @@ namespace Docker.PowerShell.Cmdlets
         protected override async Task ProcessRecordAsync()
         {
             var directory = System.IO.Path.Combine(SessionState.Path.CurrentFileSystemLocation.Path, Path ?? "");
+
+            // Ensure the path is a directory.
+            if (!Directory.Exists(directory))
+            {
+                throw new DirectoryNotFoundException(directory);
+            }
+
             WriteVerbose(string.Format("Archiving the contents of {0}", directory));
 
-            using (var reader = Archiver.CreateTarStream(directory, CmdletCancellationToken))
+            using (var reader = Archiver.CreateTarStream(new List<string> { directory }, CmdletCancellationToken))
             {
                 var parameters = new ImageBuildParameters
                 {

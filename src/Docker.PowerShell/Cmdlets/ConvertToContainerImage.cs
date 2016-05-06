@@ -9,7 +9,7 @@ namespace Docker.PowerShell.Cmdlets
             DefaultParameterSetName = CommonParameterSetNames.Default)]
     [Alias("Commit-Container")]
     [OutputType(typeof(ImagesListResponse))]
-    public class ConvertToContainerImage : ContainerOperationCmdlet
+    public class ConvertToContainerImage : MultiContainerOperationCmdlet
     {
         #region Parameters
 
