@@ -103,11 +103,11 @@ namespace Docker.PowerShell.Objects
         /// Throws a ContainerProcessExitException if the given exit code is non-zero.
         /// </summary>
         /// <param name="exitCode">The process exit code.</param>
-        internal static void ThrowOnProcessExitCode(int exitCode)
+        internal static void ThrowOnProcessExitCode(long exitCode)
         {
             if (exitCode != 0)
             {
-                throw new ContainerProcessExitException(exitCode);
+                throw new ContainerProcessExitException((int)exitCode);
             }
         }
     }
