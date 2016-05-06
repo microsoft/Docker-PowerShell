@@ -28,7 +28,7 @@ Copyright = 'Copyright (c) 2016 Microsoft'
 #TypesToProcess = 'Docker.PowerShell.Types.ps1xml'
 
 # Format files (.ps1xml) to be loaded when importing this module
-#FormatsToProcess = 'Docker.PowerShell.Format.ps1xml'
+FormatsToProcess = 'Docker.Format.ps1xml'
 
 # Cmdlets to export from this module
 CmdletsToExport = @(
@@ -37,6 +37,7 @@ CmdletsToExport = @(
     'Get-ContainerDetail',
     'Get-ContainerImage',
     'Get-ContainerNetwork',
+    'Get-ContainerNetworkDetail',
     'New-Container',
     'New-ContainerImage',
     'Remove-Container',
