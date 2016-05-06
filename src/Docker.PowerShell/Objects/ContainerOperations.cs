@@ -16,7 +16,7 @@ namespace Docker.PowerShell.Objects
 
     public class ContainerProcessExitException : Exception
     {
-        public ContainerProcessExitException(int exitCode) : base(String.Format("Container process exited with non-zero exit code: {0}", exitCode)) { }
+        public ContainerProcessExitException(long exitCode) : base(String.Format("Container process exited with non-zero exit code: {0}", exitCode)) { }
     }
 
     internal static class ContainerOperations
@@ -103,7 +103,7 @@ namespace Docker.PowerShell.Objects
         /// Throws a ContainerProcessExitException if the given exit code is non-zero.
         /// </summary>
         /// <param name="exitCode">The process exit code.</param>
-        internal static void ThrowOnProcessExitCode(int exitCode)
+        internal static void ThrowOnProcessExitCode(long exitCode)
         {
             if (exitCode != 0)
             {
