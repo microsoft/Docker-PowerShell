@@ -1,9 +1,11 @@
 version: '0.0.0.{build}'
 pull_requests:
   do_not_increment_build_number: true
+image: WMF 5
 init:
 - ps: (new-object net.webclient).DownloadFile('https://dotnetcli.blob.core.windows.net/dotnet/beta/Installers/Latest/dotnet-dev-win-x64.latest.exe', "c:/dotnet-install.exe")
 - ps: Start-Process c:\dotnet-install.exe -ArgumentList "/install","/quiet" -Wait
+- ps: Install-PackageProvider NuGet -Force
 install:
 - cmd: git submodule update --init --recursive
 nuget:
@@ -18,16 +20,22 @@ build_script:
       $version = $version.Remove($version.LastIndexOf(".")) + ".0"
     }
 
+    # PowerShell does not support prerelease versions
+    $psversion = $version.Split("-")[0]
+
     $projectFile = "src\Docker.PowerShell\project.json"
     $project =  Get-Content $projectFile -Raw | ConvertFrom-Json
     $project.version = $version
     ConvertTo-Json $project | Out-File -Encoding UTF8 $projectFile
 
     $manifest = "src\Docker.PowerShell\Docker.psd1"
-    (Get-Content $manifest -Raw) -replace "ModuleVersion.+","ModuleVersion = '$version'" | Out-File $manifest
+    (Get-Content $manifest -Raw) -replace "ModuleVersion.+","ModuleVersion = '$psversion'" | Out-File $manifest
 - ps: dotnet restore
 - ps: dotnet publish -r win -o bin -c Release src/Docker.PowerShell
-- ps: nuget pack src/Docker.PowerShell/Docker.nuspec -BasePath bin -OutputDirectory bin -Version $version
-test: off
+- ps: nuget pack src/Docker.PowerShell/Docker.nuspec -BasePath bin -OutputDirectory bin -Symbols -Version $psversion
+test_script:
+- ps: Register-PSRepository -Name test -SourceLocation $pwd\bin
+- ps: Install-Module -Name Docker -Repository test -Force
+- ps: Import-Module Docker
 artifacts:
 - path: bin/*.nupkg
