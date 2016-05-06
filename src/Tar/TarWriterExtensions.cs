@@ -78,7 +78,7 @@ namespace Tar
                     while (enumerator.MoveNext())
                     {
                         var filePath = enumerator.Current;
-                        var fileName = filePath.Substring(path.Length + 1);
+                        var fileName = filePath.Substring(path.Length).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
                         var fi = new FileInfo(filePath);
                         var tarPath = Path.Combine(entryBase, fileName);
                         if (progress != null)
