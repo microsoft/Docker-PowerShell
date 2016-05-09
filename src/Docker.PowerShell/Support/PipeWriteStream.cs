@@ -3,22 +3,22 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Docker.PowerShell.Cmdlets
+namespace Docker.PowerShell.Support
 {
-    internal class PipeReadStream : Stream
+    internal class PipeWriteStream : Stream
     {
-        public PipeReadStream(Pipe pipe)
+        public PipeWriteStream(Pipe pipe)
         {
             _pipe = pipe;
         }
 
         private Pipe _pipe;
 
-        public override bool CanRead => true;
+        public override bool CanRead => false;
 
         public override bool CanSeek => false;
 
-        public override bool CanWrite => false;
+        public override bool CanWrite => true;
 
         public override long Length { get { throw new NotImplementedException(); } }
 
@@ -33,7 +33,7 @@ namespace Docker.PowerShell.Cmdlets
             throw new NotImplementedException();
         }
 
-        public override void Write(byte[] buffer, int offset, int count)
+        public override int Read(byte[] buffer, int offset, int count)
         {
             throw new NotImplementedException();
         }
@@ -48,26 +48,24 @@ namespace Docker.PowerShell.Cmdlets
             throw new NotImplementedException();
         }
 
-        public override int Read(byte[] buffer, int offset, int count)
+        public override void Write(byte[] buffer, int offset, int count)
         {
-            var task = _pipe.ReadAsync(buffer, offset, count, CancellationToken.None);
-            task.Wait();
-            return task.Result;
+            _pipe.WriteAsync(buffer, offset, count, CancellationToken.None).Wait();
         }
 
-        public override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
+        public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
         {
-            return _pipe.ReadAsync(buffer, offset, count, cancellationToken);
+            return _pipe.WriteAsync(buffer, offset, count, cancellationToken);
         }
 
         public override void Close()
         {
-            _pipe.CloseReader();
+            _pipe.CloseWriter();
         }
 
         public void Close(Exception e)
         {
-            _pipe.CloseReader(e);
+            _pipe.CloseWriter(e);
         }
     }
 }

@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Docker.PowerShell.Cmdlets
+namespace Docker.PowerShell.Support
 {
     internal class Pipe
     {

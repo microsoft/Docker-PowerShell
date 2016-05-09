@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Docker.PowerShell.Cmdlets
+namespace Docker.PowerShell.Support
 {
     /// <summary>Provides a pump that supports running asynchronous methods on the current thread.</summary>
     public static class AsyncPump

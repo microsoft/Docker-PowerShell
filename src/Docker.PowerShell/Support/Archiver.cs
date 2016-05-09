@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Tar;
 
-namespace Docker.PowerShell.Cmdlets
+namespace Docker.PowerShell.Support
 {
     internal static class Archiver
     {
