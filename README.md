@@ -1,14 +1,41 @@
 # PowerShell for Docker
-The goal of this project is to create a PowerShell module for the [Docker Engine]( https://github.com/docker/docker/), which can be utilized as an alternative or in conjunction with the Docker client (CLI).
-## Current version
-  0.0.0-alpha (pre-release)
+This repo contains a PowerShell module for the [Docker Engine](
+https://github.com/docker/docker/). It can be used as an alternative to the
+Docker command-line interface (`docker`), or along side it. It can target a
+Docker daemon running on any operating system that supports Docker, including
+both Windows and Linux.
+
+Note that this module is still in alpha status and is likely to change rapidly.
+
+## Dependencies
+* Windows or Windows Server (Nano Server coming soon)
+* PowerShell 5 (available in Windows 10, Server 2016 Preview, or by installing
+  [WMF 5](https://www.microsoft.com/en-us/download/details.aspx?id=50395))
+* A recent Docker endpoint, running either locally or on a remote machine
+
+Note that there is no dependency on the docker client.
+
+Currently, the Docker endpoint must support API version 1.24, which is still in
+development. Practically speaking, this means you will need a development build
+of Docker. If your Docker endpoint is running Windows Server Technical Preview
+5, that should be new enough.
 
 ## Installation
-Currently there are no released versions to try. The following information will
-allow you to install development builds -- do understand that these are early
-builds and will change (hopefully with your feedback).
+PowerShell for Docker is in prerelease, and there are no officially released
+versions to try. However, you can try the development builds below and give us
+feedback.
 
-The dev builds are updated for every commit to master and are released to https://ci.appveyor.com/nuget/docker-powershell-dev. To install the latest build, in PowerShell run:
+### Development Builds
+
+![build status](https://ci.appveyor.com/api/projects/status/ysh1lrw8fxjjylpo/branch/master)
+
+The following information will allow you to install development builds -- do
+understand that these are early builds and will change (hopefully with your
+feedback).
+
+The dev builds are updated for every commit to master and are released to
+https://ci.appveyor.com/nuget/docker-powershell-dev. To install the latest
+build, in PowerShell run:
 
     > Register-PSRepository -Name DockerPS-Dev -SourceLocation https://ci.appveyor.com/nuget/docker-powershell-dev
 
@@ -18,40 +45,50 @@ After this, you can update to new development builds with just:
 
     > Update-Module Docker
 
-## Requirements and Goals
-### Requirements
-1.	Must follow the Docker Remote API interop and breaking change policy (https://docs.docker.com/engine/breaking_changes/)
-2.	Must work locally or remotely, with remote following appropriate authentication and security mechanisms (i.e. TLS).
+## Contributions
+We welcome contributions to this project in the form of issues (bugs,
+suggestions, proposals, etc.) and pull requests.
 
-### Goals
-* Follow the PowerShell design guidelines (https://msdn.microsoft.com/en-us/library/ms714657(v=vs.85).aspx).
-* Follow the general design and usage patterns of Docker
-* Must remain CoreCLR compliant (see links below). Note that given the current requirements for the Docker.DotNet.X509, the project is still compiling for net46 instead of netstandard.  However, once updated implementation for TLS authentication is present, the project will be updated for netstandard and expected to compile and function on Nano Server using the .NET Core CLR and Core Libraries available there.
-
-
-####.Net Core and Core PowerShell Resources
-##### GitHub Repo’s for .Net Core CLR and .Net Core Libraries
-* https://github.com/dotnet/coreclr
-* https://github.com/dotnet/core
-
-##### Good Resources Explaining .Net Core
-* https://blogs.msdn.microsoft.com/dotnet/2016/02/10/porting-to-net-core/
-* https://technet.microsoft.com/en-us/library/hh849695.aspx
+For pull requests, we do require that you sign the [Microsoft Contribution
+License Agreement](https://cla.microsoft.com/). It is a simple process that you
+only need to complete once.
 
 ## Compilation
-To compile this project, use the dotnet CLI (https://github.com/dotnet/cli) to execute a restore command followed by a publish command:
+To compile this project, you need the following:
+* A recent build of the [.NET Core SDK](https://github.com/dotnet/cli)
+* The .NET 4.6 SDK. You get this either by:
+  * Installing Visual Studio 2015 or
+  * Downloading the [.NET 4.6 Targeting
+Pack](https://www.microsoft.com/en-us/download/details.aspx?id=48136)
+
+Once these are installed, you can run:
 
     > dotnet restore
 
     > dotnet publish .\src\Docker.PowerShell -o .\src\Docker.PowerShell\bin\Module\Docker -r win
 
-This will produce the PowerShell module at `.\src\Docker.PowerShell\bin\Module\Docker` in the project folder.  If Visual Studio is not already installed, the dotnet CLI may require an additional installation of the .NET 4.6 developer pack (https://www.microsoft.com/en-us/download/details.aspx?id=48136).
+This will produce the PowerShell module at
+`.\src\Docker.PowerShell\bin\Module\Docker` in the project folder.
+
+You will only need to run `dotnet restore` once unless you pull changes that
+update the project dependencies in project.json.
 
 ### Git submodules for Docker.DotNet
-This project uses Docker.DotNet as a git submodule (`git submodule --help` to view manual pages for submodule).  When first starting a new clone of Docker.Powershell, this requires one-time initializtion of the submodule with `git submodule update --init --remote` to prepare the directories used by the submodule. When making changes to Docker.PowerShell that use corresponding changes made to Docker.DotNet master branch, use `git submodule update --remote` to sync the submodule to the latest in master, and include the updated commit id for the submodule in the changes submitted to Docker.Powershell.
+This project uses Docker.DotNet as a git submodule (`git submodule --help` to
+view manual pages for submodule).  When first starting a new clone of
+Docker.Powershell, this requires one-time initializtion of the submodule with
+`git submodule update --init --remote` to prepare the directories used by the
+submodule. When making changes to Docker.PowerShell that use corresponding
+changes made to Docker.DotNet master branch, use `git submodule update --remote`
+to sync the submodule to the latest in master, and include the updated commit id
+for the submodule in the changes submitted to Docker.Powershell.
 
-## Using Visual Studio Code
-This project also includes support for Visual Studio Code (https://code.visualstudio.com/, https://github.com/Microsoft/vscode) in the .vscode folder.  Using VSCode on the top-level folder, the restore, build, and test tasks will be available.  Restore will perform `dotnet restore` across the whole project to reload any dependencies. Build will perform the `dotnet publish` command with the arguments listed in the compilation section above.  Test will launch a new powershell window with the module loaded for manual testing.
-
-## High Level Design
-The PowerShell module for Docker is built on top of the Docker Engine REST Interface (https://docs.docker.com/engine/reference/api/docker_remote_api/).
+### Visual Studio Code
+If you use [Visual Studio Code](https://code.visualstudio.com/) as your editor,
+you will find three tasks pre-defined in the top-level directory:
+* `restore` will perform `dotnet restore` across the whole project to reload any
+  dependencies.
+* `build` will perform the `dotnet publish` command with the arguments listed in
+  the compilation section above.
+* `test` will launch a new powershell window with the module loaded for manual
+  testing.
