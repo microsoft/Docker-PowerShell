@@ -13,7 +13,7 @@ public class DockerFactory
 
     public static DockerClient CreateClient(string HostAddress, string CertificateLocation)
     {
-        HostAddress = HostAddress ?? Environment.GetEnvironmentVariable("DOCKER_HOST") ?? "http://127.0.0.1:2375";
+        HostAddress = HostAddress ?? Environment.GetEnvironmentVariable("DOCKER_HOST") ?? "npipe://./pipe/docker_engine";
         CertificateLocation = CertificateLocation ?? Environment.GetEnvironmentVariable("DOCKER_CERT_PATH");
 
         Credentials cred = null;
