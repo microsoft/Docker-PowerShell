@@ -2,6 +2,7 @@
 using Docker.DotNet;
 using System.Threading;
 using System.Threading.Tasks;
+using Docker.PowerShell.Support;
 
 namespace Docker.PowerShell.Cmdlets
 {

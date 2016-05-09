@@ -7,6 +7,7 @@ using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using Docker.PowerShell.Support;
 
 namespace Docker.PowerShell.Cmdlets
 {

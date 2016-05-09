@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Docker.PowerShell.Cmdlets
+namespace Docker.PowerShell.Support
 {
     internal class ProgressReader : Stream
     {

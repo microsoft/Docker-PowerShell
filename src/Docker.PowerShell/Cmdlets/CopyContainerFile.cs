@@ -3,6 +3,7 @@ using System.Linq;
 using System.Management.Automation;
 using System.Threading.Tasks;
 using Docker.DotNet.Models;
+using Docker.PowerShell.Support;
 using Tar;
 
 namespace Docker.PowerShell.Cmdlets
