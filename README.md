@@ -54,6 +54,17 @@ License Agreement](https://cla.microsoft.com/). It is a simple process that you
 only need to complete once.
 
 ## Compilation
+### Before Compiling: Git submodules for Docker.DotNet
+This project uses Docker.DotNet as a git submodule (`git submodule --help` to
+view manual pages for submodule).  When first starting a new clone of
+Docker.Powershell, this requires one-time initializtion of the submodule with
+`git submodule update --init` to prepare the directories used by the
+submodule. When making changes to Docker.PowerShell that use corresponding
+changes made to Docker.DotNet master branch, use `git submodule update --remote`
+to sync the submodule to the latest in master, and include the updated commit id
+for the submodule in the changes submitted to Docker.Powershell.
+
+### Compiling with DotNet CLI
 To compile this project, you need the following:
 * A recent build of the [.NET Core SDK](https://github.com/dotnet/cli)
 * The .NET 4.6 SDK. You get this either by:
@@ -72,16 +83,6 @@ This will produce the PowerShell module at
 
 You will only need to run `dotnet restore` once unless you pull changes that
 update the project dependencies in project.json.
-
-### Git submodules for Docker.DotNet
-This project uses Docker.DotNet as a git submodule (`git submodule --help` to
-view manual pages for submodule).  When first starting a new clone of
-Docker.Powershell, this requires one-time initializtion of the submodule with
-`git submodule update --init --remote` to prepare the directories used by the
-submodule. When making changes to Docker.PowerShell that use corresponding
-changes made to Docker.DotNet master branch, use `git submodule update --remote`
-to sync the submodule to the latest in master, and include the updated commit id
-for the submodule in the changes submitted to Docker.Powershell.
 
 ### Visual Studio Code
 If you use [Visual Studio Code](https://code.visualstudio.com/) as your editor,
