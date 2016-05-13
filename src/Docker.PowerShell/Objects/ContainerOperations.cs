@@ -60,6 +60,12 @@ namespace Docker.PowerShell.Objects
                 hostConfiguration.Isolation = cmdlet.Isolation.ToString();
             }
 
+            configuration.Tty = cmdlet.Terminal.ToBool();
+            configuration.OpenStdin = cmdlet.Input.ToBool();
+            configuration.AttachStdin = cmdlet.Input.ToBool();
+            configuration.AttachStdout = true;
+            configuration.AttachStderr = true;
+
             return dkrClient.Containers.CreateContainerAsync(
                 new CreateContainerParameters(configuration)
                 {

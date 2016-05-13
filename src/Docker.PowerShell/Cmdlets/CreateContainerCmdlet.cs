@@ -56,6 +56,21 @@ namespace Docker.PowerShell.Cmdlets
         [Parameter(ParameterSetName = CommonParameterSetNames.ConfigObject)]
         public HostConfig HostConfiguration { get; set; }
 
+        /// <summary>
+        /// Keep the input pipe of the container open.
+        /// </summary>
+        [Parameter(ParameterSetName = CommonParameterSetNames.Default)]
+        [Parameter(ParameterSetName = CommonParameterSetNames.ImageObject)]
+        public SwitchParameter Input { get; set; }
+
+        /// <summary>
+        /// Allocate a terminal for the container's process so that it can
+        /// be used interactively.
+        /// </summary>
+        [Parameter(ParameterSetName = CommonParameterSetNames.Default)]
+        [Parameter(ParameterSetName = CommonParameterSetNames.ImageObject)]
+        public SwitchParameter Terminal { get; set; }
+
         #endregion
     }
 

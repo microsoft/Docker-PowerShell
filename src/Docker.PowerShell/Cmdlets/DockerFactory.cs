@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using Docker.DotNet;
 using Docker.DotNet.X509;
@@ -16,17 +15,17 @@ public class DockerFactory
         HostAddress = HostAddress ?? Environment.GetEnvironmentVariable("DOCKER_HOST") ?? "npipe://./pipe/docker_engine";
         CertificateLocation = CertificateLocation ?? Environment.GetEnvironmentVariable("DOCKER_CERT_PATH");
 
-        Credentials cred = null;
+        CertificateCredentials cred = null;
         if (!string.IsNullOrEmpty(CertificateLocation))
         {
-            //BUGBUG(swernli) - Remove this later in favor of something better.
-            ServicePointManager.ServerCertificateValidationCallback += (o, c, ch, er) => true;
-
             // Try to find a certificate for secure connections.
             cred = new CertificateCredentials(
                     new X509Certificate2(
                         System.IO.Path.Combine(CertificateLocation, KeyFileName),
                         certPass));
+
+            //BUGBUG(swernli) - Remove this later in favor of something better.
+            cred.ServerCertificateValidationCallback = (o, c, ch, er) => true;
         }
 
         return new DockerClientConfiguration(new Uri(HostAddress), cred).CreateClient(new Version(ApiVersion));
