@@ -66,11 +66,12 @@ for the submodule in the changes submitted to Docker.Powershell.
 
 ### Compiling with DotNet CLI
 To compile this project, you need the following:
-* A recent build of the [.NET Core SDK](https://github.com/dotnet/cli)
-* The .NET 4.6 SDK. You get this either by:
+* A recent build of the [.NET Core SDK](https://github.com/dotnet/cli/releases)
+* The .NET 4.6 and 4.5 SDKs. You get these either by:
   * Installing Visual Studio 2015 or
   * Downloading the [.NET 4.6 Targeting
-Pack](https://www.microsoft.com/en-us/download/details.aspx?id=48136)
+Pack](https://www.microsoft.com/en-us/download/details.aspx?id=48136) 
+and the [Windows SDK for Windows 8 with .NET Framework 4.5](https://developer.microsoft.com/en-us/windows/downloads/windows-8-sdk) 
 
 Once these are installed, you can run:
 
