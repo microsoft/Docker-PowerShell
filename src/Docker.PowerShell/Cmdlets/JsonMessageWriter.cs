@@ -78,7 +78,7 @@ namespace Docker.PowerShell.Cmdlets
                 var info = new StringBuilder();
                 if (message.ID != null)
                 {
-                    info.Append(message);
+                    info.Append(message.ID);
                     info.Append(": ");
                 }
 
