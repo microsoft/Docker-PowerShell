@@ -44,7 +44,7 @@ namespace Docker.PowerShell.Objects
     internal class JsonError
     {
         [JsonProperty(PropertyName = "code")]
-        public int Code { get; set; }
+        public long Code { get; set; }
 
         [JsonProperty(PropertyName = "message")]
         public string Message { get; set; }
