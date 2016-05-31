@@ -14,7 +14,7 @@ namespace Docker.PowerShell.Cmdlets
         [Parameter(ParameterSetName = CommonParameterSetNames.Default)]
         [Parameter(ParameterSetName = CommonParameterSetNames.ImageObject)]
         [ValidateNotNullOrEmpty]
-        public string ContainerName { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The command to use by default when starting new container.
