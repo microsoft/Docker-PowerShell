@@ -16,6 +16,7 @@ namespace Docker.PowerShell.Cmdlets
                    Mandatory = true)]
         [ValidateNotNullOrEmpty]
         [ArgumentCompleter(typeof(ImageArgumentCompleter))]
+        [Alias("ImageName")]
         public string[] Id { get; set; }
 
         /// <summary>
