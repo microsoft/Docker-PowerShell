@@ -69,7 +69,7 @@ namespace Docker.PowerShell.Objects
             return dkrClient.Containers.CreateContainerAsync(
                 new CreateContainerParameters(configuration)
                 {
-                    Name = cmdlet.ContainerName,
+                    Name = cmdlet.Name,
                     HostConfig = hostConfiguration
                 });
         }
