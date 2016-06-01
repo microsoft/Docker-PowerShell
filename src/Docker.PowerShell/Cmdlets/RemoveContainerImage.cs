@@ -11,7 +11,7 @@ namespace Docker.PowerShell.Cmdlets
         #region Parameters
 
         /// <summary>
-        /// Whether or not to force the removal of the container.
+        /// Whether or not to force the removal of the image.
         /// </summary>
         [Parameter]
         public SwitchParameter Force { get; set; }
