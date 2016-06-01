@@ -49,6 +49,7 @@ CmdletsToExport = @(
     'Remove-Container',
     'Remove-ContainerImage',
     'Invoke-ContainerImage',
+    'Set-ContainerImageTag',
     'Start-Container',
     'Stop-Container',
     'Wait-Container'
@@ -59,7 +60,8 @@ CmdletsToExport = @(
 AliasesToExport = @(
     'Commit-Container',
     'Build-ContainerImage',
-    'Run-ContainerImage'
+    'Run-ContainerImage',
+    'Tag-ContainerImage'
 )
 
 # HelpInfo
