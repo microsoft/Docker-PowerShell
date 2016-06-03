@@ -3,6 +3,7 @@ using System.Management.Automation;
 using Docker.PowerShell.Objects;
 using Docker.DotNet.Models;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -38,7 +39,7 @@ namespace Docker.PowerShell.Cmdlets
 
                 if (!String.IsNullOrEmpty(createResult.ID))
                 {
-                    WriteObject(await ContainerOperations.GetContainerById(createResult.ID, DkrClient));
+                    WriteObject((await ContainerOperations.GetContainersById(createResult.ID, DkrClient)).Single());
                 }
             }
         }
