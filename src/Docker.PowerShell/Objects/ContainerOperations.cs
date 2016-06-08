@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Docker.PowerShell.Cmdlets;
+using System.Collections.Generic;
 
 namespace Docker.PowerShell.Objects
 {
@@ -73,18 +74,48 @@ namespace Docker.PowerShell.Objects
                     HostConfig = hostConfiguration
                 });
         }
+        
+        internal static Task<IList<ContainerListResponse>> GetContainersById(string id, DotNet.DockerClient dkrClient)
+        {
+            return (dkrClient.Containers.ListContainersAsync(new ContainersListParameters
+                    { 
+                        All = true, 
+                        Filters = new Dictionary<string, IDictionary<string, bool>> 
+                        {  
+                            {"id", new Dictionary<string, bool>
+                                { 
+                                    {id, true} 
+                                }
+                            }
+                        }
+                    }));
+        }
+
+        internal static Task<IList<ContainerListResponse>> GetContainersByName(string name, DotNet.DockerClient dkrClient)
+        {
+            return (dkrClient.Containers.ListContainersAsync(new ContainersListParameters
+                    { 
+                        All = true, 
+                        Filters = new Dictionary<string, IDictionary<string, bool>> 
+                        {  
+                            {"name", new Dictionary<string, bool>
+                                { 
+                                    {name, true} 
+                                }
+                            }
+                        }
+                    }));
+        }
 
         /// <summary>
-        /// Gets a single container object from the client by id.
+        /// Gets a single container object from the client by id or name.
         /// </summary>
         /// <param name="id">The container identifier to retrieve.</param>
         /// <param name="dkrClient">The client to request the container from.</param>
         /// <returns>The single container object matching the id.</returns>
-        internal static async Task<ContainerListResponse> GetContainerById(string id, DotNet.DockerClient dkrClient)
+        internal static async Task<ContainerListResponse> GetContainerByIdOrName(string id, DotNet.DockerClient dkrClient)
         {
-            // TODO - Have a better way to get the container list response given the ID.
-            return (await dkrClient.Containers.ListContainersAsync(new ContainersListParameters() { All = true })).
-                Single(c => c.ID.StartsWith(id) || c.Names.Any(n => n.Equals("/" + id)));
+            return (await GetContainersByName(id, dkrClient)).Where(c => c.Names.Contains($"/{id}")).Concat(await GetContainersById(id, dkrClient)).Single();
         }
 
         /// <summary>

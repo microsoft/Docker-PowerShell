@@ -35,7 +35,7 @@ namespace Docker.PowerShell.Cmdlets
 
                 if (PassThru.ToBool())
                 {
-                    WriteObject(await ContainerOperations.GetContainerById(id, DkrClient));
+                    WriteObject(await ContainerOperations.GetContainerByIdOrName(id, DkrClient));
                 }
             }
         }
