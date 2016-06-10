@@ -3,6 +3,7 @@ using Docker.DotNet;
 using System.Threading;
 using System.Threading.Tasks;
 using Docker.PowerShell.Support;
+using System;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -75,7 +76,23 @@ namespace Docker.PowerShell.Cmdlets
 
         protected sealed override void ProcessRecord()
         {
-            AsyncPump.Run(ProcessRecordAsync);
+            try
+            {
+                AsyncPump.Run(ProcessRecordAsync);                
+            }
+            catch (Exception e)
+            {
+                if (e is PipelineStoppedException)
+                {
+                    // PipelineStoppedException shouldn't be ignored.
+                    throw e;
+                }
+                else
+                {
+                    // Handle the exception and continue to process other objects.
+                    WriteError(new ErrorRecord(e, "Docker Client Exception", ErrorCategory.NotSpecified, null));
+                }
+            }
         }
 
         protected abstract Task ProcessRecordAsync();
