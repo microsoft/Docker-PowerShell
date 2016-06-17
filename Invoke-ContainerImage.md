@@ -64,7 +64,7 @@ Accept wildcard characters: False
 ```
 
 ### -Command
-{{Fill Command Description}}
+Specifies the command to run in the container.
 
 
 
@@ -83,7 +83,7 @@ Accept wildcard characters: False
 ```
 
 ### -Configuration
-{{Fill Configuration Description}}
+An instance of a Docker.DotNet.Models.Config object with desired configuration values filled out.
 
 
 
@@ -114,7 +114,7 @@ Accept wildcard characters: False
 ```
 
 ### -ContainerName
-{{Fill ContainerName Description}}
+Sets the name of the new container.
 
 
 
@@ -133,7 +133,7 @@ Accept wildcard characters: False
 ```
 
 ### -HostAddress
-{{Fill HostAddress Description}}
+The address of the docker daemon to connect to.
 
 
 
@@ -152,7 +152,7 @@ Accept wildcard characters: False
 ```
 
 ### -HostConfiguration
-{{Fill HostConfiguration Description}}
+A Docker.DotNet.Models.HostConfig object filled in with desired configuration values.
 
 
 
@@ -171,7 +171,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-{{Fill Id Description}}
+The id of the container image.
 
 
 
@@ -190,7 +190,7 @@ Accept wildcard characters: False
 ```
 
 ### -Image
-{{Fill Image Description}}
+Specifies the container image.
 
 
 
@@ -209,7 +209,7 @@ Accept wildcard characters: False
 ```
 
 ### -Input
-{{Fill Input Description}}
+Indicates that the stdin of the container should be kept open.
 
 
 
@@ -228,7 +228,7 @@ Accept wildcard characters: False
 ```
 
 ### -Isolation
-{{Fill Isolation Description}}
+Specifies whether the container should be run as a Hyper-V Container. Options are HyperV, None, or Default.
 
 
 
@@ -248,7 +248,7 @@ Accept wildcard characters: False
 ```
 
 ### -PassThru
-{{Fill PassThru Description}}
+Passes the object through the pipeline.
 
 
 
@@ -267,7 +267,7 @@ Accept wildcard characters: False
 ```
 
 ### -RemoveAutomatically
-{{Fill RemoveAutomatically Description}}
+Automatically removes the container after running.
 
 
 
@@ -286,7 +286,7 @@ Accept wildcard characters: False
 ```
 
 ### -Terminal
-{{Fill Terminal Description}}
+Gives a terminal in the new container.
 
 
 

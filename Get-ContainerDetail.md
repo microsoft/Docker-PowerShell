@@ -34,7 +34,7 @@ Gets details about a container.
 ## PARAMETERS
 
 ### -CertificateLocation
-Specifies certificate location. 
+The location of the X509 certificate file named “key.pfx” that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
 
 
 
@@ -72,7 +72,7 @@ Accept wildcard characters: False
 ```
 
 ### -HostAddress
-Specifies host address.
+The address of the docker daemon to connect to.
 
 
 
@@ -91,7 +91,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-Specifies the id of the container to get details for. This parameter also accepts contaienr name, or a unique subset of the id.
+Specifies the id of the container to get details for. This parameter also accepts container name, or a unique subset of the id.
 
 
 

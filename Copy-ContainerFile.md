@@ -23,7 +23,7 @@ Copy-ContainerFile [-Path] <String[]> [-Destination <String>] [-ToContainer]
 ```
 
 ## DESCRIPTION
-Copies a file into a container
+Copies a file between container and host.
 ## EXAMPLES
 
 ### Example 1
@@ -35,7 +35,7 @@ Copies a file into container
 ## PARAMETERS
 
 ### -CertificateLocation
-Certificate location!
+The location of the X509 certificate file named “key.pfx” that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
 
 
 
@@ -54,7 +54,7 @@ Accept wildcard characters: False
 ```
 
 ### -Container
-This is the container.
+Specifies the container.
 
 
 
@@ -73,7 +73,7 @@ Accept wildcard characters: False
 ```
 
 ### -Destination
-Destination for file.
+Destination location for the file.
 
 
 
@@ -92,7 +92,7 @@ Accept wildcard characters: False
 ```
 
 ### -HostAddress
-Host address goes here
+The address of the docker daemon to connect to.
 
 
 
@@ -111,7 +111,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-Id is id, and also name!
+Id of the container.
 
 
 
@@ -130,7 +130,7 @@ Accept wildcard characters: False
 ```
 
 ### -Path
-Which path will you choose?
+The path of the file to copy.
 
 
 
@@ -149,8 +149,7 @@ Accept wildcard characters: False
 ```
 
 ### -ToContainer
-The container to copy files to
-
+Specifies that the file will be copied from the host into the container.
 
 
 

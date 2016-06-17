@@ -26,7 +26,7 @@ Gets network details for the container "mycontainer"
 ## PARAMETERS
 
 ### -CertificateLocation
-Specifies the certificate location.
+The location of the X509 certificate file named “key.pfx” that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
 
 
 
@@ -45,7 +45,7 @@ Accept wildcard characters: False
 ```
 
 ### -HostAddress
-Specifies host address.
+The address of the docker daemon to connect to.
 
 
 
