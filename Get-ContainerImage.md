@@ -3,29 +3,48 @@ external help file: Docker.PowerShell.dll-Help.xml
 schema: 2.0.0
 ---
 
-# Get-Container
+# Get-ContainerImage
 ## SYNOPSIS
-Get-Container \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Get-ContainerImage \[-All\] \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
 ## SYNTAX
 
 ```
-Get-Container [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
+Get-ContainerImage [-All] [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Returns a list of containers.
+Returns container images.
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> Get-Container
+PS C:\> Get-ContainerImage
 ```
 
-Retrieves a list of containers. 
+Returns a list of container images. 
 ## PARAMETERS
 
+### -All
+Specifies that all images should be retrieved. 
+
+
+
+
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: 
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -CertificateLocation
-Specifies certificate location.
+Specifies the certificate location. 
 
 
 
@@ -44,7 +63,7 @@ Accept wildcard characters: False
 ```
 
 ### -HostAddress
-Specifies Host Address.
+Specifies host address. 
 
 
 
@@ -70,14 +89,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Docker.DotNet.Models.ContainerListResponse
+### Docker.DotNet.Models.ImagesListResponse
 
 ## NOTES
 
-
 ## RELATED LINKS
 
-[Online Version:](https://github.com/aoatkinson/Docker-PowerShell/blob/master/Get-Container.md)
+[Online Version:]()
 
 
 

@@ -3,29 +3,29 @@ external help file: Docker.PowerShell.dll-Help.xml
 schema: 2.0.0
 ---
 
-# Get-Container
+# Get-ContainerNetwork
 ## SYNOPSIS
-Get-Container \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Get-ContainerNetwork \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
 ## SYNTAX
 
 ```
-Get-Container [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
+Get-ContainerNetwork [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Returns a list of containers.
+Gets a container network.
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> Get-Container
+PS C:\> Get-ContainerNetwork -Name mycontainer
 ```
 
-Retrieves a list of containers. 
+Gets network information for the container "mycontainer"
 ## PARAMETERS
 
 ### -CertificateLocation
-Specifies certificate location.
+Specifies the certificate location.
 
 
 
@@ -44,7 +44,7 @@ Accept wildcard characters: False
 ```
 
 ### -HostAddress
-Specifies Host Address.
+Specifies host address.
 
 
 
@@ -70,14 +70,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Docker.DotNet.Models.ContainerListResponse
+### Docker.DotNet.Models.NetworkListResponse
 
 ## NOTES
 
-
 ## RELATED LINKS
 
-[Online Version:](https://github.com/aoatkinson/Docker-PowerShell/blob/master/Get-Container.md)
+[Online Version:]()
 
 
 

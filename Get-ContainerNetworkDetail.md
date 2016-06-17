@@ -3,29 +3,30 @@ external help file: Docker.PowerShell.dll-Help.xml
 schema: 2.0.0
 ---
 
-# Get-Container
+# Get-ContainerNetworkDetail
 ## SYNOPSIS
-Get-Container \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Get-ContainerNetworkDetail \[-Name\] \<string\> \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
 ## SYNTAX
 
 ```
-Get-Container [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
+Get-ContainerNetworkDetail [-Name] <String> [-HostAddress <String>] [-CertificateLocation <String>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Returns a list of containers.
+Gets details about a container's network.
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> Get-Container
+PS C:\> Get-ContainerNetworkDetail -Name mycontainer
 ```
 
-Retrieves a list of containers. 
+Gets network details for the container "mycontainer"
 ## PARAMETERS
 
 ### -CertificateLocation
-Specifies certificate location.
+Specifies the certificate location.
 
 
 
@@ -44,7 +45,7 @@ Accept wildcard characters: False
 ```
 
 ### -HostAddress
-Specifies Host Address.
+Specifies host address.
 
 
 
@@ -62,22 +63,40 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Name
+Specifies the name of the container to get network details for. 
+
+
+
+
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: 
+
+Required: True
+Position: 0
+Default value: 
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 ## INPUTS
 
-### None
+### System.String
 
 ## OUTPUTS
 
-### Docker.DotNet.Models.ContainerListResponse
+### Docker.DotNet.Models.NetworkResponse
 
 ## NOTES
 
-
 ## RELATED LINKS
 
-[Online Version:](https://github.com/aoatkinson/Docker-PowerShell/blob/master/Get-Container.md)
+[Online Version:]()
 
 
 
