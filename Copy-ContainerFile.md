@@ -111,7 +111,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-Id of the container.
+Id of the container to copy a file to/from.
 
 
 
