@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
 using Docker.DotNet;
 using Docker.DotNet.X509;
 
@@ -23,8 +24,7 @@ public class DockerFactory
                         System.IO.Path.Combine(CertificateLocation ?? Environment.GetEnvironmentVariable("DOCKER_CERT_PATH"), KeyFileName),
                         certPass));
 
-            //BUGBUG(swernli) - Remove this later in favor of something better.
-            cred.ServerCertificateValidationCallback = (o, c, ch, er) => true;
+            cred.ServerCertificateValidationCallback = (o, c, ch, er) => er == SslPolicyErrors.None;
         }
 
         return new DockerClientConfiguration(new Uri(HostAddress), cred).CreateClient(new Version(ApiVersion));
