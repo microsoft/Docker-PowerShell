@@ -17,6 +17,8 @@ namespace Docker.PowerShell.Cmdlets
         public const string ContainerName = "ContainerName";
         public const string ImageObject = "ImageObject";
         public const string ConfigObject = "ConfigObject";
+        public const string NetworkName = "NetworkName";
+        public const string NetworkObject = "NetworkObject";
     }
 
     public abstract class DkrCmdlet : PSCmdlet

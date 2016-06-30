@@ -3,7 +3,7 @@ using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Cmdlets
 {
-    public abstract class MultiContainerOperationCmdlet : DkrCmdlet
+    public abstract class NetworkOperationCmdlet : DkrCmdlet
     {
         #region Parameters
 
@@ -12,16 +12,15 @@ namespace Docker.PowerShell.Cmdlets
                    Position = 0,
                    Mandatory = true)]
         [ValidateNotNullOrEmpty]
-        [ArgumentCompleter(typeof(ContainerArgumentCompleter))]
-        [Alias("Name")]
+        [ArgumentCompleter(typeof(NetworkArgumentCompleter))]
         public string[] Id { get; set; }
 
-        [Parameter(ParameterSetName = CommonParameterSetNames.ContainerObject,
+        [Parameter(ParameterSetName = CommonParameterSetNames.NetworkObject,
             ValueFromPipeline = true,
                    Position = 0,
                    Mandatory = true)]
         [ValidateNotNullOrEmpty]
-        public ContainerListResponse[] Container { get; set; }
+        public NetworkListResponse[] Network { get; set; }
 
         #endregion
     }

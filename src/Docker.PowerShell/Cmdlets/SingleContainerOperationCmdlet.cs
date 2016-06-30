@@ -7,9 +7,6 @@ namespace Docker.PowerShell.Cmdlets
     {
         #region Parameters
 
-        /// <summary>
-        /// The Ids for which containers to remove.
-        /// </summary>
         [Parameter(ParameterSetName = CommonParameterSetNames.Default,
             ValueFromPipeline = true,
                    Position = 0,
@@ -19,9 +16,6 @@ namespace Docker.PowerShell.Cmdlets
         [Alias("Name")]
         public string Id { get; set; }
 
-        /// <summary>
-        /// The containers to remove.
-        /// </summary>
         [Parameter(ParameterSetName = CommonParameterSetNames.ContainerObject,
             ValueFromPipeline = true,
                    Position = 0,

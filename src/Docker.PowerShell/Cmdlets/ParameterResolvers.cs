@@ -37,5 +37,21 @@ namespace Docker.PowerShell.Cmdlets
             return containers.Select(c => c.ID).ToArray();
         }
 
+        /// <summary>
+        /// Uses either the list of IDs, or gets the list of IDs from the list of networks.
+        /// </summary>
+        /// <param name="networks">The list of network objects to get values from.</param>
+        /// <param name="ids">The list of ids.</param>
+        /// <returns>List of IDs to process.</returns>
+        internal static string[] GetNetworkIds(NetworkListResponse[] networks, string[] ids)
+        {
+            if (ids != null && ids.Length != 0)
+            {
+                return ids;
+            }
+            
+            return networks.Select(c => c.ID).ToArray();
+        }
+
     }
 }
