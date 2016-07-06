@@ -61,9 +61,9 @@ namespace Docker.PowerShell.Objects
                 hostConfiguration.Isolation = cmdlet.Isolation.ToString();
             }
 
-            configuration.Tty = cmdlet.Terminal.ToBool();
-            configuration.OpenStdin = cmdlet.Input.ToBool();
-            configuration.AttachStdin = cmdlet.Input.ToBool();
+            configuration.Tty = cmdlet.Terminal;
+            configuration.OpenStdin = cmdlet.Input;
+            configuration.AttachStdin = cmdlet.Input;
             configuration.AttachStdout = true;
             configuration.AttachStderr = true;
 
@@ -113,9 +113,9 @@ namespace Docker.PowerShell.Objects
         /// <param name="id">The container identifier to retrieve.</param>
         /// <param name="dkrClient">The client to request the container from.</param>
         /// <returns>The single container object matching the id.</returns>
-        internal static async Task<ContainerListResponse> GetContainerByIdOrName(string id, DotNet.DockerClient dkrClient)
+        internal static async Task<IList<ContainerListResponse>> GetContainersByIdOrName(string id, DotNet.DockerClient dkrClient)
         {
-            return (await GetContainersByName(id, dkrClient)).Where(c => c.Names.Contains($"/{id}")).Concat(await GetContainersById(id, dkrClient)).Single();
+            return (await GetContainersByName(id, dkrClient)).Where(c => c.Names.Contains($"/{id}")).Concat(await GetContainersById(id, dkrClient)).ToList();
         }
 
         /// <summary>

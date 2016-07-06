@@ -30,7 +30,7 @@ namespace Docker.PowerShell.Cmdlets
                 Id = Container.ID;
             }
 
-            if (ToContainer.ToBool())
+            if (ToContainer)
             {
                 var hostPaths = Path.SelectMany(path =>
                 {
