@@ -24,10 +24,21 @@ public class ImageArgumentCompleter : IArgumentCompleter
         return task.Result.SelectMany(image =>
             {
                 var repoTags = image.RepoTags.Where(repoTag => repoTag != "<none>:<none>");
+                if (commandName == "Get-ContainerImage" && parameterName == "Id")
+                {
+                    // Only use ID.
+                    var id = image.ID;
+                    var idParts = id.Split(':');
+                    if (idParts.Length >= 2 && !wordToComplete.StartsWith(idParts[0] + ":"))
+                    {
+                        id = id.Substring(idParts[0].Length + 1);
+                    }
+                    repoTags = new List<string> {id};
+                }
 
                 // If the user has already typed part of the name, then include IDs that start
                 // with that portion. Otherwise, just let the user tab through the names.
-                if (wordToComplete == "")
+                if (wordToComplete == "" || commandName == "Get-ContainerImage")
                 {
                     return repoTags;
                 }

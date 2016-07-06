@@ -1,20 +1,41 @@
 ﻿using System.Management.Automation;
 using Docker.DotNet.Models;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Docker.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.Get, "ContainerImage",
-            DefaultParameterSetName = CommonParameterSetNames.Default)]
+            DefaultParameterSetName = CommonParameterSetNames.ImageName)]
     [OutputType(typeof(ImagesListResponse))]
     public class GetContainerImage : DkrCmdlet
     {
         #region Parameters
 
         /// <summary>
+        /// The specific image name to get.
+        /// </summery>
+        [Parameter(ParameterSetName = CommonParameterSetNames.ImageName,
+            ValueFromPipeline = true,
+                   Position = 0)]
+        [ValidateNotNullOrEmpty]
+        [ArgumentCompleter(typeof(ImageArgumentCompleter))]
+        public string[] Name { get; set; }
+
+        /// <summary>
+        /// The specific image name to get.
+        /// </summery>
+        [Parameter(ParameterSetName = CommonParameterSetNames.Default,
+            ValueFromPipeline = true,
+                   Position = 0)]
+        [ValidateNotNullOrEmpty]
+        [ArgumentCompleter(typeof(ImageArgumentCompleter))]
+        public string[] Id { get; set; }
+
+        /// <summary>
         /// Specifies whether all images should be shown, or just top level images.
         /// </summary>
-        [Parameter(ParameterSetName = CommonParameterSetNames.Default)]
+        [Parameter]
         public SwitchParameter All { get; set; }
 
         #endregion
@@ -25,11 +46,30 @@ namespace Docker.PowerShell.Cmdlets
         /// </summary>
         protected override async Task ProcessRecordAsync()
         {
-            foreach (var img in await DkrClient.Images.ListImagesAsync(
-                new ImagesListParameters() { All = All.ToBool() }))
+            var listParams = new ImagesListParameters() { All = All };
+
+            if (Name != null)
             {
-                WriteObject(img);
+                foreach (var name in Name)
+                {
+                    listParams.MatchName = name;
+                    foreach (var img in await DkrClient.Images.ListImagesAsync(listParams))
+                    {
+                        WriteObject(img);
+                    }
+                }
             }
+            else
+            {
+                foreach (var img in await DkrClient.Images.ListImagesAsync(listParams))
+                {
+                    if (Id == null || Id.Any(i => img.ID.StartsWith(i) || img.ID.StartsWith("sha256:"+i)))
+                    {
+                        WriteObject(img);
+                    }
+                }
+            }
+
         }
 
         #endregion
