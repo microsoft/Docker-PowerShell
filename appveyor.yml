@@ -6,6 +6,7 @@ init:
 - ps: (new-object net.webclient).DownloadFile('https://dotnetcli.blob.core.windows.net/dotnet/beta/Installers/Latest/dotnet-dev-win-x64.latest.exe', "c:/dotnet-install.exe")
 - ps: Start-Process c:\dotnet-install.exe -ArgumentList "/install","/quiet" -Wait
 - ps: Install-PackageProvider NuGet -Force
+- ps: Install-Module PlatyPS -Force
 install:
 - cmd: git submodule update --init --recursive
 nuget:
@@ -32,6 +33,7 @@ build_script:
     (Get-Content $manifest -Raw) -replace "ModuleVersion.+","ModuleVersion = '$psversion'" | Out-File $manifest
 - ps: dotnet restore
 - ps: dotnet publish -r win -o bin -c Release src/Docker.PowerShell
+- ps: New-ExternalHelp -Path src/Docker.PowerShell/Help -OutputPath bin
 - ps: nuget pack src/Docker.PowerShell/Docker.nuspec -BasePath bin -OutputDirectory bin -Symbols -Version $psversion
 test_script:
 - ps: Register-PSRepository -Name test -SourceLocation $pwd\bin
