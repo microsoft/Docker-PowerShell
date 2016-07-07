@@ -46,6 +46,14 @@ After this, you can update to new development builds with just:
 
     > Update-Module Docker
 
+#### Need an offline workflow?
+
+From an internet connected machine:
+
+    > Save-Package Docker -Source DockerPS-Dev -Path .
+
+Copy the entire folder `.\Docker` to the destination at: `%ProgramFiles%\WindowsPowerShell\Modules`
+
 ## Contributions
 We welcome contributions to this project in the form of issues (bugs,
 suggestions, proposals, etc.) and pull requests.
