@@ -1,0 +1,2999 @@
+<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml">
+
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Build-ContainerImage</command:name>
+<command:verb>Build</command:verb>
+<command:noun>ContainerImage</command:noun>
+<maml:description><maml:para>New-ContainerImage [[-Path] &lt;string&gt;] [-Repository &lt;string&gt;] [-Tag &lt;string&gt;] [-SkipCache] [-ForceRemoveIntermediateContainers] [-PreserveIntermediateContainers] [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Builds a new image from an existing container.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Build-ContainerImage</maml:name>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters></command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>None</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>Docker.DotNet.Models.ImagesListResponse</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+<dev:remarks><maml:para>{{ Add example description here }}
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Commit-Container</command:name>
+<command:verb>Commit</command:verb>
+<command:noun>Container</command:noun>
+<maml:description><maml:para>ConvertTo-ContainerImage [-Id] &lt;string[]&gt; [-Repository &lt;string&gt;] [-Tag &lt;string&gt;] [-Message &lt;string&gt;] [-Author &lt;string&gt;] [-Configuration &lt;Config&gt;] [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+<maml:para>ConvertTo-ContainerImage [-Container] &lt;ContainerListResponse[]&gt; [-Repository &lt;string&gt;] [-Tag &lt;string&gt;] [-Message &lt;string&gt;] [-Author &lt;string&gt;] [-Configuration &lt;Config&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>{{Fill in the Description}}
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Commit-Container</maml:name>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters></command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>System.String[]</maml:name>
+</dev:type>
+<maml:description><maml:para>Docker.DotNet.Models.ContainerListResponse[]
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>Docker.DotNet.Models.ImagesListResponse</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+<dev:remarks><maml:para>{{ Add example description here }}
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>ConvertTo-ContainerImage</command:name>
+<command:verb>ConvertTo</command:verb>
+<command:noun>ContainerImage</command:noun>
+<maml:description><maml:para>ConvertTo-ContainerImage [-Id] &lt;string[]&gt; [-Repository &lt;string&gt;] [-Tag &lt;string&gt;] [-Message &lt;string&gt;] [-Author &lt;string&gt;] [-Configuration &lt;Config&gt;] [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+<maml:para>ConvertTo-ContainerImage [-Container] &lt;ContainerListResponse[]&gt; [-Repository &lt;string&gt;] [-Tag &lt;string&gt;] [-Message &lt;string&gt;] [-Author &lt;string&gt;] [-Configuration &lt;Config&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>{{Fill in the Description}}
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>ConvertTo-ContainerImage</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Container</maml:name>
+<maml:Description><maml:para>{{Fill Container Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ContainerListResponse[]</command:parameterValue>
+<dev:type><maml:name>ContainerListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Author</maml:name>
+<maml:Description><maml:para>{{Fill Author Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>{{Fill CertificateLocation Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Configuration</maml:name>
+<maml:Description><maml:para>{{Fill Configuration Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">Config</command:parameterValue>
+<dev:type><maml:name>Config</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Message</maml:name>
+<maml:Description><maml:para>{{Fill Message Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Repository</maml:name>
+<maml:Description><maml:para>{{Fill Repository Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Tag</maml:name>
+<maml:Description><maml:para>{{Fill Tag Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>ConvertTo-ContainerImage</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>{{Fill Id Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Author</maml:name>
+<maml:Description><maml:para>{{Fill Author Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>{{Fill CertificateLocation Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Configuration</maml:name>
+<maml:Description><maml:para>{{Fill Configuration Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">Config</command:parameterValue>
+<dev:type><maml:name>Config</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>{{Fill HostAddress Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Message</maml:name>
+<maml:Description><maml:para>{{Fill Message Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Repository</maml:name>
+<maml:Description><maml:para>{{Fill Repository Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Tag</maml:name>
+<maml:Description><maml:para>{{Fill Tag Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Author</maml:name>
+<maml:Description><maml:para>{{Fill Author Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>{{Fill CertificateLocation Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Configuration</maml:name>
+<maml:Description><maml:para>{{Fill Configuration Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">Config</command:parameterValue>
+<dev:type><maml:name>Config</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Container</maml:name>
+<maml:Description><maml:para>{{Fill Container Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ContainerListResponse[]</command:parameterValue>
+<dev:type><maml:name>ContainerListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>{{Fill HostAddress Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>{{Fill Id Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Message</maml:name>
+<maml:Description><maml:para>{{Fill Message Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Repository</maml:name>
+<maml:Description><maml:para>{{Fill Repository Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Tag</maml:name>
+<maml:Description><maml:para>{{Fill Tag Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>System.String[]</maml:name>
+</dev:type>
+<maml:description><maml:para>Docker.DotNet.Models.ContainerListResponse[]
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>Docker.DotNet.Models.ImagesListResponse</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+<dev:remarks><maml:para>{{ Add example description here }}
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Copy-ContainerFile</command:name>
+<command:verb>Copy</command:verb>
+<command:noun>ContainerFile</command:noun>
+<maml:description><maml:para>Copy-ContainerFile [-Id] &lt;string&gt; [-Path] &lt;string[]&gt; [-Destination &lt;string&gt;] [-ToContainer] [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+<maml:para>Copy-ContainerFile [-Container] &lt;ContainerListResponse&gt; [-Path] &lt;string[]&gt; [-Destination &lt;string&gt;] [-ToContainer] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Copies a file between container and host.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Copy-ContainerFile</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Container</maml:name>
+<maml:Description><maml:para>Specifies the container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ContainerListResponse</command:parameterValue>
+<dev:type><maml:name>ContainerListResponse</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Path</maml:name>
+<maml:Description><maml:para>The path of the file to copy.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Destination</maml:name>
+<maml:Description><maml:para>Destination location for the file.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ToContainer</maml:name>
+<maml:Description><maml:para>Specifies that the file will be copied from the host into the container.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>Copy-ContainerFile</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>Id of the container to copy the file to/from.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Path</maml:name>
+<maml:Description><maml:para>The path of the file to copy.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Destination</maml:name>
+<maml:Description><maml:para>Destination location for the file.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ToContainer</maml:name>
+<maml:Description><maml:para>Specifies that the file will be copied from the host into the container.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Container</maml:name>
+<maml:Description><maml:para>Specifies the container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ContainerListResponse</command:parameterValue>
+<dev:type><maml:name>ContainerListResponse</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Destination</maml:name>
+<maml:Description><maml:para>Destination location for the file.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>Id of the container to copy the file to/from.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Path</maml:name>
+<maml:Description><maml:para>The path of the file to copy.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ToContainer</maml:name>
+<maml:Description><maml:para>Specifies that the file will be copied from the host into the container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>System.String</maml:name>
+</dev:type>
+<maml:description><maml:para>Docker.DotNet.Models.ContainerListResponse
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>System.Object</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; {{ Copy-ContainerFile -stuff }}</dev:code>
+<dev:remarks><maml:para>Copies a file into container
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri>https://github.com/Microsoft/Docker-PowerShell</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Enter-Container</command:name>
+<command:verb>Enter</command:verb>
+<command:noun>Container</command:noun>
+<maml:description><maml:para>Enter-Container [-Id] &lt;string&gt; [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+<maml:para>Enter-Container [-Container] &lt;ContainerListResponse&gt; [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Connects to interactive session in the specified container.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Enter-Container</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Container</maml:name>
+<maml:Description><maml:para>Specifies the container to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ContainerListResponse</command:parameterValue>
+<dev:type><maml:name>ContainerListResponse</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>Enter-Container</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>Specifies the container by id or name. You can pass a subset of the ID if it is unique.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Container</maml:name>
+<maml:Description><maml:para>Specifies the container to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ContainerListResponse</command:parameterValue>
+<dev:type><maml:name>ContainerListResponse</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>Specifies the container by id or name. You can pass a subset of the ID if it is unique.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>System.String</maml:name>
+</dev:type>
+<maml:description><maml:para>Docker.DotNet.Models.ContainerListResponse
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>System.Object</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>These are some notes about the cmdlet.
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; {{ Enter-Container $myContainer}}</dev:code>
+<dev:remarks><maml:para>Connects to $myContainer
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri>https://github.com/Microsoft/Docker-PowerShell</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Get-Container</command:name>
+<command:verb>Get</command:verb>
+<command:noun>Container</command:noun>
+<maml:description><maml:para>Get-Container [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Returns a list of containers.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Get-Container</maml:name>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>None</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>Docker.DotNet.Models.ContainerListResponse</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Get-Container</dev:code>
+<dev:remarks><maml:para>Retrieves a list of containers.
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri>https://github.com/aoatkinson/Docker-PowerShell/blob/master/Get-Container.md</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Get-ContainerDetail</command:name>
+<command:verb>Get</command:verb>
+<command:noun>ContainerDetail</command:noun>
+<maml:description><maml:para>Get-ContainerDetail [-Id] &lt;string[]&gt; [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+<maml:para>Get-ContainerDetail [-Container] &lt;ContainerListResponse[]&gt; [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Gets details about a container.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Get-ContainerDetail</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Container</maml:name>
+<maml:Description><maml:para>Specifies the container to get details for.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ContainerListResponse[]</command:parameterValue>
+<dev:type><maml:name>ContainerListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>Get-ContainerDetail</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>Specifies the id of the container to get details for. This parameter also accepts container name, or a unique subset of the id.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Container</maml:name>
+<maml:Description><maml:para>Specifies the container to get details for.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ContainerListResponse[]</command:parameterValue>
+<dev:type><maml:name>ContainerListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>Specifies the id of the container to get details for. This parameter also accepts container name, or a unique subset of the id.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>System.String[]</maml:name>
+</dev:type>
+<maml:description><maml:para>Docker.DotNet.Models.ContainerListResponse[]
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>Docker.DotNet.Models.ContainerInspectResponse</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Get-ContainerDetail</dev:code>
+<dev:remarks><maml:para>Gets details about a container.
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Get-ContainerImage</command:name>
+<command:verb>Get</command:verb>
+<command:noun>ContainerImage</command:noun>
+<maml:description><maml:para>Get-ContainerImage [-All] [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Returns container images.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Get-ContainerImage</maml:name>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>All</maml:name>
+<maml:Description><maml:para>Specifies that all images should be retrieved.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>All</maml:name>
+<maml:Description><maml:para>Specifies that all images should be retrieved.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>None</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>Docker.DotNet.Models.ImagesListResponse</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Get-ContainerImage</dev:code>
+<dev:remarks><maml:para>Returns a list of container images.
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Get-ContainerNetwork</command:name>
+<command:verb>Get</command:verb>
+<command:noun>ContainerNetwork</command:noun>
+<maml:description><maml:para>Get-ContainerNetwork [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Gets a container network.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Get-ContainerNetwork</maml:name>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>None</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>Docker.DotNet.Models.NetworkListResponse</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Get-ContainerNetwork -Name mycontainer</dev:code>
+<dev:remarks><maml:para>Gets network information for the container "mycontainer"
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Get-ContainerNetworkDetail</command:name>
+<command:verb>Get</command:verb>
+<command:noun>ContainerNetworkDetail</command:noun>
+<maml:description><maml:para>Get-ContainerNetworkDetail [-Name] &lt;string&gt; [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Gets details about a container's network.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Get-ContainerNetworkDetail</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Name</maml:name>
+<maml:Description><maml:para>Specifies the name of the container to get network details for.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Name</maml:name>
+<maml:Description><maml:para>Specifies the name of the container to get network details for.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>System.String</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>Docker.DotNet.Models.NetworkResponse</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Get-ContainerNetworkDetail -Name mycontainer</dev:code>
+<dev:remarks><maml:para>Gets network details for the container "mycontainer"
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Invoke-ContainerImage</command:name>
+<command:verb>Invoke</command:verb>
+<command:noun>ContainerImage</command:noun>
+<maml:description><maml:para>Invoke-ContainerImage [-Id] &lt;string[]&gt; [[-Command] &lt;string[]&gt;] [-RemoveAutomatically] [-PassThru] [-ContainerName &lt;string&gt;] [-Isolation &lt;IsolationType&gt;] [-Configuration &lt;Config&gt;] [-HostConfiguration &lt;HostConfig&gt;] [-Input] [-Terminal] [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+<maml:para>Invoke-ContainerImage [-Image] &lt;ImagesListResponse[]&gt; [[-Command] &lt;string[]&gt;] [-RemoveAutomatically] [-PassThru] [-ContainerName &lt;string&gt;] [-Isolation &lt;IsolationType&gt;] [-Configuration &lt;Config&gt;] [-HostConfiguration &lt;HostConfig&gt;] [-Input] [-Terminal] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+<maml:para>Invoke-ContainerImage [-Configuration] &lt;Config&gt; [-RemoveAutomatically] [-PassThru] [-HostConfiguration &lt;HostConfig&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Runs a container from an existing image.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Invoke-ContainerImage</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>The id of the container image.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Command</maml:name>
+<maml:Description><maml:para>Specifies the command to run in the container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>Specifies the certificate location.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Configuration</maml:name>
+<maml:Description><maml:para>An instance of a Docker.DotNet.Models.Config object with desired configuration values filled out.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">Config</command:parameterValue>
+<dev:type><maml:name>Config</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ContainerName</maml:name>
+<maml:Description><maml:para>Sets the name of the new container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostConfiguration</maml:name>
+<maml:Description><maml:para>A Docker.DotNet.Models.HostConfig object filled in with desired configuration values.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">HostConfig</command:parameterValue>
+<dev:type><maml:name>HostConfig</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Input</maml:name>
+<maml:Description><maml:para>Indicates that the stdin of the container should be kept open.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Isolation</maml:name>
+<maml:Description><maml:para>Specifies whether the container should be run as a Hyper-V Container. Options are HyperV, None, or Default.
+</maml:para>
+</maml:Description>
+<command:parameterValueGroup><command:parameterValue required="false" variableLength="false">Default</command:parameterValue>
+<command:parameterValue required="false" variableLength="false">None</command:parameterValue>
+<command:parameterValue required="false" variableLength="false">HyperV</command:parameterValue>
+</command:parameterValueGroup>
+<command:parameterValue required="true" variableLength="false">IsolationType</command:parameterValue>
+<dev:type><maml:name>IsolationType</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>PassThru</maml:name>
+<maml:Description><maml:para>Passes the object through the pipeline.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>RemoveAutomatically</maml:name>
+<maml:Description><maml:para>Automatically removes the container after running.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Terminal</maml:name>
+<maml:Description><maml:para>Gives a terminal in the new container.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>Invoke-ContainerImage</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Image</maml:name>
+<maml:Description><maml:para>Specifies the container image.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ImagesListResponse[]</command:parameterValue>
+<dev:type><maml:name>ImagesListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Command</maml:name>
+<maml:Description><maml:para>Specifies the command to run in the container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>Specifies the certificate location.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Configuration</maml:name>
+<maml:Description><maml:para>An instance of a Docker.DotNet.Models.Config object with desired configuration values filled out.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">Config</command:parameterValue>
+<dev:type><maml:name>Config</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ContainerName</maml:name>
+<maml:Description><maml:para>Sets the name of the new container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostConfiguration</maml:name>
+<maml:Description><maml:para>A Docker.DotNet.Models.HostConfig object filled in with desired configuration values.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">HostConfig</command:parameterValue>
+<dev:type><maml:name>HostConfig</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Input</maml:name>
+<maml:Description><maml:para>Indicates that the stdin of the container should be kept open.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Isolation</maml:name>
+<maml:Description><maml:para>Specifies whether the container should be run as a Hyper-V Container. Options are HyperV, None, or Default.
+</maml:para>
+</maml:Description>
+<command:parameterValueGroup><command:parameterValue required="false" variableLength="false">Default</command:parameterValue>
+<command:parameterValue required="false" variableLength="false">None</command:parameterValue>
+<command:parameterValue required="false" variableLength="false">HyperV</command:parameterValue>
+</command:parameterValueGroup>
+<command:parameterValue required="true" variableLength="false">IsolationType</command:parameterValue>
+<dev:type><maml:name>IsolationType</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>PassThru</maml:name>
+<maml:Description><maml:para>Passes the object through the pipeline.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>RemoveAutomatically</maml:name>
+<maml:Description><maml:para>Automatically removes the container after running.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Terminal</maml:name>
+<maml:Description><maml:para>Gives a terminal in the new container.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>Invoke-ContainerImage</maml:name>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>Specifies the certificate location.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Configuration</maml:name>
+<maml:Description><maml:para>An instance of a Docker.DotNet.Models.Config object with desired configuration values filled out.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">Config</command:parameterValue>
+<dev:type><maml:name>Config</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostConfiguration</maml:name>
+<maml:Description><maml:para>A Docker.DotNet.Models.HostConfig object filled in with desired configuration values.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">HostConfig</command:parameterValue>
+<dev:type><maml:name>HostConfig</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>PassThru</maml:name>
+<maml:Description><maml:para>Passes the object through the pipeline.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>RemoveAutomatically</maml:name>
+<maml:Description><maml:para>Automatically removes the container after running.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>Specifies the certificate location.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Command</maml:name>
+<maml:Description><maml:para>Specifies the command to run in the container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Configuration</maml:name>
+<maml:Description><maml:para>An instance of a Docker.DotNet.Models.Config object with desired configuration values filled out.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">Config</command:parameterValue>
+<dev:type><maml:name>Config</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ContainerName</maml:name>
+<maml:Description><maml:para>Sets the name of the new container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostConfiguration</maml:name>
+<maml:Description><maml:para>A Docker.DotNet.Models.HostConfig object filled in with desired configuration values.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">HostConfig</command:parameterValue>
+<dev:type><maml:name>HostConfig</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>The id of the container image.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Image</maml:name>
+<maml:Description><maml:para>Specifies the container image.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ImagesListResponse[]</command:parameterValue>
+<dev:type><maml:name>ImagesListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Input</maml:name>
+<maml:Description><maml:para>Indicates that the stdin of the container should be kept open.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Isolation</maml:name>
+<maml:Description><maml:para>Specifies whether the container should be run as a Hyper-V Container. Options are HyperV, None, or Default.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">IsolationType</command:parameterValue>
+<dev:type><maml:name>IsolationType</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>PassThru</maml:name>
+<maml:Description><maml:para>Passes the object through the pipeline.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>RemoveAutomatically</maml:name>
+<maml:Description><maml:para>Automatically removes the container after running.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Terminal</maml:name>
+<maml:Description><maml:para>Gives a terminal in the new container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>System.String[]</maml:name>
+</dev:type>
+<maml:description><maml:para>Docker.DotNet.Models.Config Docker.DotNet.Models.ImagesListResponse[]
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>Docker.DotNet.Models.ContainerListResponse</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Invoke-ContainerImage -id 903ef</dev:code>
+<dev:remarks><maml:para>Starts a container using the image with id 903ef.
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>New-Container</command:name>
+<command:verb>New</command:verb>
+<command:noun>Container</command:noun>
+<maml:description><maml:para>New-Container [-Id] &lt;string[]&gt; [[-Command] &lt;string[]&gt;] [-ContainerName &lt;string&gt;] [-Isolation &lt;IsolationType&gt;] [-Configuration &lt;Config&gt;] [-HostConfiguration &lt;HostConfig&gt;] [-Input] [-Terminal] [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+<maml:para>New-Container [-Image] &lt;ImagesListResponse[]&gt; [[-Command] &lt;string[]&gt;] [-ContainerName &lt;string&gt;] [-Isolation &lt;IsolationType&gt;] [-Configuration &lt;Config&gt;] [-HostConfiguration &lt;HostConfig&gt;] [-Input] [-Terminal] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+<maml:para>New-Container [-Configuration] &lt;Config&gt; [-HostConfiguration &lt;HostConfig&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Creates a new container.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>New-Container</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>The Id of the image to create the new container from.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Command</maml:name>
+<maml:Description><maml:para>The command to be run in the new container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Configuration</maml:name>
+<maml:Description><maml:para>An instance of a Docker.DotNet.Models.Config object with desired configuration values filled out.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">Config</command:parameterValue>
+<dev:type><maml:name>Config</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ContainerName</maml:name>
+<maml:Description><maml:para>Sets the name of the new container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostConfiguration</maml:name>
+<maml:Description><maml:para>A Docker.DotNet.Models.HostConfig object filled in with desired configuration values.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">HostConfig</command:parameterValue>
+<dev:type><maml:name>HostConfig</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Input</maml:name>
+<maml:Description><maml:para>Indicates that the stdin of the container should be kept open.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Isolation</maml:name>
+<maml:Description><maml:para>Indicates whether the container should be isolated as a Hyper-V Container. Available options are: HyperV, None, or Default.
+</maml:para>
+</maml:Description>
+<command:parameterValueGroup><command:parameterValue required="false" variableLength="false">Default</command:parameterValue>
+<command:parameterValue required="false" variableLength="false">None</command:parameterValue>
+<command:parameterValue required="false" variableLength="false">HyperV</command:parameterValue>
+</command:parameterValueGroup>
+<command:parameterValue required="true" variableLength="false">IsolationType</command:parameterValue>
+<dev:type><maml:name>IsolationType</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Terminal</maml:name>
+<maml:Description><maml:para>Specifies to provide an interactive terminal in the new container.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>New-Container</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Image</maml:name>
+<maml:Description><maml:para>The image to create the new container from.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ImagesListResponse[]</command:parameterValue>
+<dev:type><maml:name>ImagesListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Command</maml:name>
+<maml:Description><maml:para>The command to be run in the new container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Configuration</maml:name>
+<maml:Description><maml:para>An instance of a Docker.DotNet.Models.Config object with desired configuration values filled out.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">Config</command:parameterValue>
+<dev:type><maml:name>Config</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ContainerName</maml:name>
+<maml:Description><maml:para>Sets the name of the new container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostConfiguration</maml:name>
+<maml:Description><maml:para>A Docker.DotNet.Models.HostConfig object filled in with desired configuration values.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">HostConfig</command:parameterValue>
+<dev:type><maml:name>HostConfig</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Input</maml:name>
+<maml:Description><maml:para>Indicates that the stdin of the container should be kept open.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Isolation</maml:name>
+<maml:Description><maml:para>Indicates whether the container should be isolated as a Hyper-V Container. Available options are: HyperV, None, or Default.
+</maml:para>
+</maml:Description>
+<command:parameterValueGroup><command:parameterValue required="false" variableLength="false">Default</command:parameterValue>
+<command:parameterValue required="false" variableLength="false">None</command:parameterValue>
+<command:parameterValue required="false" variableLength="false">HyperV</command:parameterValue>
+</command:parameterValueGroup>
+<command:parameterValue required="true" variableLength="false">IsolationType</command:parameterValue>
+<dev:type><maml:name>IsolationType</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Terminal</maml:name>
+<maml:Description><maml:para>Specifies to provide an interactive terminal in the new container.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>New-Container</maml:name>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Configuration</maml:name>
+<maml:Description><maml:para>An instance of a Docker.DotNet.Models.Config object with desired configuration values filled out.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">Config</command:parameterValue>
+<dev:type><maml:name>Config</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostConfiguration</maml:name>
+<maml:Description><maml:para>A Docker.DotNet.Models.HostConfig object filled in with desired configuration values.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">HostConfig</command:parameterValue>
+<dev:type><maml:name>HostConfig</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Command</maml:name>
+<maml:Description><maml:para>The command to be run in the new container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Configuration</maml:name>
+<maml:Description><maml:para>An instance of a Docker.DotNet.Models.Config object with desired configuration values filled out.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">Config</command:parameterValue>
+<dev:type><maml:name>Config</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ContainerName</maml:name>
+<maml:Description><maml:para>Sets the name of the new container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostConfiguration</maml:name>
+<maml:Description><maml:para>A Docker.DotNet.Models.HostConfig object filled in with desired configuration values.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">HostConfig</command:parameterValue>
+<dev:type><maml:name>HostConfig</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>The Id of the image to create the new container from.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Image</maml:name>
+<maml:Description><maml:para>The image to create the new container from.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ImagesListResponse[]</command:parameterValue>
+<dev:type><maml:name>ImagesListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Input</maml:name>
+<maml:Description><maml:para>Indicates that the stdin of the container should be kept open.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Isolation</maml:name>
+<maml:Description><maml:para>Indicates whether the container should be isolated as a Hyper-V Container. Available options are: HyperV, None, or Default.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">IsolationType</command:parameterValue>
+<dev:type><maml:name>IsolationType</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Terminal</maml:name>
+<maml:Description><maml:para>Specifies to provide an interactive terminal in the new container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>System.String[]</maml:name>
+</dev:type>
+<maml:description><maml:para>Docker.DotNet.Models.Config Docker.DotNet.Models.ImagesListResponse[]
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>Docker.DotNet.Models.ContainerListResponse</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; New-Container -Id 4179ed</dev:code>
+<dev:remarks><maml:para>Creates a new container from the image with id "4179ed"
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>New-ContainerImage</command:name>
+<command:verb>New</command:verb>
+<command:noun>ContainerImage</command:noun>
+<maml:description><maml:para>New-ContainerImage [[-Path] &lt;string&gt;] [-Repository &lt;string&gt;] [-Tag &lt;string&gt;] [-SkipCache] [-ForceRemoveIntermediateContainers] [-PreserveIntermediateContainers] [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Creates a new container image from an existing container.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>New-ContainerImage</maml:name>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>Path</maml:name>
+<maml:Description><maml:para>The location to put the new container image.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ForceRemoveIntermediateContainers</maml:name>
+<maml:Description><maml:para>Indicates that containers used for intermediate steps during build should always be deleted, even if that build step failed.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>PreserveIntermediateContainers</maml:name>
+<maml:Description><maml:para>Indicates that the containers used for intermediate steps during build should not be automatically deleted.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Repository</maml:name>
+<maml:Description><maml:para>Specifies a repository.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>SkipCache</maml:name>
+<maml:Description><maml:para>Forces a rebuild of the image without using any of the layers on disk.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Tag</maml:name>
+<maml:Description><maml:para>Sets a tag for the new image. If no tag is specified, the image will be tagged â€œ:latestâ€.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ForceRemoveIntermediateContainers</maml:name>
+<maml:Description><maml:para>Indicates that containers used for intermediate steps during build should always be deleted, even if that build step failed.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>Path</maml:name>
+<maml:Description><maml:para>The location to put the new container image.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>PreserveIntermediateContainers</maml:name>
+<maml:Description><maml:para>Indicates that the containers used for intermediate steps during build should not be automatically deleted.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Repository</maml:name>
+<maml:Description><maml:para>Specifies a repository.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>SkipCache</maml:name>
+<maml:Description><maml:para>Forces a rebuild of the image without using any of the layers on disk.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Tag</maml:name>
+<maml:Description><maml:para>Sets a tag for the new image. If no tag is specified, the image will be tagged â€œ:latestâ€.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>None</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>Docker.DotNet.Models.ImagesListResponse</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; New-ContainerImage</dev:code>
+<dev:remarks><maml:para>Creates a new container image.
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Remove-Container</command:name>
+<command:verb>Remove</command:verb>
+<command:noun>Container</command:noun>
+<maml:description><maml:para>Remove-Container [-Id] &lt;string[]&gt; [-Force] [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+<maml:para>Remove-Container [-Container] &lt;ContainerListResponse[]&gt; [-Force] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Removes a container.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Remove-Container</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Container</maml:name>
+<maml:Description><maml:para>The container to be removed.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ContainerListResponse[]</command:parameterValue>
+<dev:type><maml:name>ContainerListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Force</maml:name>
+<maml:Description><maml:para>Forces the action without prompting for confirmation.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>Remove-Container</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>The id of the container to be removed.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Force</maml:name>
+<maml:Description><maml:para>Forces the action without prompting for confirmation.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Container</maml:name>
+<maml:Description><maml:para>The container to be removed.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ContainerListResponse[]</command:parameterValue>
+<dev:type><maml:name>ContainerListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Force</maml:name>
+<maml:Description><maml:para>Forces the action without prompting for confirmation.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>The id of the container to be removed.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>System.String[]</maml:name>
+</dev:type>
+<maml:description><maml:para>Docker.DotNet.Models.ContainerListResponse[]
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>System.Object</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Remove-Container -id 514e</dev:code>
+<dev:remarks><maml:para>Removes the container with id "514e"
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Remove-ContainerImage</command:name>
+<command:verb>Remove</command:verb>
+<command:noun>ContainerImage</command:noun>
+<maml:description><maml:para>Remove-ContainerImage [-Id] &lt;string[]&gt; [-Force] [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+<maml:para>Remove-ContainerImage [-Image] &lt;ImagesListResponse[]&gt; [-Force] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Removes a container image.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Remove-ContainerImage</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>The id of the image to be removed.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Force</maml:name>
+<maml:Description><maml:para>Forces the action without prompting for confirmation.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>Remove-ContainerImage</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Image</maml:name>
+<maml:Description><maml:para>The image that is to be removed.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ImagesListResponse[]</command:parameterValue>
+<dev:type><maml:name>ImagesListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Force</maml:name>
+<maml:Description><maml:para>Forces the action without prompting for confirmation.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Force</maml:name>
+<maml:Description><maml:para>Forces the action without prompting for confirmation.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>The id of the image to be removed.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Image</maml:name>
+<maml:Description><maml:para>The image that is to be removed.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ImagesListResponse[]</command:parameterValue>
+<dev:type><maml:name>ImagesListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>System.String[]</maml:name>
+</dev:type>
+<maml:description><maml:para>Docker.DotNet.Models.ImagesListResponse[]
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>System.Object</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Remove-ContainerImage -id 124dfe</dev:code>
+<dev:remarks><maml:para>Removes the container with id "124dfe"
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Run-ContainerImage</command:name>
+<command:verb>Run</command:verb>
+<command:noun>ContainerImage</command:noun>
+<maml:description><maml:para>Invoke-ContainerImage [-Id] &lt;string[]&gt; [[-Command] &lt;string[]&gt;] [-RemoveAutomatically] [-PassThru] [-ContainerName &lt;string&gt;] [-Isolation &lt;IsolationType&gt;] [-Configuration &lt;Config&gt;] [-HostConfiguration &lt;HostConfig&gt;] [-Input] [-Terminal] [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+<maml:para>Invoke-ContainerImage [-Image] &lt;ImagesListResponse[]&gt; [[-Command] &lt;string[]&gt;] [-RemoveAutomatically] [-PassThru] [-ContainerName &lt;string&gt;] [-Isolation &lt;IsolationType&gt;] [-Configuration &lt;Config&gt;] [-HostConfiguration &lt;HostConfig&gt;] [-Input] [-Terminal] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+<maml:para>Invoke-ContainerImage [-Configuration] &lt;Config&gt; [-RemoveAutomatically] [-PassThru] [-HostConfiguration &lt;HostConfig&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Runs a new container from a specified image.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Run-ContainerImage</maml:name>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters></command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>System.String[]</maml:name>
+</dev:type>
+<maml:description><maml:para>Docker.DotNet.Models.Config Docker.DotNet.Models.ImagesListResponse[]
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>Docker.DotNet.Models.ContainerListResponse</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>This is an alias of Invoke-ContainerImage
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Run-Container test cmd</dev:code>
+<dev:remarks><maml:para>Creates and runs container test with cmd.
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri>https://github.com/Microsoft/Docker-PowerShell/</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Start-Container</command:name>
+<command:verb>Start</command:verb>
+<command:noun>Container</command:noun>
+<maml:description><maml:para>Start-Container [-Id] &lt;string[]&gt; [-PassThru] [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+<maml:para>Start-Container [-Container] &lt;ContainerListResponse[]&gt; [-PassThru] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Starts a container
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Start-Container</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Container</maml:name>
+<maml:Description><maml:para>The container to start
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ContainerListResponse[]</command:parameterValue>
+<dev:type><maml:name>ContainerListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>Cert location
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>PassThru</maml:name>
+<maml:Description><maml:para>Passes the new container object through the pipeline.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>Start-Container</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>Id of the container to start. Can be a unique subset of ID.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>Cert location
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>PassThru</maml:name>
+<maml:Description><maml:para>Passes the new container object through the pipeline.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>Cert location
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Container</maml:name>
+<maml:Description><maml:para>The container to start
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ContainerListResponse[]</command:parameterValue>
+<dev:type><maml:name>ContainerListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>Id of the container to start. Can be a unique subset of ID.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>PassThru</maml:name>
+<maml:Description><maml:para>Passes the new container object through the pipeline.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>System.String[]</maml:name>
+</dev:type>
+<maml:description><maml:para>Docker.DotNet.Models.ContainerListResponse[]
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>Docker.DotNet.Models.ContainerListResponse</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Start-Container $myContainer</dev:code>
+<dev:remarks><maml:para>Starts a container
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri>https://github.com/Microsoft/Docker-PowerShell/tree/master/src/Docker.PowerShell/en-us/</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Stop-Container</command:name>
+<command:verb>Stop</command:verb>
+<command:noun>Container</command:noun>
+<maml:description><maml:para>Stop-Container [-Id] &lt;string[]&gt; [-Force] [-PassThru] [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+<maml:para>Stop-Container [-Container] &lt;ContainerListResponse[]&gt; [-Force] [-PassThru] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Stops a running container.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Stop-Container</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="HolyCrapParameterAliases"><maml:name>Container</maml:name>
+<maml:Description><maml:para>The Container to be stopped.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ContainerListResponse[]</command:parameterValue>
+<dev:type><maml:name>ContainerListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="HolyCrapParameterAliases"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Force</maml:name>
+<maml:Description><maml:para>Forces the action without prompting for confirmation.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>PassThru</maml:name>
+<maml:Description><maml:para>Passes the stopped container through the pipeline.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>Stop-Container</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>The id of the container to be stopped.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="HolyCrapParameterAliases"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Force</maml:name>
+<maml:Description><maml:para>Forces the action without prompting for confirmation.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>PassThru</maml:name>
+<maml:Description><maml:para>Passes the stopped container through the pipeline.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="HolyCrapParameterAliases"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="HolyCrapParameterAliases"><maml:name>Container</maml:name>
+<maml:Description><maml:para>The Container to be stopped.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ContainerListResponse[]</command:parameterValue>
+<dev:type><maml:name>ContainerListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Force</maml:name>
+<maml:Description><maml:para>Forces the action without prompting for confirmation.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>The id of the container to be stopped.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>PassThru</maml:name>
+<maml:Description><maml:para>Passes the stopped container through the pipeline.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>System.String[]</maml:name>
+</dev:type>
+<maml:description><maml:para>Docker.DotNet.Models.ContainerListResponse[]
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>Docker.DotNet.Models.ContainerListResponse</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Stop-Container myContainer</dev:code>
+<dev:remarks><maml:para>Stops the container myContainer
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri>https://github.com/Microsoft/Docker-PowerShell/</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Wait-Container</command:name>
+<command:verb>Wait</command:verb>
+<command:noun>Container</command:noun>
+<maml:description><maml:para>Wait-Container [-Id] &lt;string[]&gt; [-PassThru] [-HostAddress &lt;string&gt;] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+<maml:para>Wait-Container [-Container] &lt;ContainerListResponse[]&gt; [-PassThru] [-CertificateLocation &lt;string&gt;] [&lt;CommonParameters&gt;]
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Waits for the given container to shutdown, often indicating that the process run inside the container has completed.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Wait-Container</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Container</maml:name>
+<maml:Description><maml:para>The container to wait for.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ContainerListResponse[]</command:parameterValue>
+<dev:type><maml:name>ContainerListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>PassThru</maml:name>
+<maml:Description><maml:para>Passes the container object through the pipeline.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>Wait-Container</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>The id of the container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>PassThru</maml:name>
+<maml:Description><maml:para>Passes the container object through the pipeline.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CertificateLocation</maml:name>
+<maml:Description><maml:para>The location of the X509 certificate file named â€œkey.pfxâ€ that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Container</maml:name>
+<maml:Description><maml:para>The container to wait for.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">ContainerListResponse[]</command:parameterValue>
+<dev:type><maml:name>ContainerListResponse[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>HostAddress</maml:name>
+<maml:Description><maml:para>The address of the docker daemon to connect to.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none"><maml:name>Id</maml:name>
+<maml:Description><maml:para>The id of the container.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue></dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>PassThru</maml:name>
+<maml:Description><maml:para>Passes the container object through the pipeline.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>System.String[]</maml:name>
+</dev:type>
+<maml:description><maml:para>Docker.DotNet.Models.ContainerListResponse[]
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>Docker.DotNet.Models.ContainerListResponse</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Wait-Container -id 1512f</dev:code>
+<dev:remarks><maml:para>Waits for the container "1521f" to shut down.
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+</helpItems>
+
