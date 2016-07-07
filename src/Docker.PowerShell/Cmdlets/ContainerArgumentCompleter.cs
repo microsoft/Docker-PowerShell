@@ -36,12 +36,7 @@ public class ContainerArgumentCompleter : IArgumentCompleter
                 // If the user has already typed part of the name, then include IDs that start
                 // with that portion. Otherwise, just let the user tab through the names.
                 
-                // Special handling for Get-Container, where Id an Name are separate parameters.
-                if (commandName == "Get-Container" && parameterName == "Id")
-                {
-                    return new List<string> {container.ID};
-                }
-                else if (wordToComplete == "" || parameterName == "Name")
+                if (wordToComplete == "")
                 {
                     return container.Names;
                 }

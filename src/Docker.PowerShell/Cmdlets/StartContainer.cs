@@ -2,6 +2,7 @@
 using Docker.PowerShell.Objects;
 using Docker.DotNet.Models;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -33,9 +34,9 @@ namespace Docker.PowerShell.Cmdlets
                     throw new ApplicationFailedException("The container has already started.");
                 }
 
-                if (PassThru.ToBool())
+                if (PassThru)
                 {
-                    WriteObject(await ContainerOperations.GetContainerByIdOrName(id, DkrClient));
+                    WriteObject((await ContainerOperations.GetContainersByIdOrName(id, DkrClient)).Single());
                 }
             }
         }

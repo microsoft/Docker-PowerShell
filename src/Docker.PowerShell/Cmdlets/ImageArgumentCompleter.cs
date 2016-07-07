@@ -18,7 +18,7 @@ public class ImageArgumentCompleter : IArgumentCompleter
     {
         var client = DockerFactory.CreateClient(fakeBoundParameters);
 
-        var task = client.Images.ListImagesAsync(new ImagesListParameters());
+        var task = client.Images.ListImagesAsync(new ImagesListParameters(){ All = true });
         task.Wait();
 
         return task.Result.SelectMany(image =>

@@ -62,9 +62,9 @@ namespace Docker.PowerShell.Cmdlets
             {
                 var parameters = new ImageBuildParameters
                 {
-                    NoCache = SkipCache.ToBool(),
-                    ForceRemove = ForceRemoveIntermediateContainers.ToBool(),
-                    Remove = !PreserveIntermediateContainers.ToBool(),
+                    NoCache = SkipCache,
+                    ForceRemove = ForceRemoveIntermediateContainers,
+                    Remove = !PreserveIntermediateContainers,
                 };
 
                 string repoTag = null;

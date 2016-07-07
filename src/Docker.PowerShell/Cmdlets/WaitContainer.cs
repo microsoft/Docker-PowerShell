@@ -2,6 +2,7 @@
 using Docker.PowerShell.Objects;
 using Docker.DotNet.Models;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -34,9 +35,9 @@ namespace Docker.PowerShell.Cmdlets
                 WriteVerbose("Status Code: " + waitResponse.StatusCode.ToString());
                 ContainerOperations.ThrowOnProcessExitCode(waitResponse.StatusCode);
 
-                if (PassThru.ToBool())
+                if (PassThru)
                 {
-                    WriteObject(await ContainerOperations.GetContainerByIdOrName(id, DkrClient));
+                    WriteObject((await ContainerOperations.GetContainersByIdOrName(id, DkrClient)).Single());
                 }
             }
         }

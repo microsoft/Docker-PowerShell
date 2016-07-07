@@ -71,12 +71,12 @@ namespace Docker.PowerShell.Cmdlets
                     WriteVerbose("Status Code: " + waitResponse.StatusCode.ToString());
                     ContainerOperations.ThrowOnProcessExitCode(waitResponse.StatusCode);
 
-                    if (RemoveAutomatically.ToBool())
+                    if (RemoveAutomatically)
                     {
                         await DkrClient.Containers.RemoveContainerAsync(createResult.ID,
                             new ContainerRemoveParameters());
                     }
-                    else if (PassThru.ToBool())
+                    else if (PassThru)
                     {
                         WriteObject((await ContainerOperations.GetContainersById(createResult.ID, DkrClient)).Single());
                     }

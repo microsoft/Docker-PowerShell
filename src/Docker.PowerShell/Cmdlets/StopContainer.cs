@@ -2,6 +2,7 @@
 using Docker.PowerShell.Objects;
 using Docker.DotNet.Models;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -33,7 +34,7 @@ namespace Docker.PowerShell.Cmdlets
         {
             foreach (var id in ParameterResolvers.GetContainerIds(Container, Id))
             {
-                if (Force.ToBool())
+                if (Force)
                 {
                     await DkrClient.Containers.KillContainerAsync(
                         id,
@@ -50,9 +51,9 @@ namespace Docker.PowerShell.Cmdlets
                     }
                 }
 
-                if (PassThru.ToBool())
+                if (PassThru)
                 {
-                    WriteObject(await ContainerOperations.GetContainerByIdOrName(id, DkrClient));
+                    WriteObject((await ContainerOperations.GetContainersByIdOrName(id, DkrClient)).Single());
                 }
             }
         }
