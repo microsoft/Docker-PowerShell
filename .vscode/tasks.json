@@ -25,7 +25,7 @@
 		{
 			"taskName": "build",
 			"suppressTaskName": true,
-			"args" : ["dotnet", "publish", ".\\src\\Docker.PowerShell", "-o", ".\\src\\Docker.PowerShell\\bin\\Module\\Docker", "-r", "win"],
+			"args" : ["dotnet", "publish", "${cwd}\\src\\Docker.PowerShell", "-o", "${cwd}\\src\\Docker.PowerShell\\bin\\Module\\Docker", "-r", "win"],
 			"showOutput": "always",
 			"isBuildCommand": true,
 			"problemMatcher": "$msCompile"
