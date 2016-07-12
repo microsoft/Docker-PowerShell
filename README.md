@@ -101,6 +101,24 @@ This will produce the PowerShell module at
 You will only need to run `dotnet restore` once unless you pull changes that
 update the project dependencies in project.json.
 
+### Updating Help Markdown Files
+This codebase includes markdown files corresponding to the help information for 
+each of the cmdlets. This markdown is generated and consumed by the 
+[platyPS PowerShell module](https://github.com/PowerShell/platyPS). You should use
+the platyPS cmdlets to update and refresh the markdown files to reflect any changes
+made to the structure or behavior of the cmdlets.  Follow the instructions on the 
+platyPS github readme to get the module installed, and then after imported the
+Docker module with your changes compiled in, run:
+
+    > New-MarkdownHelp -Module Docker -OutputFolder .\src\Docker.Powershell\Help
+
+    > Update-MarkdownHelp -Path .\src\Docker.PowerShell\Help
+
+This will create new entries for any added parameters in existing cmdlets, as well as
+new markdown files for any new cmdlets, leaving placeholder text for the descriptions
+and examples. Please keep the descriptions of any existing or new parameters or cmdlets
+up-to-date with any changes to the implementation.
+
 ### Visual Studio Code
 If you use [Visual Studio Code](https://code.visualstudio.com/) as your editor,
 you will find three tasks pre-defined in the top-level directory:
@@ -110,3 +128,7 @@ you will find three tasks pre-defined in the top-level directory:
   the compilation section above.
 * `test` will launch a new powershell window with the module loaded for manual
   testing.
+* `update-help` will use powershell to run the New-MarkdownHelp and 
+  Update-MarkdownHelp cmdlets with the arguments necessary to generate any
+  updates to the help markdown files. NOTE: This requires the platyPS module
+  and uses the most recently built local Docker module.

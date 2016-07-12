@@ -1,6 +1,6 @@
 ---
-external help file: Docker.PowerShell.dll-Help.xml
 schema: 2.0.0
+external help file: Docker.PowerShell.dll-Help.xml
 ---
 
 # Get-Container
@@ -9,7 +9,7 @@ Get-Container \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[
 ## SYNTAX
 
 ```
-Get-Container [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
+Get-Container [[-Id] <String[]>] [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -25,7 +25,7 @@ Retrieves a list of containers.
 ## PARAMETERS
 
 ### -CertificateLocation
-The location of the X509 certificate file named “key.pfx” that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
 
 
 
@@ -62,6 +62,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Id
+{{Fill Id Description}}
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases: Name
+
+Required: False
+Position: 0
+Default value: 
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 ## INPUTS
@@ -73,7 +88,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### Docker.DotNet.Models.ContainerListResponse
 
 ## NOTES
-
 
 ## RELATED LINKS
 

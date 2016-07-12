@@ -1,6 +1,6 @@
 ---
-external help file: Docker.PowerShell.dll-Help.xml
 schema: 2.0.0
+external help file: Docker.PowerShell.dll-Help.xml
 ---
 
 # Stop-Container
@@ -10,7 +10,7 @@ Stop-Container \[-Id\] \<string\[\]\> \[-Force\] \[-PassThru\] \[-HostAddress \<
 Stop-Container \[-Container\] \<ContainerListResponse\[\]\> \[-Force\] \[-PassThru\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
 ## SYNTAX
 
-### Default
+### Default (Default)
 ```
 Stop-Container [-Force] [-PassThru] [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>]
  [<CommonParameters>]
@@ -35,7 +35,7 @@ Stops the container myContainer
 ## PARAMETERS
 
 ### -CertificateLocation
-The location of the X509 certificate file named “key.pfx” that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
 
 
 
@@ -44,7 +44,8 @@ The location of the X509 certificate file named “key.pfx” that will be used 
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: HolyCrapParameterAliases
+Aliases: 
+
 Required: False
 Position: Named
 Default value: 
@@ -62,7 +63,7 @@ The Container to be stopped.
 ```yaml
 Type: ContainerListResponse[]
 Parameter Sets: ContainerObject
-Aliases: HolyCrapParameterAliases
+Aliases: 
 
 Required: True
 Position: 0
@@ -119,7 +120,7 @@ The id of the container to be stopped.
 ```yaml
 Type: String[]
 Parameter Sets: Default
-Aliases: 
+Aliases: Name
 
 Required: True
 Position: 0
