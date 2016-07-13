@@ -6,12 +6,16 @@ init:
 - ps: (new-object net.webclient).DownloadFile('https://dotnetcli.blob.core.windows.net/dotnet/beta/Installers/Latest/dotnet-dev-win-x64.latest.exe', "c:/dotnet-install.exe")
 - ps: Start-Process c:\dotnet-install.exe -ArgumentList "/install","/quiet" -Wait
 - ps: Install-PackageProvider NuGet -Force
-- ps: Install-Module PlatyPS -Force
+- ps: Install-Module platyPS -Force
 install:
 - cmd: git submodule update --init --recursive
 nuget:
   disable_publish_on_pr: true
 build_script:
+- ps: $psversiontable
+- ps: dotnet --version
+- ps: get-packageprovider nuget
+- ps: ipmo platyPS ; get-module -name platyPS
 - ps: |
     $env:PATH = "c:\program files\dotnet;$env:PATH"
 
@@ -32,12 +36,24 @@ build_script:
     $manifest = "src\Docker.PowerShell\Docker.psd1"
     (Get-Content $manifest -Raw) -replace "ModuleVersion.+","ModuleVersion = '$psversion'" | Out-File $manifest
 - ps: dotnet restore
-- ps: dotnet publish -r win -o bin -c Release src/Docker.PowerShell
-- ps: New-ExternalHelp -Path src/Docker.PowerShell/Help -OutputPath bin
+- ps: dotnet publish -r win -o $pwd\bin -c Release $pwd\src\Docker.PowerShell
+- ps: New-ExternalHelp -Path src\Docker.PowerShell\Help -OutputPath bin
 - ps: nuget pack src/Docker.PowerShell/Docker.nuspec -BasePath bin -OutputDirectory bin -Symbols -Version $psversion
 test_script:
 - ps: Register-PSRepository -Name test -SourceLocation $pwd\bin
 - ps: Install-Module -Name Docker -Repository test -Force
 - ps: Import-Module Docker
+- ps: git checkout -- src/Docker.PowerShell/Docker.psd1
+- ps: git checkout -- src/Docker.PowerShell/project.json
+- ps: git config core.autocrlf true
+- ps: New-MarkdownHelp -Module Docker -OutputFolder src\Docker.PowerShell\Help -ErrorAction SilentlyContinue
+- ps: Update-MarkdownHelp -Path src\Docker.PowerShell\Help
+- ps: |
+    git add src\Docker.PowerShell\Help\.
+    git status -s
+    git diff
+    if ((git status -s)){
+      throw "Help files do not match updated cmdlets. Please update the help markdown to correspond to the latest changes." 
+    }
 artifacts:
 - path: bin/*.nupkg

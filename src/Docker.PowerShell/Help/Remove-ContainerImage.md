@@ -1,6 +1,6 @@
 ---
-schema: 2.0.0
 external help file: Docker.PowerShell.dll-Help.xml
+schema: 2.0.0
 ---
 
 # Remove-ContainerImage
