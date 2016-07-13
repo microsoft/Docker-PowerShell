@@ -71,6 +71,9 @@ namespace Docker.PowerShell.Cmdlets
         [Parameter(ParameterSetName = CommonParameterSetNames.ImageObject)]
         public SwitchParameter Terminal { get; set; }
 
+        [Parameter]
+        public SwitchParameter FOO { get; set; }
+
         #endregion
     }
 
