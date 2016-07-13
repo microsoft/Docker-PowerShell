@@ -1,37 +1,35 @@
 ---
 schema: 2.0.0
 external help file: Docker.PowerShell.dll-Help.xml
+online version: 
 ---
 
-# New-ContainerImage
+# New-ContainerNet
 ## SYNOPSIS
-New-ContainerImage \[\[-Path\] \<string\>\] \[-Repository \<string\>\] \[-Tag \<string\>\] \[-SkipCache\] \[-ForceRemoveIntermediateContainers\] \[-PreserveIntermediateContainers\] \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+{{Fill in the Synopsis}}
 ## SYNTAX
 
 ```
-New-ContainerImage [[-Path] <String>] [-Repository <String>] [-Tag <String>] [-SkipCache]
- [-ForceRemoveIntermediateContainers] [-PreserveIntermediateContainers] [-HostAddress <String>]
- [-CertificateLocation <String>] [<CommonParameters>]
+New-ContainerNet [-HostAddress <String>] [-CertificateLocation <String>] [[-Name] <String>]
+ [[-Driver] <String>] [-Internal] [-CheckDuplicate] [-EnableIPv6] [-IPAM <IPAM>]
+ [-Options <System.Collections.Generic.IDictionary`2[System.String,System.String]>]
+ [-Labels <System.Collections.Generic.IDictionary`2[System.String,System.String]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Creates a new container image from an existing container. 
+{{Fill in the Description}}
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> New-ContainerImage
+PS C:\> {{ Add example code here }}
 ```
 
-Creates a new container image. 
+{{ Add example description here }}
 ## PARAMETERS
 
 ### -CertificateLocation
-The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
-
-
-
-
+{{Fill CertificateLocation Description}}
 
 ```yaml
 Type: String
@@ -45,12 +43,38 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ForceRemoveIntermediateContainers
-Indicates that containers used for intermediate steps during build should always be deleted, even if that build step failed.
+### -CheckDuplicate
+{{Fill CheckDuplicate Description}}
 
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: 
 
+Required: False
+Position: Named
+Default value: 
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -Driver
+{{Fill Driver Description}}
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: 1
+Default value: 
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EnableIPv6
+{{Fill EnableIPv6 Description}}
 
 ```yaml
 Type: SwitchParameter
@@ -65,11 +89,7 @@ Accept wildcard characters: False
 ```
 
 ### -HostAddress
-The address of the docker daemon to connect to.
-
-
-
-
+{{Fill HostAddress Description}}
 
 ```yaml
 Type: String
@@ -83,12 +103,53 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Path
-The location to put the new container image. 
+### -IPAM
+{{Fill IPAM Description}}
 
+```yaml
+Type: IPAM
+Parameter Sets: (All)
+Aliases: 
 
+Required: False
+Position: Named
+Default value: 
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -Internal
+{{Fill Internal Description}}
 
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: 
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Labels
+{{Fill Labels Description}}
+
+```yaml
+Type: System.Collections.Generic.IDictionary`2[System.String,System.String]
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: 
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Name
+{{Fill Name Description}}
 
 ```yaml
 Type: String
@@ -102,72 +163,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -PreserveIntermediateContainers
-Indicates that the containers used for intermediate steps during build should not be automatically deleted.
-
-
-
-
+### -Options
+{{Fill Options Description}}
 
 ```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: 
-
-Required: False
-Position: Named
-Default value: 
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Repository
-Specifies a repository.
-
-
-
-
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases: 
-
-Required: False
-Position: Named
-Default value: 
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -SkipCache
-Forces a rebuild of the image without using any of the layers on disk.
-
-
-
-
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: 
-
-Required: False
-Position: Named
-Default value: 
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Tag
-Sets a tag for the new image. If no tag is specified, the image will be tagged ":latest".
-
-
-
-
-
-```yaml
-Type: String
+Type: System.Collections.Generic.IDictionary`2[System.String,System.String]
 Parameter Sets: (All)
 Aliases: 
 
@@ -186,16 +186,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Docker.DotNet.Models.ImagesListResponse
+### Docker.DotNet.Models.NetworkListResponse
 
 ## NOTES
 
 ## RELATED LINKS
-
-[Online Version:]()
-
-
-
-
-
 

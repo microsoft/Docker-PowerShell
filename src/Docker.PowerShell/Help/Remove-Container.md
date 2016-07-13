@@ -1,6 +1,6 @@
 ---
-external help file: Docker.PowerShell.dll-Help.xml
 schema: 2.0.0
+external help file: Docker.PowerShell.dll-Help.xml
 ---
 
 # Remove-Container
@@ -10,7 +10,7 @@ Remove-Container \[-Id\] \<string\[\]\> \[-Force\] \[-HostAddress \<string\>\] \
 Remove-Container \[-Container\] \<ContainerListResponse\[\]\> \[-Force\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
 ## SYNTAX
 
-### Default
+### Default (Default)
 ```
 Remove-Container [-Force] [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>]
  [<CommonParameters>]
@@ -35,7 +35,7 @@ Removes the container with id "514e"
 ## PARAMETERS
 
 ### -CertificateLocation
-The location of the X509 certificate file named “key.pfx” that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
 
 
 
@@ -120,7 +120,7 @@ The id of the container to be removed.
 ```yaml
 Type: String[]
 Parameter Sets: Default
-Aliases: 
+Aliases: Name
 
 Required: True
 Position: 0

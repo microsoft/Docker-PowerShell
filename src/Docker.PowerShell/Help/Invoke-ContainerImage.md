@@ -1,6 +1,6 @@
 ---
-external help file: Docker.PowerShell.dll-Help.xml
 schema: 2.0.0
+external help file: Docker.PowerShell.dll-Help.xml
 ---
 
 # Invoke-ContainerImage
@@ -12,16 +12,16 @@ Invoke-ContainerImage \[-Image\] \<ImagesListResponse\[\]\> \[\[-Command\] \<str
 Invoke-ContainerImage \[-Configuration\] \<Config\> \[-RemoveAutomatically\] \[-PassThru\] \[-HostConfiguration \<HostConfig\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
 ## SYNTAX
 
-### Default
+### Default (Default)
 ```
-Invoke-ContainerImage [-RemoveAutomatically] [-PassThru] [-ContainerName <String>] [[-Command] <String[]>]
+Invoke-ContainerImage [-RemoveAutomatically] [-PassThru] [-Name <String>] [[-Command] <String[]>]
  [-Isolation <IsolationType>] [-Configuration <Config>] [-HostConfiguration <HostConfig>] [-Input] [-Terminal]
  [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ### ImageObject
 ```
-Invoke-ContainerImage [-RemoveAutomatically] [-PassThru] [-ContainerName <String>] [[-Command] <String[]>]
+Invoke-ContainerImage [-RemoveAutomatically] [-PassThru] [-Name <String>] [[-Command] <String[]>]
  [-Isolation <IsolationType>] [-Configuration <Config>] [-HostConfiguration <HostConfig>] [-Input] [-Terminal]
  [-Image] <ImagesListResponse[]> [-CertificateLocation <String>] [<CommonParameters>]
 ```
@@ -113,25 +113,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ContainerName
-Sets the name of the new container.
-
-
-
-
-
-```yaml
-Type: String
-Parameter Sets: Default, ImageObject
-Aliases: 
-
-Required: False
-Position: Named
-Default value: 
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -HostAddress
 The address of the docker daemon to connect to.
 
@@ -180,7 +161,7 @@ The id of the container image.
 ```yaml
 Type: String[]
 Parameter Sets: Default
-Aliases: 
+Aliases: ImageName
 
 Required: True
 Position: 0
@@ -239,6 +220,21 @@ Type: IsolationType
 Parameter Sets: Default, ImageObject
 Aliases: 
 Accepted values: Default, None, HyperV
+
+Required: False
+Position: Named
+Default value: 
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Name
+{{Fill Name Description}}
+
+```yaml
+Type: String
+Parameter Sets: Default, ImageObject
+Aliases: 
 
 Required: False
 Position: Named

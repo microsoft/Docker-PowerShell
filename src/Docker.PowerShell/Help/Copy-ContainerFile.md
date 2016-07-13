@@ -1,6 +1,6 @@
 ---
-external help file: Docker.PowerShell.dll-Help.xml
 schema: 2.0.0
+external help file: Docker.PowerShell.dll-Help.xml
 ---
 
 # Copy-ContainerFile
@@ -10,7 +10,7 @@ Copy-ContainerFile \[-Id\] \<string\> \[-Path\] \<string\[\]\> \[-Destination \<
 Copy-ContainerFile \[-Container\] \<ContainerListResponse\> \[-Path\] \<string\[\]\> \[-Destination \<string\>\] \[-ToContainer\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
 ## SYNTAX
 
-### Default
+### Default (Default)
 ```
 Copy-ContainerFile [-Path] <String[]> [-Destination <String>] [-ToContainer] [-Id] <String>
  [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
@@ -35,7 +35,7 @@ Copies a file into container
 ## PARAMETERS
 
 ### -CertificateLocation
-The location of the X509 certificate file named “key.pfx” that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
 
 
 
@@ -120,7 +120,7 @@ Id of the container to copy a file to/from.
 ```yaml
 Type: String
 Parameter Sets: Default
-Aliases: 
+Aliases: Name
 
 Required: True
 Position: 0
