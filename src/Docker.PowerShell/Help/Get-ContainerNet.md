@@ -3,35 +3,32 @@ schema: 2.0.0
 external help file: Docker.PowerShell.dll-Help.xml
 ---
 
-# Wait-Container
+# Get-ContainerNet
 ## SYNOPSIS
-Wait-Container \[-Id\] \<string\[\]\> \[-PassThru\] \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
-
-Wait-Container \[-Container\] \<ContainerListResponse\[\]\> \[-PassThru\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Get-ContainerNet \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
 ## SYNTAX
 
-### Default (Default)
+### NetworkName (Default)
 ```
-Wait-Container [-PassThru] [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>]
- [<CommonParameters>]
+Get-ContainerNet [[-Name] <String[]>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
-### ContainerObject
+### Default
 ```
-Wait-Container [-PassThru] [-Container] <ContainerListResponse[]> [-CertificateLocation <String>]
+Get-ContainerNet [[-Id] <String[]>] [-HostAddress <String>] [-CertificateLocation <String>]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Waits for the given container to shutdown, often indicating that the process run inside the container has completed.
+Gets a container network.
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> Wait-Container -id 1512f
+PS C:\> Get-ContainerNet -Name mycontainer
 ```
 
-Waits for the container "1521f" to shut down. 
+Gets network information for the container "mycontainer"
 ## PARAMETERS
 
 ### -CertificateLocation
@@ -50,25 +47,6 @@ Required: False
 Position: Named
 Default value: 
 Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Container
-The container to wait for.
-
-
-
-
-
-```yaml
-Type: ContainerListResponse[]
-Parameter Sets: ContainerObject
-Aliases: 
-
-Required: True
-Position: 0
-Default value: 
-Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -92,40 +70,32 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-The id of the container. 
-
-
-
-
+{{Fill Id Description}}
 
 ```yaml
 Type: String[]
 Parameter Sets: Default
-Aliases: Name
+Aliases: 
 
-Required: True
+Required: False
 Position: 0
 Default value: 
 Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -PassThru
-Passes the container object through the pipeline. 
-
-
-
-
+### -Name
+{{Fill Name Description}}
 
 ```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
+Type: String[]
+Parameter Sets: NetworkName
 Aliases: 
 
 Required: False
-Position: Named
+Position: 0
 Default value: 
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -133,11 +103,11 @@ Accept wildcard characters: False
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 ## INPUTS
 
-### System.String[]
-Docker.DotNet.Models.ContainerListResponse[]
+### None
+
 ## OUTPUTS
 
-### Docker.DotNet.Models.ContainerListResponse
+### Docker.DotNet.Models.NetworkListResponse
 
 ## NOTES
 

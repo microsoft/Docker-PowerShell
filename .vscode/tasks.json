@@ -25,7 +25,10 @@
 		{
 			"taskName": "build",
 			"suppressTaskName": true,
-			"args" : ["dotnet", "publish", "${cwd}\\src\\Docker.PowerShell", "-o", "${cwd}\\src\\Docker.PowerShell\\bin\\Module\\Docker", "-r", "win"],
+			"args" : [
+				"dotnet", "publish", "${cwd}\\src\\Docker.PowerShell", "-o", "${cwd}\\src\\Docker.PowerShell\\bin\\Module\\Docker", "-r", "win",
+				"&&", "powershell", "-executionpolicy", "bypass", "-c", "New-ExternalHelp", "-Path", "${cwd}\\src\\Docker.PowerShell\\Help", "-OutputPath", "${cwd}\\src\\Docker.PowerShell\\bin\\Module\\Docker", "-Force"
+				],
 			"showOutput": "always",
 			"isBuildCommand": true,
 			"problemMatcher": "$msCompile"
@@ -41,6 +44,16 @@
 			"taskName": "clean",
 			"suppressTaskName": true,
 			"args": ["del", "/Q", "/S", ".\\src\\*project.lock.json", "&&", "rmdir", "/Q", "/S", ".\\src\\Docker.PowerShell\\bin"],
+			"showOutput": "always"
+		},
+		{
+			"taskName": "update-help",
+			"suppressTaskName": true,
+			"args": [
+				"powershell", "-executionpolicy", "bypass", "-c", "ipmo", ".\\src\\Docker.PowerShell\\bin\\Module\\Docker", ";",
+				"New-MarkdownHelp", "-Module", "Docker", "-OutputFolder", ".\\src\\Docker.PowerShell\\Help", "-ErrorAction", "SilentlyContinue", ";",
+				"Update-MarkdownHelp", "-Path", ".\\src\\Docker.PowerShell\\Help"
+			],
 			"showOutput": "always"
 		}
 	]

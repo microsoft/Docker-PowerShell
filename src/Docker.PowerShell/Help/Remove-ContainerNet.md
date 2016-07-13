@@ -1,61 +1,40 @@
 ---
 schema: 2.0.0
 external help file: Docker.PowerShell.dll-Help.xml
+online version: 
 ---
 
-# Get-ContainerImage
+# Remove-ContainerNet
 ## SYNOPSIS
-Get-ContainerImage \[-All\] \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+{{Fill in the Synopsis}}
 ## SYNTAX
 
 ### Default (Default)
 ```
-Get-ContainerImage [[-Id] <String[]>] [-HostAddress <String>] [-CertificateLocation <String>]
+Remove-ContainerNet [-Force] [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>]
  [<CommonParameters>]
 ```
 
-### AllImages
+### NetworkObject
 ```
-Get-ContainerImage [-All] [-CertificateLocation <String>] [<CommonParameters>]
+Remove-ContainerNet [-Force] [-Network] <NetworkListResponse[]> [-CertificateLocation <String>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Returns container images.
+{{Fill in the Description}}
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> Get-ContainerImage
+PS C:\> {{ Add example code here }}
 ```
 
-Returns a list of container images. 
+{{ Add example description here }}
 ## PARAMETERS
 
-### -All
-Specifies that all images should be retrieved. 
-
-
-
-
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: AllImages
-Aliases: 
-
-Required: False
-Position: Named
-Default value: 
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -CertificateLocation
-The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
-
-
-
-
+{{Fill CertificateLocation Description}}
 
 ```yaml
 Type: String
@@ -69,12 +48,23 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Force
+{{Fill Force Description}}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: 
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -HostAddress
-The address of the docker daemon to connect to.
-
-
-
-
+{{Fill HostAddress Description}}
 
 ```yaml
 Type: String
@@ -94,9 +84,24 @@ Accept wildcard characters: False
 ```yaml
 Type: String[]
 Parameter Sets: Default
-Aliases: ImageName
+Aliases: 
 
-Required: False
+Required: True
+Position: 0
+Default value: 
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -Network
+{{Fill Network Description}}
+
+```yaml
+Type: NetworkListResponse[]
+Parameter Sets: NetworkObject
+Aliases: 
+
+Required: True
 Position: 0
 Default value: 
 Accept pipeline input: True (ByValue)
@@ -107,20 +112,13 @@ Accept wildcard characters: False
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 ## INPUTS
 
-### None
-
+### System.String[]
+Docker.DotNet.Models.NetworkListResponse[]
 ## OUTPUTS
 
-### Docker.DotNet.Models.ImagesListResponse
+### System.Object
 
 ## NOTES
 
 ## RELATED LINKS
-
-[Online Version:]()
-
-
-
-
-
 

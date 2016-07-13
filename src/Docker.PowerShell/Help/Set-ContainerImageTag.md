@@ -1,45 +1,40 @@
 ---
 schema: 2.0.0
 external help file: Docker.PowerShell.dll-Help.xml
+online version: 
 ---
 
-# Remove-ContainerImage
+# Set-ContainerImageTag
 ## SYNOPSIS
-Remove-ContainerImage \[-Id\] \<string\[\]\> \[-Force\] \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
-
-Remove-ContainerImage \[-Image\] \<ImagesListResponse\[\]\> \[-Force\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+{{Fill in the Synopsis}}
 ## SYNTAX
 
 ### Default (Default)
 ```
-Remove-ContainerImage [-Force] [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>]
- [<CommonParameters>]
+Set-ContainerImageTag [-Force] [-Repository] <String> [[-Tag] <String>] [-Id] <String[]>
+ [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ### ImageObject
 ```
-Remove-ContainerImage [-Force] [-Image] <ImagesListResponse[]> [-CertificateLocation <String>]
- [<CommonParameters>]
+Set-ContainerImageTag [-Force] [-Repository] <String> [[-Tag] <String>] [-Image] <ImagesListResponse[]>
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Removes a container image. 
+{{Fill in the Description}}
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> Remove-ContainerImage -id 124dfe
+PS C:\> {{ Add example code here }}
 ```
 
-Removes the container with id "124dfe"
+{{ Add example description here }}
 ## PARAMETERS
 
 ### -CertificateLocation
-The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
-
-
-
-
+{{Fill CertificateLocation Description}}
 
 ```yaml
 Type: String
@@ -54,11 +49,7 @@ Accept wildcard characters: False
 ```
 
 ### -Force
-Forces the action without prompting for confirmation. 
-
-
-
-
+{{Fill Force Description}}
 
 ```yaml
 Type: SwitchParameter
@@ -73,11 +64,7 @@ Accept wildcard characters: False
 ```
 
 ### -HostAddress
-The address of the docker daemon to connect to.
-
-
-
-
+{{Fill HostAddress Description}}
 
 ```yaml
 Type: String
@@ -92,11 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-The id of the image to be removed. 
-
-
-
-
+{{Fill Id Description}}
 
 ```yaml
 Type: String[]
@@ -111,11 +94,7 @@ Accept wildcard characters: False
 ```
 
 ### -Image
-The image that is to be removed. 
-
-
-
-
+{{Fill Image Description}}
 
 ```yaml
 Type: ImagesListResponse[]
@@ -126,6 +105,36 @@ Required: True
 Position: 0
 Default value: 
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -Repository
+{{Fill Repository Description}}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: 
+
+Required: True
+Position: 1
+Default value: 
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Tag
+{{Fill Tag Description}}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: 2
+Default value: 
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -142,11 +151,4 @@ Docker.DotNet.Models.ImagesListResponse[]
 ## NOTES
 
 ## RELATED LINKS
-
-[Online Version:]()
-
-
-
-
-
 

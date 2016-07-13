@@ -1,6 +1,6 @@
 ---
-external help file: Docker.PowerShell.dll-Help.xml
 schema: 2.0.0
+external help file: Docker.PowerShell.dll-Help.xml
 ---
 
 # ConvertTo-ContainerImage
@@ -10,7 +10,7 @@ ConvertTo-ContainerImage \[-Id\] \<string\[\]\> \[-Repository \<string\>\] \[-Ta
 ConvertTo-ContainerImage \[-Container\] \<ContainerListResponse\[\]\> \[-Repository \<string\>\] \[-Tag \<string\>\] \[-Message \<string\>\] \[-Author \<string\>\] \[-Configuration \<Config\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
 ## SYNTAX
 
-### Default
+### Default (Default)
 ```
 ConvertTo-ContainerImage [-Repository <String>] [-Tag <String>] [-Message <String>] [-Author <String>]
  [-Configuration <Config>] [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>]
@@ -141,7 +141,7 @@ Accept wildcard characters: False
 ```yaml
 Type: String[]
 Parameter Sets: Default
-Aliases: 
+Aliases: Name
 
 Required: True
 Position: 0
