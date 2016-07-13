@@ -1,6 +1,6 @@
 ---
-external help file: Docker.PowerShell.dll-Help.xml
 schema: 2.0.0
+external help file: Docker.PowerShell.dll-Help.xml
 ---
 
 # New-Container
@@ -12,18 +12,18 @@ New-Container \[-Image\] \<ImagesListResponse\[\]\> \[\[-Command\] \<string\[\]\
 New-Container \[-Configuration\] \<Config\> \[-HostConfiguration \<HostConfig\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
 ## SYNTAX
 
-### Default
+### Default (Default)
 ```
-New-Container [-ContainerName <String>] [[-Command] <String[]>] [-Isolation <IsolationType>]
- [-Configuration <Config>] [-HostConfiguration <HostConfig>] [-Input] [-Terminal] [-Id] <String[]>
- [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
+New-Container [-Name <String>] [[-Command] <String[]>] [-Isolation <IsolationType>] [-Configuration <Config>]
+ [-HostConfiguration <HostConfig>] [-Input] [-Terminal] [-Id] <String[]> [-HostAddress <String>]
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ### ImageObject
 ```
-New-Container [-ContainerName <String>] [[-Command] <String[]>] [-Isolation <IsolationType>]
- [-Configuration <Config>] [-HostConfiguration <HostConfig>] [-Input] [-Terminal]
- [-Image] <ImagesListResponse[]> [-CertificateLocation <String>] [<CommonParameters>]
+New-Container [-Name <String>] [[-Command] <String[]>] [-Isolation <IsolationType>] [-Configuration <Config>]
+ [-HostConfiguration <HostConfig>] [-Input] [-Terminal] [-Image] <ImagesListResponse[]>
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ### ConfigObject
@@ -45,7 +45,7 @@ Creates a new container from the image with id "4179ed"
 ## PARAMETERS
 
 ### -CertificateLocation
-The location of the X509 certificate file named “key.pfx” that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
 
 
 
@@ -113,25 +113,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ContainerName
-Sets the name of the new container.
-
-
-
-
-
-```yaml
-Type: String
-Parameter Sets: Default, ImageObject
-Aliases: 
-
-Required: False
-Position: Named
-Default value: 
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -HostAddress
 The address of the docker daemon to connect to.
 
@@ -180,7 +161,7 @@ The Id of the image to create the new container from.
 ```yaml
 Type: String[]
 Parameter Sets: Default
-Aliases: 
+Aliases: ImageName
 
 Required: True
 Position: 0
@@ -239,6 +220,21 @@ Type: IsolationType
 Parameter Sets: Default, ImageObject
 Aliases: 
 Accepted values: Default, None, HyperV
+
+Required: False
+Position: Named
+Default value: 
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Name
+{{Fill Name Description}}
+
+```yaml
+Type: String
+Parameter Sets: Default, ImageObject
+Aliases: 
 
 Required: False
 Position: Named

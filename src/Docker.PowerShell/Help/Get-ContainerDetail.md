@@ -1,6 +1,6 @@
 ---
-external help file: Docker.PowerShell.dll-Help.xml
 schema: 2.0.0
+external help file: Docker.PowerShell.dll-Help.xml
 ---
 
 # Get-ContainerDetail
@@ -10,7 +10,7 @@ Get-ContainerDetail \[-Id\] \<string\[\]\> \[-HostAddress \<string\>\] \[-Certif
 Get-ContainerDetail \[-Container\] \<ContainerListResponse\[\]\> \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
 ## SYNTAX
 
-### Default
+### Default (Default)
 ```
 Get-ContainerDetail [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>]
  [<CommonParameters>]
@@ -34,7 +34,7 @@ Gets details about a container.
 ## PARAMETERS
 
 ### -CertificateLocation
-The location of the X509 certificate file named “key.pfx” that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
 
 
 
@@ -100,7 +100,7 @@ Specifies the id of the container to get details for. This parameter also accept
 ```yaml
 Type: String[]
 Parameter Sets: Default
-Aliases: 
+Aliases: Name
 
 Required: True
 Position: 0

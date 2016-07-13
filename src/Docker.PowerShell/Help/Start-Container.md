@@ -1,6 +1,6 @@
 ---
-external help file: Docker.PowerShell.dll-Help.xml
 schema: 2.0.0
+external help file: Docker.PowerShell.dll-Help.xml
 ---
 
 # Start-Container
@@ -10,7 +10,7 @@ Start-Container \[-Id\] \<string\[\]\> \[-PassThru\] \[-HostAddress \<string\>\]
 Start-Container \[-Container\] \<ContainerListResponse\[\]\> \[-PassThru\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
 ## SYNTAX
 
-### Default
+### Default (Default)
 ```
 Start-Container [-PassThru] [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>]
  [<CommonParameters>]
@@ -101,7 +101,7 @@ Id of the container to start. Can be a unique subset of ID.
 ```yaml
 Type: String[]
 Parameter Sets: Default
-Aliases: 
+Aliases: Name
 
 Required: True
 Position: 0

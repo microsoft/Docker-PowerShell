@@ -1,6 +1,6 @@
 ---
-external help file: Docker.PowerShell.dll-Help.xml
 schema: 2.0.0
+external help file: Docker.PowerShell.dll-Help.xml
 ---
 
 # Enter-Container
@@ -10,7 +10,7 @@ Enter-Container \[-Id\] \<string\> \[-HostAddress \<string\>\] \[-CertificateLoc
 Enter-Container \[-Container\] \<ContainerListResponse\> \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
 ## SYNTAX
 
-### Default
+### Default (Default)
 ```
 Enter-Container [-Id] <String> [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
@@ -21,7 +21,6 @@ Enter-Container [-Container] <ContainerListResponse> [-CertificateLocation <Stri
 ```
 
 ## DESCRIPTION
-
 Connects to interactive session in the specified container.
 ## EXAMPLES
 
@@ -34,7 +33,7 @@ Connects to $myContainer
 ## PARAMETERS
 
 ### -CertificateLocation
-The location of the X509 certificate file named “key.pfx” that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
+The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server.  (Note that certificate authorization work is still in progress and this is likely to change).
 
 
 
@@ -100,7 +99,7 @@ Specifies the container by id or name. You can pass a subset of the ID if it is 
 ```yaml
 Type: String
 Parameter Sets: Default
-Aliases: 
+Aliases: Name
 
 Required: True
 Position: 0
@@ -121,7 +120,6 @@ Docker.DotNet.Models.ContainerListResponse
 
 ## NOTES
 These are some notes about the cmdlet. 
-
 ## RELATED LINKS
 
 [Online Version:](https://github.com/Microsoft/Docker-PowerShell)
