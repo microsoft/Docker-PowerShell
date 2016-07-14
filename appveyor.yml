@@ -12,6 +12,10 @@ install:
 nuget:
   disable_publish_on_pr: true
 build_script:
+- ps: $psversiontable
+- ps: dotnet --version
+- ps: get-packageprovider nuget
+- ps: get-module -name platyPS
 - ps: |
     $env:PATH = "c:\program files\dotnet;$env:PATH"
 
@@ -44,6 +48,8 @@ test_script:
 - ps: New-MarkdownHelp -Module Docker -OutputFolder src\Docker.PowerShell\Help -ErrorAction SilentlyContinue
 - ps: Update-MarkdownHelp -Path src\Docker.PowerShell\Help
 - ps: |
+    git status -s
+    git diff
     if ((git status -s)){
       throw "Help files do not match updated cmdlets. Please update the help markdown to correspond to the latest changes." 
     }
