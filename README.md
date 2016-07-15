@@ -110,7 +110,7 @@ made to the structure or behavior of the cmdlets.  Follow the instructions on th
 platyPS github readme to get the module installed, and then after imported the
 Docker module with your changes compiled in, run:
 
-    > New-MarkdownHelp -Module Docker -OutputFolder .\src\Docker.Powershell\Help
+    > New-MarkdownHelp -Module Docker -OutputFolder .\src\Docker.Powershell\Help -ErrorAction SilentlyContinue
 
     > Update-MarkdownHelp -Path .\src\Docker.PowerShell\Help
 
