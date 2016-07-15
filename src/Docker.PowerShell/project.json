@@ -5,8 +5,8 @@
     "win": {}
   },
   "dependencies": {
-    "Docker.DotNet.X509": "1.2.2",
-    "Docker.DotNet": "2.124.0",
+    "Docker.DotNet.X509": "2.124.1",
+    "Docker.DotNet": "2.124.1",
     "Tar": "0.1.0-*",
     "Microsoft.PowerShell.5.ReferenceAssemblies": "1.0.0"
   },
