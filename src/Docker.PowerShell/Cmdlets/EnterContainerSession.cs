@@ -6,9 +6,9 @@ using Docker.PowerShell.Support;
 
 namespace Docker.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Enter, "Container",
+    [Cmdlet(VerbsCommon.Enter, "ContainerSession",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
-    public class EnterContainer : SingleContainerOperationCmdlet
+    public class EnterContainerSession : SingleContainerOperationCmdlet
     {
         protected override async Task ProcessRecordAsync()
         {

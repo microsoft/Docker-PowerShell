@@ -38,7 +38,7 @@ FormatsToProcess = 'Docker.Format.ps1xml'
 CmdletsToExport = @(
     'ConvertTo-ContainerImage',
     'Copy-ContainerFile',
-    'Enter-Container',
+    'Enter-ContainerSession',
     'Get-Container',
     'Get-ContainerDetail',
     'Get-ContainerImage',
