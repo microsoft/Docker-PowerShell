@@ -3,21 +3,23 @@ external help file: Docker.PowerShell.dll-Help.xml
 schema: 2.0.0
 ---
 
-# Enter-Container
+# Enter-ContainerSession
 ## SYNOPSIS
-Enter-Container \[-Id\] \<string\> \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Enter-ContainerSession \[-Id\] \<string\> \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
 
-Enter-Container \[-Container\] \<ContainerListResponse\> \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Enter-ContainerSession \[-Container\] \<ContainerListResponse\> \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
 ## SYNTAX
 
 ### Default (Default)
 ```
-Enter-Container [-Id] <String> [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
+Enter-ContainerSession [-Id] <String> [-HostAddress <String>] [-CertificateLocation <String>]
+ [<CommonParameters>]
 ```
 
 ### ContainerObject
 ```
-Enter-Container [-Container] <ContainerListResponse> [-CertificateLocation <String>] [<CommonParameters>]
+Enter-ContainerSession [-Container] <ContainerListResponse> [-CertificateLocation <String>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,7 +28,7 @@ Connects to interactive session in the specified container.
 
 ### Example 1
 ```
-PS C:\> {{ Enter-Container $myContainer}}
+PS C:\> {{ Enter-ContainerSession $myContainer}}
 ```
 
 Connects to $myContainer
