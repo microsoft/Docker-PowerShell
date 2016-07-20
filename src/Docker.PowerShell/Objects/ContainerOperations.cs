@@ -11,7 +11,7 @@ namespace Docker.PowerShell.Objects
     public enum IsolationType
     {
         Default,
-        None,
+        Process,
         HyperV
     }
 

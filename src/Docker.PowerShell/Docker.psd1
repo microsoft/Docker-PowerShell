@@ -53,6 +53,7 @@ CmdletsToExport = @(
     'Invoke-ContainerImage',
     'Set-ContainerImageTag',
     'Start-Container',
+    'Start-ContainerProcess',
     'Stop-Container',
     'Wait-Container'
 )
@@ -60,8 +61,10 @@ CmdletsToExport = @(
 
 # Aliases to export from this module
 AliasesToExport = @(
-    'Commit-Container',
+    'Attach-Container',
     'Build-ContainerImage',
+    'Commit-Container',
+    'Exec-Container',
     'Run-ContainerImage',
     'Tag-ContainerImage'
 )

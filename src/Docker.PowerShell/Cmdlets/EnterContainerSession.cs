@@ -8,6 +8,7 @@ namespace Docker.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.Enter, "ContainerSession",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
+    [Alias("Attach-Container")]
     public class EnterContainerSession : SingleContainerOperationCmdlet
     {
         protected override async Task ProcessRecordAsync()
@@ -29,7 +30,7 @@ namespace Docker.PowerShell.Cmdlets
 
             using (var stream = await DkrClient.Containers.AttachContainerAsync(inspect.ID, inspect.Config.Tty, parameters, CmdletCancellationToken))
             {
-                await stream.CopyToConsoleAsync(inspect.Config, CmdletCancellationToken);
+                await stream.CopyToConsoleAsync(inspect.Config.Tty, inspect.Config.OpenStdin, CmdletCancellationToken);
             }
         }
     }
