@@ -3,13 +3,12 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Docker.DotNet;
-using Docker.DotNet.Models;
 
 namespace Docker.PowerShell.Support
 {
     internal static class MultiplexedStreamExtensions
     {
-        public static async Task CopyToConsoleAsync(this MultiplexedStream stream, Config config, CancellationToken cancellationToken)
+        public static async Task CopyToConsoleAsync(this MultiplexedStream stream, bool tty, bool openStdin, CancellationToken cancellationToken)
         {
             Stream stdin = Stream.Null, stdout = Stream.Null, stderr = Stream.Null;
             ConsoleStream conin = null, conout = null;
@@ -18,7 +17,7 @@ namespace Docker.PowerShell.Support
                 // TODO: What if we are not attached to a console? If config.Tty is false, this should not be an error.
                 conout = new ConsoleStream(ConsoleDirection.Out);
                 stdout = Console.OpenStandardOutput(); // Don't use conout's Stream because FileStream always buffers on net46.
-                if (config.Tty)
+                if (tty)
                 {
                     conout.EnableVTMode();
                 }
@@ -29,12 +28,12 @@ namespace Docker.PowerShell.Support
 
                 Task stdinRead = null;
                 CancellationTokenSource inputCancelToken = null;
-                if (config.OpenStdin)
+                if (openStdin)
                 {
                     conin = new ConsoleStream(ConsoleDirection.In);
                     stdin = conin.Stream;
                     conin.EnableRawInputMode();
-                    if (config.Tty)
+                    if (tty)
                     {
                         conin.EnableVTMode();
                     }
