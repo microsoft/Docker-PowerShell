@@ -133,7 +133,19 @@ namespace Docker.PowerShell.Objects
             }
             // TODO - Have a better way to get the image list response given the ID.
             return (await dkrClient.Images.ListImagesAsync(new ImagesListParameters() { All = true }))
-                .Single(c => c.ID.StartsWith(shaId));
+                .Single(i => i.ID.StartsWith(shaId));
+        }
+
+        /// <summary>
+        /// Gets any image objects from the client by matching repository:tag.
+        /// </summary>
+        /// <param name="repoTag">The image repository:tag to look for.</param>
+        /// <param name="dkrClient">The client to request the image from.</param>
+        /// <returns>The image objects matching the repository:tag.</returns>
+        internal static async Task<IList<ImagesListResponse>> GetImagesByRepoTag(string repoTag, DotNet.DockerClient dkrClient)
+        {
+            return (await dkrClient.Images.ListImagesAsync(new ImagesListParameters() { All = true }))
+                .Where(i => i.RepoTags.Any(rt => repoTag.Split('/').Last().Contains(":") ? rt == repoTag : rt == (repoTag + ":latest"))).ToList();
         }
 
         /// <summary>

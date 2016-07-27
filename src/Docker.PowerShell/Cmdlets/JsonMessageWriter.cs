@@ -61,7 +61,7 @@ namespace Docker.PowerShell.Cmdlets
                 var record = new ProgressRecord(activity, activityName.ToString(), message.Status ?? "Processing");
 
                 var progress = message.Progress;
-                if (progress.Total > 0)
+                if (progress.Total > 0 && progress.Current <= progress.Total)
                 {
                     record.PercentComplete = (int)(progress.Current * 100 / progress.Total);
                 }
