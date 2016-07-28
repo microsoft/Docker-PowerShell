@@ -19,7 +19,8 @@ Copy-ContainerFile [-Path] <String[]> [-Destination <String>] [-ToContainer] [-I
 ### ContainerObject
 ```
 Copy-ContainerFile [-Path] <String[]> [-Destination <String>] [-ToContainer]
- [-Container] <ContainerListResponse> [-CertificateLocation <String>] [<CommonParameters>]
+ [-Container] <ContainerListResponse> [-HostAddress <String>] [-CertificateLocation <String>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -100,7 +101,7 @@ The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
-Parameter Sets: Default
+Parameter Sets: (All)
 Aliases: 
 
 Required: False

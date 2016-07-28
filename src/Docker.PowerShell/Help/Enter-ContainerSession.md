@@ -18,8 +18,8 @@ Enter-ContainerSession [-Id] <String> [-HostAddress <String>] [-CertificateLocat
 
 ### ContainerObject
 ```
-Enter-ContainerSession [-Container] <ContainerListResponse> [-CertificateLocation <String>]
- [<CommonParameters>]
+Enter-ContainerSession [-Container] <ContainerListResponse> [-HostAddress <String>]
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -81,7 +81,7 @@ The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
-Parameter Sets: Default
+Parameter Sets: (All)
 Aliases: 
 
 Required: False

@@ -16,7 +16,7 @@ Get-ContainerImage [[-Id] <String[]>] [-HostAddress <String>] [-CertificateLocat
 
 ### AllImages
 ```
-Get-ContainerImage [-All] [-CertificateLocation <String>] [<CommonParameters>]
+Get-ContainerImage [-All] [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -78,7 +78,7 @@ The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
-Parameter Sets: Default
+Parameter Sets: (All)
 Aliases: 
 
 Required: False

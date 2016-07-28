@@ -18,8 +18,8 @@ Remove-ContainerImage [-Force] [-Id] <String[]> [-HostAddress <String>] [-Certif
 
 ### ImageObject
 ```
-Remove-ContainerImage [-Force] [-Image] <ImagesListResponse[]> [-CertificateLocation <String>]
- [<CommonParameters>]
+Remove-ContainerImage [-Force] [-Image] <ImagesListResponse[]> [-HostAddress <String>]
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -81,7 +81,7 @@ The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
-Parameter Sets: Default
+Parameter Sets: (All)
 Aliases: 
 
 Required: False

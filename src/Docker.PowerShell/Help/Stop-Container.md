@@ -18,8 +18,8 @@ Stop-Container [-Force] [-PassThru] [-Id] <String[]> [-HostAddress <String>] [-C
 
 ### ContainerObject
 ```
-Stop-Container [-Force] [-PassThru] [-Container] <ContainerListResponse[]> [-CertificateLocation <String>]
- [<CommonParameters>]
+Stop-Container [-Force] [-PassThru] [-Container] <ContainerListResponse[]> [-HostAddress <String>]
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -100,7 +100,7 @@ The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
-Parameter Sets: Default
+Parameter Sets: (All)
 Aliases: 
 
 Required: False

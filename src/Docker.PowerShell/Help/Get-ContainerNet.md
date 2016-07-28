@@ -10,7 +10,8 @@ Get-ContainerNet \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\]
 
 ### NetworkName (Default)
 ```
-Get-ContainerNet [[-Name] <String[]>] [-CertificateLocation <String>] [<CommonParameters>]
+Get-ContainerNet [[-Name] <String[]>] [-HostAddress <String>] [-CertificateLocation <String>]
+ [<CommonParameters>]
 ```
 
 ### Default
@@ -59,7 +60,7 @@ The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
-Parameter Sets: Default
+Parameter Sets: (All)
 Aliases: 
 
 Required: False

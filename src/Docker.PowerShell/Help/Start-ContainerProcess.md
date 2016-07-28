@@ -20,7 +20,8 @@ Start-ContainerProcess [[-Command] <String[]>] [-Detached] [-Input] [-Terminal] 
 ### ContainerObject
 ```
 Start-ContainerProcess [[-Command] <String[]>] [-Detached] [-Input] [-Terminal] [-Privileged] [-User <String>]
- [-Container] <ContainerListResponse> [-CertificateLocation <String>] [<CommonParameters>]
+ [-Container] <ContainerListResponse> [-HostAddress <String>] [-CertificateLocation <String>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -100,7 +101,7 @@ The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
-Parameter Sets: Default
+Parameter Sets: (All)
 Aliases: 
 
 Required: False

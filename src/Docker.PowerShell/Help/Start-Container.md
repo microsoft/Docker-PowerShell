@@ -18,8 +18,8 @@ Start-Container [-PassThru] [-Id] <String[]> [-HostAddress <String>] [-Certifica
 
 ### ContainerObject
 ```
-Start-Container [-PassThru] [-Container] <ContainerListResponse[]> [-CertificateLocation <String>]
- [<CommonParameters>]
+Start-Container [-PassThru] [-Container] <ContainerListResponse[]> [-HostAddress <String>]
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -81,7 +81,7 @@ The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
-Parameter Sets: Default
+Parameter Sets: (All)
 Aliases: 
 
 Required: False

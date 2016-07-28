@@ -51,7 +51,7 @@ namespace Docker.PowerShell.Cmdlets
         /// <summary>
         /// The common parameter for specifying the address of the host to operate on.
         /// </summary>
-        [Parameter(ParameterSetName = CommonParameterSetNames.Default)]
+        [Parameter]
         [ValidateNotNullOrEmpty]
         public string HostAddress { get; set; }
 

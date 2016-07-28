@@ -16,7 +16,8 @@ Get-ContainerNetDetail [-Id] <String[]> [-HostAddress <String>] [-CertificateLoc
 
 ### NetworkObject
 ```
-Get-ContainerNetDetail [-Network] <NetworkListResponse[]> [-CertificateLocation <String>] [<CommonParameters>]
+Get-ContainerNetDetail [-Network] <NetworkListResponse[]> [-HostAddress <String>]
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -59,7 +60,7 @@ The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
-Parameter Sets: Default
+Parameter Sets: (All)
 Aliases: 
 
 Required: False

@@ -17,8 +17,8 @@ Remove-ContainerNet [-Force] [-Id] <String[]> [-HostAddress <String>] [-Certific
 
 ### NetworkObject
 ```
-Remove-ContainerNet [-Force] [-Network] <NetworkListResponse[]> [-CertificateLocation <String>]
- [<CommonParameters>]
+Remove-ContainerNet [-Force] [-Network] <NetworkListResponse[]> [-HostAddress <String>]
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -68,7 +68,7 @@ Accept wildcard characters: False
 
 ```yaml
 Type: String
-Parameter Sets: Default
+Parameter Sets: (All)
 Aliases: 
 
 Required: False
