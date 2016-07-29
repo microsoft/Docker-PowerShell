@@ -14,21 +14,21 @@ Invoke-ContainerImage \[-Configuration\] \<Config\> \[-RemoveAutomatically\] \[-
 
 ### Default (Default)
 ```
-Invoke-ContainerImage [-RemoveAutomatically] [-PassThru] [-Name <String>] [[-Command] <String[]>]
+Invoke-ContainerImage [-RemoveAutomatically] [-PassThru] [-Detach] [-Name <String>] [[-Command] <String[]>]
  [-Isolation <IsolationType>] [-Configuration <Config>] [-HostConfiguration <HostConfig>] [-Input] [-Terminal]
  [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ### ImageObject
 ```
-Invoke-ContainerImage [-RemoveAutomatically] [-PassThru] [-Name <String>] [[-Command] <String[]>]
+Invoke-ContainerImage [-RemoveAutomatically] [-PassThru] [-Detach] [-Name <String>] [[-Command] <String[]>]
  [-Isolation <IsolationType>] [-Configuration <Config>] [-HostConfiguration <HostConfig>] [-Input] [-Terminal]
  [-Image] <ImagesListResponse[]> [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ### ConfigObject
 ```
-Invoke-ContainerImage [-RemoveAutomatically] [-PassThru] -Configuration <Config>
+Invoke-ContainerImage [-RemoveAutomatically] [-PassThru] [-Detach] -Configuration <Config>
  [-HostConfiguration <HostConfig>] [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
@@ -291,6 +291,21 @@ Gives a terminal in the new container.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: Default, ImageObject
+Aliases: 
+
+Required: False
+Position: Named
+Default value: 
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Detach
+Run the container in detached mode, which skips attaching to input/output pipes.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
 Aliases: 
 
 Required: False
