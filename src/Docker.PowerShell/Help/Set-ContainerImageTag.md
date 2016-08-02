@@ -18,7 +18,7 @@ Set-ContainerImageTag [-Force] [-Repository] <String> [[-Tag] <String>] [-Id] <S
 ### ImageObject
 ```
 Set-ContainerImageTag [-Force] [-Repository] <String> [[-Tag] <String>] [-Image] <ImagesListResponse[]>
- [-CertificateLocation <String>] [<CommonParameters>]
+ [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -68,7 +68,7 @@ Accept wildcard characters: False
 
 ```yaml
 Type: String
-Parameter Sets: Default
+Parameter Sets: (All)
 Aliases: 
 
 Required: False

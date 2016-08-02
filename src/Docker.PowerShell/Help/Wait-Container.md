@@ -18,8 +18,8 @@ Wait-Container [-PassThru] [-Id] <String[]> [-HostAddress <String>] [-Certificat
 
 ### ContainerObject
 ```
-Wait-Container [-PassThru] [-Container] <ContainerListResponse[]> [-CertificateLocation <String>]
- [<CommonParameters>]
+Wait-Container [-PassThru] [-Container] <ContainerListResponse[]> [-HostAddress <String>]
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -81,7 +81,7 @@ The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
-Parameter Sets: Default
+Parameter Sets: (All)
 Aliases: 
 
 Required: False

@@ -22,14 +22,14 @@ New-Container [-Name <String>] [[-Command] <String[]>] [-Isolation <IsolationTyp
 ### ImageObject
 ```
 New-Container [-Name <String>] [[-Command] <String[]>] [-Isolation <IsolationType>] [-Configuration <Config>]
- [-HostConfiguration <HostConfig>] [-Input] [-Terminal] [-Image] <ImagesListResponse[]>
+ [-HostConfiguration <HostConfig>] [-Input] [-Terminal] [-Image] <ImagesListResponse[]> [-HostAddress <String>]
  [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ### ConfigObject
 ```
-New-Container -Configuration <Config> [-HostConfiguration <HostConfig>] [-CertificateLocation <String>]
- [<CommonParameters>]
+New-Container -Configuration <Config> [-HostConfiguration <HostConfig>] [-HostAddress <String>]
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -122,7 +122,7 @@ The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
-Parameter Sets: Default
+Parameter Sets: (All)
 Aliases: 
 
 Required: False

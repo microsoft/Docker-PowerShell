@@ -20,8 +20,8 @@ ConvertTo-ContainerImage [-Repository <String>] [-Tag <String>] [-Message <Strin
 ### ContainerObject
 ```
 ConvertTo-ContainerImage [-Repository <String>] [-Tag <String>] [-Message <String>] [-Author <String>]
- [-Configuration <Config>] [-Container] <ContainerListResponse[]> [-CertificateLocation <String>]
- [<CommonParameters>]
+ [-Configuration <Config>] [-Container] <ContainerListResponse[]> [-HostAddress <String>]
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -121,7 +121,7 @@ Accept wildcard characters: False
 
 ```yaml
 Type: String
-Parameter Sets: Default
+Parameter Sets: (All)
 Aliases: 
 
 Required: False

@@ -18,7 +18,8 @@ Get-ContainerDetail [-Id] <String[]> [-HostAddress <String>] [-CertificateLocati
 
 ### ContainerObject
 ```
-Get-ContainerDetail [-Container] <ContainerListResponse[]> [-CertificateLocation <String>] [<CommonParameters>]
+Get-ContainerDetail [-Container] <ContainerListResponse[]> [-HostAddress <String>]
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -80,7 +81,7 @@ The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
-Parameter Sets: Default
+Parameter Sets: (All)
 Aliases: 
 
 Required: False
