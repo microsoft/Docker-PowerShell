@@ -42,7 +42,7 @@ namespace Docker.PowerShell.Cmdlets
             foreach (var img in await DkrClient.Images.ListImagesAsync(listParams))
             {
                 if (Id == null ||
-                    Id.Any(i => img.RepoTags.Any(r => r.StartsWith(i))) ||
+                    Id.Any(i => img.RepoTags.Any(r => i.Split('/').Last().Contains(":") ? r == i : r == (i + ":latest"))) ||
                     Id.Any(i => img.ID.StartsWith(i) || img.ID.StartsWith("sha256:" + i)))
                 {
                     WriteObject(img);

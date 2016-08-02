@@ -25,9 +25,9 @@ public class ImageArgumentCompleter : IArgumentCompleter
             {
                 var repoTags = image.RepoTags.Where(repoTag => repoTag != "<none>:<none>");
 
-                // If the user has already typed part of the name, then include IDs that start
+                // If the user has already typed part of the name and this isn't for push, then include IDs that start
                 // with that portion. Otherwise, just let the user tab through the names.
-                if (wordToComplete == "")
+                if (wordToComplete == "" || commandName == "Submit-ContainerImage")
                 {
                     return repoTags;
                 }
