@@ -18,7 +18,7 @@ Submit-ContainerImage [-Id] <String> [-PassThru] [-Authorization <AuthConfig>] [
 ### ImageObject
 ```
 Submit-ContainerImage [-Image] <ImagesListResponse> [-PassThru] [-Authorization <AuthConfig>]
- [-CertificateLocation <String>] [<CommonParameters>]
+ [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -68,7 +68,7 @@ The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
-Parameter Sets: Default
+Parameter Sets: (All)
 Aliases: 
 
 Required: False
