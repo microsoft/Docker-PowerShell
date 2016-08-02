@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Management.Automation;
 using Docker.PowerShell.Objects;
+using Docker.DotNet;
 using Docker.DotNet.Models;
 using System.Threading.Tasks;
 using System.Linq;
+using Docker.PowerShell.Support;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -28,6 +30,12 @@ namespace Docker.PowerShell.Cmdlets
         /// </summary>
         [Parameter]
         public SwitchParameter PassThru { get; set; }
+
+        /// <summary>
+        /// If specified, the container will run in detached mode without connecting to input/output pipes.
+        /// </summary>
+        [Parameter]
+        public SwitchParameter Detach { get; set; }
 
         #endregion
 
@@ -58,20 +66,41 @@ namespace Docker.PowerShell.Cmdlets
 
                 if (!String.IsNullOrEmpty(createResult.ID))
                 {
-                    if (!await DkrClient.Containers.StartContainerAsync(
-                        createResult.ID, HostConfiguration))
+                    MultiplexedStream stream = null;
+                    Task streamTask = null;
+                    try
                     {
-                        throw new ApplicationFailedException("The container has already started.");
+                        if (!Detach)
+                        {
+                            var parameters = new ContainerAttachParameters
+                            {
+                                Stdin = Input,
+                                Stdout = true,
+                                Stderr = true,
+                                Stream = true
+                            };
+
+                            stream = await DkrClient.Containers.AttachContainerAsync(createResult.ID, Terminal, parameters, CmdletCancellationToken);
+                            streamTask = stream.CopyToConsoleAsync(Terminal, Input, CmdletCancellationToken);
+                        }
+
+                        if (!await DkrClient.Containers.StartContainerAsync(
+                            createResult.ID, HostConfiguration))
+                        {
+                            throw new ApplicationFailedException("The container has already started.");
+                        }
+
+                        if (!Detach)
+                        {
+                            await streamTask;
+                        }
+                    }
+                    finally
+                    {
+                        stream?.Dispose();
                     }
 
-                    var waitResponse = await DkrClient.Containers.WaitContainerAsync(
-                        createResult.ID,
-                        CmdletCancellationToken);
-
-                    WriteVerbose("Status Code: " + waitResponse.StatusCode.ToString());
-                    ContainerOperations.ThrowOnProcessExitCode(waitResponse.StatusCode);
-
-                    if (RemoveAutomatically)
+                    if (RemoveAutomatically && !Detach)
                     {
                         await DkrClient.Containers.RemoveContainerAsync(createResult.ID,
                             new ContainerRemoveParameters());

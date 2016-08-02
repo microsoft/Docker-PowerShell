@@ -25,6 +25,7 @@ namespace Docker.PowerShell.Cmdlets
             {
                 Stdin = inspect.Config.OpenStdin,
                 Stdout = true,
+                Stderr = true,
                 Stream = true
             };
 
