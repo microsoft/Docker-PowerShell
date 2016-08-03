@@ -124,7 +124,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Docker.DotNet.Models.ContainerListResponse
+### Docker.DotNet.Models.ImagesListResponse
 
 ## NOTES
 

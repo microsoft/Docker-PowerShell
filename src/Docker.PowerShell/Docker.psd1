@@ -39,11 +39,13 @@ CmdletsToExport = @(
     'ConvertTo-ContainerImage',
     'Copy-ContainerFile',
     'Enter-ContainerSession',
+    'Export-ContainerImage',
     'Get-Container',
     'Get-ContainerDetail',
     'Get-ContainerImage',
     'Get-ContainerNet',
     'Get-ContainerNetDetail',
+    'Import-ContainerImage',
     'New-Container',
     'New-ContainerImage',
     'New-ContainerNet',
@@ -67,9 +69,11 @@ AliasesToExport = @(
     'Build-ContainerImage',
     'Commit-Container',
     'Exec-Container',
+    'Load-ContainerImage',
     'Pull-ContainerImage',
     'Push-ContainerImage',
     'Run-ContainerImage',
+    'Save-ContainerImage',
     'Tag-ContainerImage'
 )
 
