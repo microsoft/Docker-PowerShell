@@ -1,16 +1,14 @@
 ﻿{
   "version": "0.1.0",
   "frameworks": {
-    "netstandard1.3": {
-      "imports": [ "dotnet", "netcore50" ],
+    "netstandard1.6": {
       "dependencies": {
-        "System.IO": "4.0.10",
-        "System.IO.FileSystem": "4.0.0",
-        "System.Linq": "4.0.0",
-        "System.Runtime": "4.0.20",
-        "System.Text.Encoding": "4.0.10",
-        "System.Text.Encoding.Extensions": "4.0.10",
-        "System.Threading.Tasks": "4.0.10"
+        "NETStandard.Library": "1.6.0"
+      }
+    },
+    "netstandard1.3": {
+      "dependencies": {
+        "NETStandard.Library": "1.6.0"
       }
     }
   }

@@ -46,8 +46,6 @@ namespace Docker.PowerShell.Support
                             writer.Close(e);
                             throw;
                         }
-
-                        writer.Close();
                     }
                 }, cancellationToken);
             }

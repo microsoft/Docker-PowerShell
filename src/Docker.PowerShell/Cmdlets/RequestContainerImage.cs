@@ -48,7 +48,7 @@ namespace Docker.PowerShell.Cmdlets
             using (var pullStream = await pullTask)
             {
                 // ReadLineAsync is not cancellable without closing the whole stream, so register a callback to do just that.
-                using (CmdletCancellationToken.Register(() => pullStream.Close()))
+                using (CmdletCancellationToken.Register(() => pullStream.Dispose()))
                 using (var pullReader = new StreamReader(pullStream, new UTF8Encoding(false)))
                 {
                     string line;

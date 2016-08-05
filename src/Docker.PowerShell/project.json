@@ -1,19 +1,36 @@
 {
   "version": "0.0.0-alpha",
   "description": "Docker.PowerShell Cmdlet Library",
-  "runtimes": {
-    "win": {}
-  },
   "dependencies": {
     "Docker.DotNet.X509": "2.124.2",
     "Docker.DotNet": "2.124.2",
-    "Tar": "0.1.0-*",
-    "Microsoft.PowerShell.5.ReferenceAssemblies": "1.0.0"
+    "Tar": "0.1.0-*"
   },
   "frameworks": {
-    "net46": {}
+    "netstandard1.6": {
+      "imports": [
+        "portable-net45+win8"
+      ],
+      "dependencies": {
+        "Microsoft.PowerShell.SDK": {
+          "version": "1.0.0-alpha9",
+          "type": "platform"
+        }
+      }
+    },
+    "net46": {
+      "dependencies": {
+        "Microsoft.PowerShell.5.ReferenceAssemblies": {
+          "version": "1.0.0",
+          "type": "build"
+        }
+      }
+    }
   },
   "publishOptions": {
-    "include": ["Docker.psd1", "Docker.Format.ps1xml"]
+    "include": [
+      "Docker.psd1",
+      "Docker.Format.ps1xml"
+    ]
   }
 }

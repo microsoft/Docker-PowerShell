@@ -28,7 +28,7 @@ namespace Docker.PowerShell.Cmdlets
 
             using (var fs = File.Create(filePath))
             using (var stream = await DkrClient.Miscellaneous.GetImagesAsTarballAsync(names.ToArray(), CmdletCancellationToken))
-            using (CmdletCancellationToken.Register(() => stream.Close()))
+            using (CmdletCancellationToken.Register(() => stream.Dispose()))
             {
                 await stream.CopyToAsync(fs);
             }

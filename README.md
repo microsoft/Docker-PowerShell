@@ -35,7 +35,7 @@ feedback).
 
 The dev builds are updated for every commit to master and are released to
 https://ci.appveyor.com/nuget/docker-powershell-dev. To install the latest
-build, in PowerShell run:
+build, in PowerShell 5.0 run:
 
     > Register-PSRepository -Name DockerPS-Dev -SourceLocation https://ci.appveyor.com/nuget/docker-powershell-dev
 
@@ -46,11 +46,31 @@ After this, you can update to new development builds with just:
 
     > Update-Module Docker
 
+#### Linux and Mac OS X
+
+If you are using cross-platform [PowerShell 6.0](https://github.com/PowerShell/PowerShell), you will need to use a different 
+feed and manually unpack the module to the correct location:
+
+    > Register-PSRepository -Name DockerPS-Dev -SourceLocation https://ci.appveyor.com/nuget/docker-powershell-dev
+
+    > Save-Module Docker-Core -Path $env:PSModulePath.split(";")[-1]
+
+    > Rename-Item "$($env:PSModulePath.split(";")[-1])/Docker-Core" "$($env:PSModulePath.split(";")[-1])/Docker"
+
+After this, updating to a new development build will require closing any PowerShell windows that have
+loaded the module and deleting the folder:
+
+    > Remove-Item -force -recur "$($env:PSModulePath.split(";")[-1])/Docker"
+
+Then you can re-run the steps to find, download, and rename the module from the section above.
+
+(NOTE: As the PowerShellGet support story improves for PowerShell 6.0 we will update these instructions.)
+
 #### Need an offline workflow?
 
 From an internet connected machine:
 
-    > Save-Package Docker -Source DockerPS-Dev -Path .
+    > Save-Module Docker -Path .
 
 Copy the entire folder `.\Docker` to the destination at: `%ProgramFiles%\WindowsPowerShell\Modules`
 
@@ -93,7 +113,13 @@ Once these are installed, you can run:
 
     > dotnet restore
 
-    > dotnet publish .\src\Docker.PowerShell -o .\src\Docker.PowerShell\bin\Module\Docker -r win
+    > dotnet publish .\src\Docker.PowerShell -o .\src\Docker.PowerShell\bin\Module\Docker -f net46
+
+or for a module targetted at cross-platform PowerShell:
+
+    > dotnet restore
+
+    > dotnet publish .\src\Docker.PowerShell -o .\src\Docker.PowerShell\bin\Module\Docker -f netstandard1.6
 
 This will produce the PowerShell module at
 `.\src\Docker.PowerShell\bin\Module\Docker` in the project folder.
