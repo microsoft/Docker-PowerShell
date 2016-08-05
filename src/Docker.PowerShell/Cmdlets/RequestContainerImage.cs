@@ -12,12 +12,12 @@ namespace Docker.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsLifecycle.Request, "ContainerImage",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
-    [OutputType(typeof(ContainerListResponse))]
+    [OutputType(typeof(ImagesListResponse))]
     [Alias("Pull-ContainerImage")]
     public class RequestContainerImage : DkrCmdlet
     {
-        private const string _statusUpToDate = "Status: Image is up to date for ";
-        private const string _statusDownloadedNewer = "Status: Downloaded newer image for ";
+        private const string StatusUpToDate = "Status: Image is up to date for ";
+        private const string StatusDownloadedNewer = "Status: Downloaded newer image for ";
 
         [Parameter(ParameterSetName = CommonParameterSetNames.Default,
             ValueFromPipeline = true,
@@ -57,15 +57,15 @@ namespace Docker.PowerShell.Cmdlets
                         var message = JsonConvert.DeserializeObject<JsonMessage>(line);
                         if (message.Status != null)
                         {
-                            if (message.Status.StartsWith(_statusUpToDate))
+                            if (message.Status.StartsWith(StatusUpToDate))
                             {
                                 // This is probably the image repository:tag.
-                                repoTag = message.Status.Substring(_statusUpToDate.Length).Trim();
+                                repoTag = message.Status.Substring(StatusUpToDate.Length).Trim();
                             }
-                            else if (message.Status.StartsWith(_statusDownloadedNewer))
+                            else if (message.Status.StartsWith(StatusDownloadedNewer))
                             {
                                 // This is probably the image repository:tag.
-                                repoTag = message.Status.Substring(_statusDownloadedNewer.Length).Trim();
+                                repoTag = message.Status.Substring(StatusDownloadedNewer.Length).Trim();
                             }
                         }
 

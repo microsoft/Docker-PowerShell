@@ -17,7 +17,7 @@ namespace Docker.PowerShell.Cmdlets
     [OutputType(typeof(ImagesListResponse))]
     public class NewContainerImage : DkrCmdlet
     {
-        private string _successfullyBuilt = "Successfully built ";
+        private string SuccessfullyBuilt = "Successfully built ";
 
         #region Parameters
 
@@ -125,10 +125,10 @@ namespace Docker.PowerShell.Cmdlets
                         while ((line = await buildReader.ReadLineAsync()) != null)
                         {
                             var message = JsonConvert.DeserializeObject<JsonMessage>(line);
-                            if (message.Stream != null && message.Stream.StartsWith(_successfullyBuilt))
+                            if (message.Stream != null && message.Stream.StartsWith(SuccessfullyBuilt))
                             {
                                 // This is probably the image ID.
-                                imageId = message.Stream.Substring(_successfullyBuilt.Length).Trim();
+                                imageId = message.Stream.Substring(SuccessfullyBuilt.Length).Trim();
                             }
 
                             if (message.Error != null)
