@@ -5,7 +5,6 @@
 // ${fileDirname}: the current opened file's dirname
 // ${fileExtname}: the current opened file's extension
 // ${cwd}: the current working directory of the spawned process
-
 {
 	"version": "0.1.0",
 	"command": "cmd",
@@ -13,22 +12,41 @@
 	"showOutput": "silent",
 	"args": [
 		"/c"
-		],
+	],
 	"tasks": [
 		{
 			"taskName": "restore",
 			"suppressTaskName": true,
-			"args" : ["dotnet", "restore"],
+			"args": [
+				"dotnet",
+				"restore"
+			],
 			"showOutput": "always",
 			"problemMatcher": "$msCompile"
 		},
 		{
 			"taskName": "build",
 			"suppressTaskName": true,
-			"args" : [
-				"dotnet", "publish", "${cwd}\\src\\Docker.PowerShell", "-o", "${cwd}\\src\\Docker.PowerShell\\bin\\Module\\Docker", "-r", "win",
-				"&&", "powershell", "-executionpolicy", "bypass", "-c", "New-ExternalHelp", "-Path", "${cwd}\\src\\Docker.PowerShell\\Help", "-OutputPath", "${cwd}\\src\\Docker.PowerShell\\bin\\Module\\Docker", "-Force"
-				],
+			"args": [
+				"dotnet",
+				"publish",
+				"${cwd}\\src\\Docker.PowerShell",
+				"-f",
+				"net46",
+				"-o",
+				"${cwd}\\src\\Docker.PowerShell\\bin\\Module\\Docker",
+				"&&",
+				"powershell",
+				"-executionpolicy",
+				"bypass",
+				"-c",
+				"New-ExternalHelp",
+				"-Path",
+				"${cwd}\\src\\Docker.PowerShell\\Help",
+				"-OutputPath",
+				"${cwd}\\src\\Docker.PowerShell\\bin\\Module\\Docker",
+				"-Force"
+			],
 			"showOutput": "always",
 			"isBuildCommand": true,
 			"problemMatcher": "$msCompile"
@@ -36,26 +54,59 @@
 		{
 			"taskName": "test",
 			"suppressTaskName": true,
-			"args": ["start", "powershell", "-executionpolicy", "bypass", "-noexit", "-c", "ipmo", ".\\src\\Docker.PowerShell\\bin\\Module\\Docker"],
+			"args": [
+				"start",
+				"powershell",
+				"-executionpolicy",
+				"bypass",
+				"-noexit",
+				"-c",
+				"ipmo",
+				".\\src\\Docker.PowerShell\\bin\\Module\\Docker"
+			],
 			"showOutput": "never",
 			"isTestCommand": true
 		},
 		{
 			"taskName": "clean",
 			"suppressTaskName": true,
-			"args": ["del", "/Q", "/S", ".\\src\\*project.lock.json", "&&", "rmdir", "/Q", "/S", ".\\src\\Docker.PowerShell\\bin"],
+			"args": [
+				"del",
+				"/Q",
+				"/S",
+				".\\src\\*project.lock.json",
+				"&&",
+				"rmdir",
+				"/Q",
+				"/S",
+				".\\src\\Docker.PowerShell\\bin"
+			],
 			"showOutput": "always"
 		},
 		{
 			"taskName": "update-help",
 			"suppressTaskName": true,
 			"args": [
-				"powershell", "-executionpolicy", "bypass", "-c", "ipmo", ".\\src\\Docker.PowerShell\\bin\\Module\\Docker", ";",
-				"New-MarkdownHelp", "-Module", "Docker", "-OutputFolder", ".\\src\\Docker.PowerShell\\Help", "-ErrorAction", "SilentlyContinue", ";",
-				"Update-MarkdownHelp", "-Path", ".\\src\\Docker.PowerShell\\Help"
+				"powershell",
+				"-executionpolicy",
+				"bypass",
+				"-c",
+				"ipmo",
+				".\\src\\Docker.PowerShell\\bin\\Module\\Docker",
+				";",
+				"New-MarkdownHelp",
+				"-Module",
+				"Docker",
+				"-OutputFolder",
+				".\\src\\Docker.PowerShell\\Help",
+				"-ErrorAction",
+				"SilentlyContinue",
+				";",
+				"Update-MarkdownHelp",
+				"-Path",
+				".\\src\\Docker.PowerShell\\Help"
 			],
 			"showOutput": "always"
 		}
 	]
 }
-

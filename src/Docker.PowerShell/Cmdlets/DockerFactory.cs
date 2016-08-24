@@ -4,15 +4,29 @@ using System.Security.Cryptography.X509Certificates;
 using Docker.DotNet;
 using Docker.DotNet.X509;
 
+#if !NET46
+using System.Runtime.InteropServices;
+#endif
+
 public class DockerFactory
 {
     private const string ApiVersion = "1.24";
     private const string KeyFileName = "key.pfx";
     private const string certPass = "p@ssw0rd";
 
+    private static readonly bool IsWindows =
+#if NET46
+                true;
+#else
+                RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+#endif
+
+    private static readonly string DefaultHost = IsWindows ? "npipe://./pipe/docker_engine" : "unix://var/run/docker.sock";
+
     public static DockerClient CreateClient(string HostAddress, string CertificateLocation)
     {
-        HostAddress = HostAddress ?? Environment.GetEnvironmentVariable("DOCKER_HOST") ?? "npipe://./pipe/docker_engine";
+        HostAddress = HostAddress ?? Environment.GetEnvironmentVariable("DOCKER_HOST") ?? DefaultHost;
+                    
         CertificateLocation = CertificateLocation ?? Environment.GetEnvironmentVariable("DOCKER_CERT_PATH");
 
         CertificateCredentials cred = null;

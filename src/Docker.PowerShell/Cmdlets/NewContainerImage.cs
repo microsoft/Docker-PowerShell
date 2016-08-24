@@ -118,7 +118,7 @@ namespace Docker.PowerShell.Cmdlets
                     WriteProgress(progressRecord);
 
                     // ReadLineAsync is not cancellable without closing the whole stream, so register a callback to do just that.
-                    using (CmdletCancellationToken.Register(() => buildStream.Close()))
+                    using (CmdletCancellationToken.Register(() => buildStream.Dispose()))
                     using (var buildReader = new StreamReader(buildStream, new UTF8Encoding(false)))
                     {
                         string line;

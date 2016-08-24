@@ -57,15 +57,18 @@ namespace Docker.PowerShell.Support
         {
             return _pipe.WriteAsync(buffer, offset, count, cancellationToken);
         }
-
-        public override void Close()
-        {
-            _pipe.CloseWriter();
-        }
-
         public void Close(Exception e)
         {
             _pipe.CloseWriter(e);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _pipe.CloseWriter();
+            }
+            base.Dispose(disposing);
         }
     }
 }

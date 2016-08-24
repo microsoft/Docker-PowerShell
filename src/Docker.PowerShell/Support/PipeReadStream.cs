@@ -60,14 +60,17 @@ namespace Docker.PowerShell.Support
             return _pipe.ReadAsync(buffer, offset, count, cancellationToken);
         }
 
-        public override void Close()
-        {
-            _pipe.CloseReader();
-        }
-
         public void Close(Exception e)
         {
             _pipe.CloseReader(e);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _pipe.CloseReader();
+            }
         }
     }
 }
