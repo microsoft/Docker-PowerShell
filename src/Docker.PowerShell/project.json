@@ -30,6 +30,7 @@
   "publishOptions": {
     "include": [
       "Docker.psd1",
+      "Docker.psm1",
       "Docker.Format.ps1xml"
     ]
   }

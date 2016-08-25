@@ -7,7 +7,7 @@
 @{
 
 # Script module or binary module file associated with this manifest
-RootModule = 'Docker.PowerShell.dll'
+RootModule = "Docker.psm1"
 
 # Version number of this module.
 ModuleVersion = '0.0.0.0'
