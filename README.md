@@ -48,8 +48,14 @@ After this, you can update to new development builds with just:
 
 #### Linux and Mac OS X
 
-If you are using cross-platform [PowerShell 6.0](https://github.com/PowerShell/PowerShell), you will need to use a different 
-feed and manually unpack the module to the correct location:
+If you are using cross-platform [PowerShell 6.0](https://github.com/PowerShell/PowerShell), you will need a 
+current dev version that includes the workaround for semantic versioning (https://github.com/PowerShell/PowerShell/pull/1927),
+otherwise you will see an error like 'WARNING: Could not compare "6.0.0-alpha" to "5.0". Error: "Cannot convert value "5.0" to type "System.Management.Automation.SemanticVersion".'
+Unfortunately, the 6.0.0-alpha9 release does NOT have this fix. You will need to compile a post 6.0.0-alpha9 version manually
+to get the fixes necessary to save modules from NuGet feeds.
+
+Once you have a post 6.0.0-alpha9 version of PowerShell, you will need to use a different 
+package from the feed and manually unpack the module to the correct location:
 
     > Register-PSRepository -Name DockerPS-Dev -SourceLocation https://ci.appveyor.com/nuget/docker-powershell-dev
 
