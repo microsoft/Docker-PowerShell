@@ -37,11 +37,9 @@ build_script:
 - ps: dotnet restore
 - ps: dotnet build **/project.json
 - ps: dotnet publish -f net46 -o $pwd\bin\net46 -c Release $pwd\src\Docker.PowerShell
-- ps: New-ExternalHelp -Path src\Docker.PowerShell\Help -OutputPath bin\net46
-- ps: nuget pack src/Docker.PowerShell/Docker.nuspec -BasePath bin\net46 -OutputDirectory bin -Symbols -Version $psversion
+- ps: New-ExternalHelp -Path src\Docker.PowerShell\Help -OutputPath bin\en-US
 - ps: dotnet publish -f netstandard1.6 -o $pwd\bin\netstandard1.6 -c Release $pwd\src\Docker.PowerShell
-- ps: New-ExternalHelp -Path src\Docker.PowerShell\Help -OutputPath bin\netstandard1.6
-- ps: nuget pack src/Docker.PowerShell/Docker-Core.nuspec -BasePath bin\netstandard1.6 -OutputDirectory bin -Symbols -Version $psversion
+- ps: nuget pack src/Docker.PowerShell/Docker.nuspec -BasePath bin -OutputDirectory bin -Symbols -Version $psversion
 test_script:
 - ps: Register-PSRepository -Name test -SourceLocation $pwd\bin
 - ps: Install-Module -Name Docker -Repository test -Force
