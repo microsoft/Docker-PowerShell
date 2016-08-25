@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Docker</id>
-    <version>0.0.0.0</version>
+    <version>0.1.0.0</version>
     <authors>Microsoft</authors>
     <owners>microsoft</owners>
     <licenseUrl>https://raw.githubusercontent.com/Microsoft/Docker-PowerShell/master/LICENSE</licenseUrl>
