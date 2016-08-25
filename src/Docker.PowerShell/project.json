@@ -1,5 +1,5 @@
 {
-  "version": "0.0.0-alpha",
+  "version": "0.1.0-alpha",
   "description": "Docker.PowerShell Cmdlet Library",
   "dependencies": {
     "Docker.DotNet.X509": "2.124.2",
