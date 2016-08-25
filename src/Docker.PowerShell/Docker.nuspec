@@ -11,4 +11,12 @@
     <copyright>Copyright (c) Microsoft</copyright>
     <description>This package contains Docker PowerShell cmdlets that can be used to interact with Windows and Linux Docker hosts.</description>
   </metadata>
+  <files>
+    <file src="net46\Docker.psd1" />
+    <file src="net46\Docker.Format.ps1xml" />
+    <file src="net46\*.dll" target="clr\" />
+    <file src="net46\*.pdb" target="clr\" />
+    <file src="netstandard1.6\*.dll" target="coreclr\" />
+    <file src="netstandard1.6\*.pdb" target="coreclr\" />
+  </files>
 </package>

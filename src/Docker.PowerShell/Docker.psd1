@@ -7,7 +7,22 @@
 @{
 
 # Script module or binary module file associated with this manifest
-RootModule = 'Docker.PowerShell.dll'
+if($PSVersionTable.PSVersion -lt [version]::new(5, 1, 14300, 1000)
+{
+    # Cross plat is not supported on builds older than this. We can only load the netfx version.
+    RootModule = "clr\Docker.PowerShell.dll"
+}
+else
+{
+    RootModule = if($PSEdition -eq 'Core')
+    {
+        "coreclr\Docker.PowerShell.dll"
+    }
+    else # Desktop
+    {
+        "clr\Docker.PowerShell.dll"
+    }
+}
 
 # Version number of this module.
 ModuleVersion = '0.0.0.0'
