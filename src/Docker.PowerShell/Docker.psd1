@@ -9,8 +9,8 @@
 # Script module or binary module file associated with this manifest
 RootModule = "Docker.psm1"
 
-# Version number of this module.
-ModuleVersion = '0.1.0.0'
+# Version number of this module. Gets replaced by appveyor at build time.
+ModuleVersion = '0.0.0'
 
 # Minimum PowerShell version. This should match the reference assembly version
 # in project.json (we require 5.0 due to dependencies on parameter completion).
