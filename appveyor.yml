@@ -1,6 +1,7 @@
 version: '0.1.0.{build}'
 pull_requests:
   do_not_increment_build_number: true
+image: WMF 5
 init:
 - ps: Install-PackageProvider NuGet -Force
 - ps: (new-object net.webclient).DownloadFile('https://dotnetcli.blob.core.windows.net/dotnet/Sdk/rel-1.0.0/dotnet-dev-win-x64.latest.exe', "c:/dotnet-install.exe")
