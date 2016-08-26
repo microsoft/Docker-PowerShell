@@ -34,6 +34,9 @@ build_script:
 
     $manifest = "src\Docker.PowerShell\Docker.psd1"
     (Get-Content $manifest -Raw) -replace "ModuleVersion.+","ModuleVersion = '$psversion'" | Out-File $manifest
+    
+    Get-Content $projectFile
+    Get-Content $manifest
 - ps: dotnet restore
 - ps: dotnet build src/Docker.PowerShell/project.json
 - ps: dotnet publish -f net46 -o $pwd\bin\net46 -c Release $pwd\src\Docker.PowerShell
