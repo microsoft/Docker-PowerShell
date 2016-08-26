@@ -14,7 +14,7 @@ $PSModuleRoot = $PSModule.ModuleBase
 
 # Import the appropriate nested binary module based on the current PowerShell version
 $binaryModuleRoot = $PSModuleRoot
-if ($PSVersionTable["PSEdition"] -ne 'Desktop')
+if ($PSVersionTable["PSEdition"] -eq 'Core')
 {
     $binaryModuleRoot = Join-Path -Path $PSModuleRoot -ChildPath 'coreclr'
 }
