@@ -10,20 +10,21 @@ Note that this module is still in alpha status and is likely to change rapidly.
 ## Dependencies
 * Windows or Windows Server (Nano Server coming soon)
 * PowerShell 5 (available in Windows 10, Server 2016 Preview, or by installing
-  [WMF 5](https://www.microsoft.com/en-us/download/details.aspx?id=50395))
+  [WMF 5](https://www.microsoft.com/en-us/download/details.aspx?id=50395)) or
+  [PowerShell 6 Preview](https://github.com/powershell/powershell) (available for Windows, Linux, and Mac OS X)
 * A recent Docker endpoint, running either locally or on a remote machine
 
 Note that there is no dependency on the docker client.
 
 Currently, the Docker endpoint must support API version 1.24, which is still in
 development. Practically speaking, this means you will need a development build
-of Docker. If your Docker endpoint is running Windows Server Technical Preview
+of Docker. If your Docker endpoint is running on Windows Server Technical Preview
 5, that should be new enough.
 
 ## Installation
-PowerShell for Docker is in prerelease, and there are no officially released
-versions to try. However, you can try the development builds below and give us
-feedback.
+See our [Releases](https://github.com/Microsoft/Docker-PowerShell/releases) page for current releases
+of Docker PowerShell, or you can try the development builds below. Feedback and
+contributions welcome!
 
 ### Development Builds
 
