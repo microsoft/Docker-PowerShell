@@ -6,7 +6,6 @@
 # the module is in.
 #
 
-$PSDefaultParameterValues.Clear()
 Set-StrictMode -Version Latest
 
 $PSModule = $ExecutionContext.SessionState.Module
