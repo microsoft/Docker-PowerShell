@@ -17,7 +17,7 @@ namespace Docker.PowerShell.Objects
 
     public class ContainerProcessExitException : Exception
     {
-        public ContainerProcessExitException(long exitCode) : base(String.Format("Container process exited with non-zero exit code: {0}", exitCode)) { }
+        public ContainerProcessExitException(long exitCode) : base(string.Format("Container process exited with non-zero exit code: {0}", exitCode)) { }
     }
 
     internal static class ContainerOperations
@@ -34,13 +34,9 @@ namespace Docker.PowerShell.Objects
             CreateContainerCmdlet cmdlet,
             DotNet.DockerClient dkrClient)
         {
-            var configuration = cmdlet.Configuration;
-            if (configuration == null)
-            {
-                configuration = new Config();
-            }
+            var configuration = cmdlet.Configuration ?? new Config();
 
-            if (!String.IsNullOrEmpty(id))
+            if (!string.IsNullOrEmpty(id))
             {
                 configuration.Image = id;
             }
@@ -50,13 +46,9 @@ namespace Docker.PowerShell.Objects
                 configuration.Cmd = cmdlet.Command;
             }
 
-            var hostConfiguration = cmdlet.HostConfiguration;
-            if (hostConfiguration == null)
-            {
-                hostConfiguration = new HostConfig();
-            }
+            var hostConfiguration = cmdlet.HostConfiguration ?? new HostConfig();
 
-            if (String.IsNullOrEmpty(hostConfiguration.Isolation))
+            if (string.IsNullOrEmpty(hostConfiguration.Isolation))
             {
                 hostConfiguration.Isolation = cmdlet.Isolation.ToString();
             }

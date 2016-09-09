@@ -84,8 +84,7 @@ namespace Docker.PowerShell.Cmdlets
                             streamTask = stream.CopyToConsoleAsync(Terminal, Input, CmdletCancellationToken);
                         }
 
-                        if (!await DkrClient.Containers.StartContainerAsync(
-                            createResult.ID, HostConfiguration))
+                        if (!await DkrClient.Containers.StartContainerAsync(createResult.ID, new ContainerStartParameters()))
                         {
                             throw new ApplicationFailedException("The container has already started.");
                         }
