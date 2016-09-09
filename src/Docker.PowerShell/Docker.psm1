@@ -24,3 +24,6 @@ else
 
 $binaryModulePath = Join-Path -Path $binaryModuleRoot -ChildPath 'Docker.PowerShell.dll'
 Import-Module -Name $binaryModulePath -PassThru
+
+# Hack to do a first load of dll types.
+try { Get-Container -WhatIf } catch {}
