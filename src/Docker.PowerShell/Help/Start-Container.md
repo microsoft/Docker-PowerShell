@@ -12,13 +12,13 @@ Start-Container \[-Container\] \<ContainerListResponse\[\]\> \[-PassThru\] \[-Ce
 
 ### Default (Default)
 ```
-Start-Container [-PassThru] [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>]
- [<CommonParameters>]
+Start-Container [-Attach] [-Input] [-PassThru] [-Id] <String[]> [-HostAddress <String>]
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ### ContainerObject
 ```
-Start-Container [-PassThru] [-Container] <ContainerListResponse[]> [-HostAddress <String>]
+Start-Container [-Attach] [-Input] [-PassThru] [-Container] <ContainerListResponse[]> [-HostAddress <String>]
  [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
@@ -116,6 +116,36 @@ Passes the new container object through the pipeline.
 
 
 
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Attach
+If set attaches STDOUT, STDERR and reports to the console. 
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Input
+If set directs STDIN.
 
 ```yaml
 Type: SwitchParameter

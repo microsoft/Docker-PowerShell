@@ -1,13 +1,16 @@
 ﻿using System;
-using System.Linq;
-using Docker.PowerShell.Cmdlets;
 using System.Collections.Generic;
+using System.Linq;
+using System.Management.Automation;
+using System.Threading;
+using System.Threading.Tasks;
+using Docker.DotNet;
+using Docker.DotNet.Models;
+using Docker.PowerShell.Cmdlets;
+using Docker.PowerShell.Support;
 
 namespace Docker.PowerShell.Objects
 {
-    using System.Threading.Tasks;
-    using DotNet.Models;
-
     public enum IsolationType
     {
         Default,
@@ -32,7 +35,7 @@ namespace Docker.PowerShell.Objects
         internal static Task<CreateContainerResponse> CreateContainer(
             string id,
             CreateContainerCmdlet cmdlet,
-            DotNet.DockerClient dkrClient)
+            DockerClient dkrClient)
         {
             var configuration = cmdlet.Configuration ?? new Config();
 
@@ -67,7 +70,7 @@ namespace Docker.PowerShell.Objects
                 });
         }
         
-        internal static Task<IList<ContainerListResponse>> GetContainersById(string id, DotNet.DockerClient dkrClient)
+        internal static Task<IList<ContainerListResponse>> GetContainersById(string id, DockerClient dkrClient)
         {
             return (dkrClient.Containers.ListContainersAsync(new ContainersListParameters
                     { 
@@ -83,7 +86,7 @@ namespace Docker.PowerShell.Objects
                     }));
         }
 
-        internal static Task<IList<ContainerListResponse>> GetContainersByName(string name, DotNet.DockerClient dkrClient)
+        internal static Task<IList<ContainerListResponse>> GetContainersByName(string name, DockerClient dkrClient)
         {
             return (dkrClient.Containers.ListContainersAsync(new ContainersListParameters
                     { 
@@ -105,7 +108,7 @@ namespace Docker.PowerShell.Objects
         /// <param name="id">The container identifier to retrieve.</param>
         /// <param name="dkrClient">The client to request the container from.</param>
         /// <returns>The single container object matching the id.</returns>
-        internal static async Task<IList<ContainerListResponse>> GetContainersByIdOrName(string id, DotNet.DockerClient dkrClient)
+        internal static async Task<IList<ContainerListResponse>> GetContainersByIdOrName(string id, DockerClient dkrClient)
         {
             return (await GetContainersByName(id, dkrClient)).Where(c => c.Names.Contains($"/{id}")).Concat(await GetContainersById(id, dkrClient)).ToList();
         }
@@ -116,7 +119,7 @@ namespace Docker.PowerShell.Objects
         /// <param name="id">The image identifier to retrieve.</param>
         /// <param name="dkrClient">The client to request the image from.</param>
         /// <returns>The single image object matching the id.</returns>
-        internal static async Task<ImagesListResponse> GetImageById(string id, DotNet.DockerClient dkrClient)
+        internal static async Task<ImagesListResponse> GetImageById(string id, DockerClient dkrClient)
         {
             var shaId = id;
             if (!shaId.StartsWith("sha256:"))
@@ -134,7 +137,7 @@ namespace Docker.PowerShell.Objects
         /// <param name="repoTag">The image repository:tag to look for.</param>
         /// <param name="dkrClient">The client to request the image from.</param>
         /// <returns>The image objects matching the repository:tag.</returns>
-        internal static async Task<IList<ImagesListResponse>> GetImagesByRepoTag(string repoTag, DotNet.DockerClient dkrClient)
+        internal static async Task<IList<ImagesListResponse>> GetImagesByRepoTag(string repoTag, DockerClient dkrClient)
         {
             return (await dkrClient.Images.ListImagesAsync(new ImagesListParameters() { All = true }))
                 .Where(i => i.RepoTags.Any(rt => repoTag.Split('/').Last().Contains(":") ? rt == repoTag : rt == (repoTag + ":latest"))).ToList();
@@ -149,6 +152,41 @@ namespace Docker.PowerShell.Objects
             if (exitCode != 0)
             {
                 throw new ContainerProcessExitException(exitCode);
+            }
+        }
+
+        internal static async Task StartContainerAsync(
+            DockerClient client,
+            string containerId,
+            ContainerAttachParameters attachParams,
+            bool? isTTY,
+            ContainerStartParameters startParams,
+            CancellationToken token)
+        {
+            MultiplexedStream stream = null;
+            Task streamTask = null;
+
+            try
+            {
+                if (attachParams != null)
+                {
+                    stream = await client.Containers.AttachContainerAsync(containerId, isTTY.GetValueOrDefault(), attachParams, token);
+                    streamTask = stream.CopyToConsoleAsync(isTTY.GetValueOrDefault(), attachParams.Stdin.GetValueOrDefault(), token);
+                }
+
+                if (!await client.Containers.StartContainerAsync(containerId, new ContainerStartParameters()))
+                {
+                    throw new ApplicationFailedException("The container has already started.");
+                }
+
+                if (attachParams != null)
+                {
+                    await streamTask;
+                }
+            }
+            finally
+            {
+                stream?.Dispose();
             }
         }
     }
