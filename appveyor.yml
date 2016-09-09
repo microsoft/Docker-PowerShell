@@ -7,7 +7,7 @@ init:
 - ps: (new-object net.webclient).DownloadFile('https://dotnetcli.blob.core.windows.net/dotnet/Sdk/rel-1.0.0/dotnet-dev-win-x64.latest.exe', "c:/dotnet-install.exe")
 - cmd: c:\dotnet-install.exe /install /quiet
 install:
-- ps: Install-Module platyPS -Force
+- ps: Install-Module platyPS -Force -RequiredVersion 0.7.0
 - cmd: git submodule update --init --recursive
 nuget:
   disable_publish_on_pr: true
@@ -15,7 +15,7 @@ build_script:
 - ps: $psversiontable
 - ps: dotnet --version
 - ps: get-packageprovider nuget
-- ps: ipmo platyPS ; get-module -name platyPS
+- ps: ipmo platyPS -Version 0.7.0 ; get-module -name platyPS
 - ps: |
     $env:PATH = "c:\program files\dotnet;$env:PATH"
 
