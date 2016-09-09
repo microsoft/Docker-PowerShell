@@ -28,8 +28,7 @@ namespace Docker.PowerShell.Cmdlets
         {
             foreach (var id in ParameterResolvers.GetContainerIds(Container, Id))
             {
-                if (!await DkrClient.Containers.StartContainerAsync(
-                        id, new HostConfig()))
+                if (!await DkrClient.Containers.StartContainerAsync(id, new ContainerStartParameters()))
                 {
                     throw new ApplicationFailedException("The container has already started.");
                 }
