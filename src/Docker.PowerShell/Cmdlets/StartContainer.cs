@@ -1,8 +1,8 @@
-﻿using System.Management.Automation;
-using Docker.PowerShell.Objects;
-using Docker.DotNet.Models;
+﻿using System.Linq;
+using System.Management.Automation;
 using System.Threading.Tasks;
-using System.Linq;
+using Docker.DotNet.Models;
+using Docker.PowerShell.Objects;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -12,6 +12,19 @@ namespace Docker.PowerShell.Cmdlets
     public class StartContainer : MultiContainerOperationCmdlet
     {
         #region Parameters
+
+        /// <summary>
+        /// If specified, the resulting output from STDOUT and STDERR will be written to the
+        /// console.
+        /// </summary>
+        [Parameter]
+        public SwitchParameter Attach { get; set; }
+
+        /// <summary>
+        /// If specified, the container expects to give input to STDIN.
+        /// </summary>
+        [Parameter]
+        public SwitchParameter Input { get; set; }
 
         /// <summary>
         /// If specified, the resulting container object will be output after it has finished
@@ -28,10 +41,25 @@ namespace Docker.PowerShell.Cmdlets
         {
             foreach (var id in ParameterResolvers.GetContainerIds(Container, Id))
             {
-                if (!await DkrClient.Containers.StartContainerAsync(id, new ContainerStartParameters()))
+                ContainerAttachParameters attachParams = null;
+                if (this.Attach)
                 {
-                    throw new ApplicationFailedException("The container has already started.");
+                    attachParams = new ContainerAttachParameters
+                    {
+                        Stdin = this.Input,
+                        Stdout = true,
+                        Stderr = true,
+                        Stream = true
+                    };
                 }
+
+                await ContainerOperations.StartContainerAsync(
+                    this.DkrClient,
+                    id,
+                    attachParams,
+                    false,
+                    null,
+                    this.CmdletCancellationToken);
 
                 if (PassThru)
                 {

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Management.Automation;
-using Docker.PowerShell.Objects;
-using Docker.DotNet;
-using Docker.DotNet.Models;
-using System.Threading.Tasks;
 using System.Linq;
-using Docker.PowerShell.Support;
+using System.Management.Automation;
+using System.Threading.Tasks;
+using Docker.DotNet.Models;
+using Docker.PowerShell.Objects;
 
 namespace Docker.PowerShell.Cmdlets
 {
@@ -66,38 +64,25 @@ namespace Docker.PowerShell.Cmdlets
 
                 if (!String.IsNullOrEmpty(createResult.ID))
                 {
-                    MultiplexedStream stream = null;
-                    Task streamTask = null;
-                    try
+                    ContainerAttachParameters attachParams = null;
+                    if (!Detach)
                     {
-                        if (!Detach)
+                        attachParams = new ContainerAttachParameters
                         {
-                            var parameters = new ContainerAttachParameters
-                            {
-                                Stdin = Input,
-                                Stdout = true,
-                                Stderr = true,
-                                Stream = true
-                            };
-
-                            stream = await DkrClient.Containers.AttachContainerAsync(createResult.ID, Terminal, parameters, CmdletCancellationToken);
-                            streamTask = stream.CopyToConsoleAsync(Terminal, Input, CmdletCancellationToken);
-                        }
-
-                        if (!await DkrClient.Containers.StartContainerAsync(createResult.ID, new ContainerStartParameters()))
-                        {
-                            throw new ApplicationFailedException("The container has already started.");
-                        }
-
-                        if (!Detach)
-                        {
-                            await streamTask;
-                        }
+                            Stdin = Input,
+                            Stdout = true,
+                            Stderr = true,
+                            Stream = true
+                        };
                     }
-                    finally
-                    {
-                        stream?.Dispose();
-                    }
+
+                    await ContainerOperations.StartContainerAsync(
+                        this.DkrClient,
+                        createResult.ID,
+                        attachParams,
+                        this.Terminal,
+                        null,
+                        this.CmdletCancellationToken);
 
                     if (RemoveAutomatically && !Detach)
                     {
