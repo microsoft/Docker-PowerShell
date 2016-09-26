@@ -3,7 +3,7 @@ pull_requests:
   do_not_increment_build_number: true
 image: WMF 5
 init:
-- ps: Install-PackageProvider NuGet -Force -RequiredVersion 2.8.5.206
+- ps: Install-PackageProvider NuGet -Force
 - ps: (new-object net.webclient).DownloadFile('https://dotnetcli.blob.core.windows.net/dotnet/Sdk/rel-1.0.0/dotnet-dev-win-x64.latest.exe', "c:/dotnet-install.exe")
 - cmd: c:\dotnet-install.exe /install /quiet
 install:
@@ -40,12 +40,14 @@ build_script:
     Get-Content $manifest
 - ps: dotnet restore
 - ps: dotnet build src/Docker.PowerShell/project.json
-- ps: dotnet publish -f net46 -o $pwd\bin\net46 -c Release $pwd\src\Docker.PowerShell
-- ps: dotnet publish -f netstandard1.6 -o $pwd\bin\netstandard1.6 -c Release $pwd\src\Docker.PowerShell
-- ps: New-ExternalHelp -Path src\Docker.PowerShell\Help -OutputPath bin\en-US
-- ps: nuget pack src/Docker.PowerShell/Docker.nuspec -BasePath bin -OutputDirectory bin -Symbols -Version $version
+- ps: dotnet publish -f net46 -o $pwd\bin\Docker\clr -c Release $pwd\src\Docker.PowerShell
+- ps: dotnet publish -f netstandard1.6 -o $pwd\bin\Docker\coreclr -c Release $pwd\src\Docker.PowerShell
+- ps: cp $pwd\bin\Docker\coreclr\Docker.*ps* $pwd\bin\Docker\
+- ps: New-ExternalHelp -Path src\Docker.PowerShell\Help -OutputPath $pwd\bin\Docker\en-US
+- ps: mkdir $pwd\testRepo
+- ps: Register-PSRepository -Name test -SourceLocation $pwd\testRepo
+- ps: Publish-Module -Path $pwd\bin\Docker -Repository test 
 test_script:
-- ps: Register-PSRepository -Name test -SourceLocation $pwd\bin
 - ps: Install-Module -Name Docker -Repository test -Force
 - ps: Import-Module Docker
 - ps: |
@@ -54,7 +56,6 @@ test_script:
     }
 - ps: git checkout -- src/Docker.PowerShell/Docker.psd1
 - ps: git checkout -- src/Docker.PowerShell/project.json
-- ps: git checkout -- src/Docker.PowerShell/Docker.nuspec
 - ps: git config core.autocrlf true
 - ps: New-MarkdownHelp -Module Docker -OutputFolder src\Docker.PowerShell\Help -ErrorAction SilentlyContinue
 - ps: Update-MarkdownHelp -Path src\Docker.PowerShell\Help
@@ -66,4 +67,4 @@ test_script:
       throw "Help files do not match updated cmdlets. Please update the help markdown to correspond to the latest changes." 
     }
 artifacts:
-- path: bin/*.nupkg
+- path: bin/testRepo/*.nupkg
