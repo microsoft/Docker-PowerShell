@@ -34,6 +34,9 @@ namespace Docker.PowerShell.Cmdlets
         public string Tag { get; set; }
 
         [Parameter]
+        public IsolationType Isolation { get; set; }
+
+        [Parameter]
         public SwitchParameter SkipCache { get; set; }
 
         [Parameter]
@@ -66,6 +69,11 @@ namespace Docker.PowerShell.Cmdlets
                     ForceRemove = ForceRemoveIntermediateContainers,
                     Remove = !PreserveIntermediateContainers,
                 };
+
+                if (this.Isolation != IsolationType.Default)
+                {
+                    parameters.Isolation = this.Isolation.ToString();
+                }
 
                 string repoTag = null;
                 if (!string.IsNullOrEmpty(Repository))

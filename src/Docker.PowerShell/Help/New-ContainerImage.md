@@ -9,8 +9,8 @@ New-ContainerImage \[\[-Path\] \<string\>\] \[-Repository \<string\>\] \[-Tag \<
 ## SYNTAX
 
 ```
-New-ContainerImage [[-Path] <String>] [-Repository <String>] [-Tag <String>] [-SkipCache]
- [-ForceRemoveIntermediateContainers] [-PreserveIntermediateContainers] [-HostAddress <String>]
+New-ContainerImage [[-Path] <String>] [-Repository <String>] [-Tag <String>] [-Isolation <IsolationType>]
+ [-SkipCache] [-ForceRemoveIntermediateContainers] [-PreserveIntermediateContainers] [-HostAddress <String>]
  [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
@@ -168,6 +168,21 @@ Sets a tag for the new image. If no tag is specified, the image will be tagged "
 
 ```yaml
 Type: String
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Isolation
+The isolation level of any resulting containers.
+
+```yaml
+Type: IsolationType
 Parameter Sets: (All)
 Aliases: 
 
