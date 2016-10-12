@@ -1,18 +1,21 @@
 using System;
 using System.Collections;
-using System.Security.Cryptography.X509Certificates;
 using Docker.DotNet;
 using Docker.DotNet.X509;
 
 #if !NET46
 using System.Runtime.InteropServices;
+#else
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
 #endif
 
 public class DockerFactory
 {
     private const string ApiVersion = "1.24";
-    private const string KeyFileName = "key.pfx";
-    private const string certPass = "p@ssw0rd";
+    private const string CertFileName = "cert.pem";
+    private const string CertKeyFileName = "key.pem";
+    private const string CAFileName = "ca.pem";
 
     private static readonly bool IsWindows =
 #if NET46
@@ -26,20 +29,52 @@ public class DockerFactory
     public static DockerClient CreateClient(string HostAddress, string CertificateLocation)
     {
         HostAddress = HostAddress ?? Environment.GetEnvironmentVariable("DOCKER_HOST") ?? DefaultHost;
-                    
+
         CertificateLocation = CertificateLocation ?? Environment.GetEnvironmentVariable("DOCKER_CERT_PATH");
 
         CertificateCredentials cred = null;
         if (!string.IsNullOrEmpty(CertificateLocation))
         {
+#if !NET46
+            throw new InvalidOperationException("TLS authetication is not supported in .NET Core.");
+#else
             // Try to find a certificate for secure connections.
             cred = new CertificateCredentials(
-                    new X509Certificate2(
-                        System.IO.Path.Combine(CertificateLocation, KeyFileName),
-                        certPass));
+                RSAUtil.GetCertFromPEMFiles(
+                    System.IO.Path.Combine(CertificateLocation, CertFileName),
+                    System.IO.Path.Combine(CertificateLocation, CertKeyFileName)));
 
-            //BUGBUG(swernli) - Remove this later in favor of something better.
-            cred.ServerCertificateValidationCallback = (o, c, ch, er) => true;
+            var tlsVerify = Environment.GetEnvironmentVariable("DOCKER_TLS_VERIFY") == "1";
+            X509Certificate2 caCert = null;
+            if (tlsVerify)
+            {
+                caCert = new X509Certificate2(System.IO.Path.Combine(CertificateLocation, CAFileName));
+            }
+
+            cred.ServerCertificateValidationCallback = (obj, cert, chain, error) =>
+            {
+                if (error == SslPolicyErrors.None || !tlsVerify)
+                {
+                    return true;
+                }
+
+                using (var chain2 = new X509Chain())
+                {
+                    chain2.ChainPolicy.VerificationFlags = X509VerificationFlags.AllFlags;
+                    chain2.ChainPolicy.RevocationMode = X509RevocationMode.NoCheck;
+
+                    chain2.ChainPolicy.ExtraStore.Add(caCert);
+
+                    if (!chain2.Build(new X509Certificate2(cert)))
+                    {
+                        throw new InvalidOperationException("Failed to build certificate chain for server certificate.");
+                    }
+
+                    return chain2.ChainStatus.Length == 0 || 
+                        (chain2.ChainStatus.Length == 1 && chain2.ChainStatus[0].Status == X509ChainStatusFlags.UntrustedRoot);
+                }
+            };
+#endif
         }
 
         return new DockerClientConfiguration(new Uri(HostAddress), cred).CreateClient(new Version(ApiVersion));
