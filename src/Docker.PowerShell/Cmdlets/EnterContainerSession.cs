@@ -13,7 +13,7 @@ namespace Docker.PowerShell.Cmdlets
     {
         protected override async Task ProcessRecordAsync()
         {
-            var id = Id ?? Container.ID;
+            var id = ContainerIdOrName ?? Container.ID;
 
             var inspect = await DkrClient.Containers.InspectContainerAsync(id);
             if (!inspect.State.Running || inspect.State.Paused)

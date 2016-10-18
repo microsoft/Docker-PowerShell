@@ -61,7 +61,7 @@ namespace Docker.PowerShell.Cmdlets
 
         protected override async Task ProcessRecordAsync()
         {
-            var id = Id ?? Container.ID;
+            var id = ContainerIdOrName ?? Container.ID;
 
             var execConfig = new ExecConfig()
             {

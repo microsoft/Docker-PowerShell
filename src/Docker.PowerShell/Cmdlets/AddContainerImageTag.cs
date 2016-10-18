@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace Docker.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Set, "ContainerImageTag",
+    [Cmdlet(VerbsCommon.Add, "ContainerImageTag",
             DefaultParameterSetName = CommonParameterSetNames.Default)]
     [Alias("Tag-ContainerImage")]
-    public class SetContainerImageTag : ImageOperationCmdlet
+    public class AddContainerImageTag : ImageOperationCmdlet
     {
         #region Parameters
 
@@ -29,7 +29,7 @@ namespace Docker.PowerShell.Cmdlets
 
         protected override async Task ProcessRecordAsync()
         {
-            foreach (var id in ParameterResolvers.GetImageIds(Image, Id))
+            foreach (var id in ParameterResolvers.GetImageIds(Image, ImageIdOrName))
             {
                 var tagParams = new ImageTagParameters(){ RepositoryName = Repository };
                                 

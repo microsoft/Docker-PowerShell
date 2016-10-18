@@ -15,8 +15,8 @@ namespace Docker.PowerShell.Cmdlets
                    Position = 0)]
         [ValidateNotNullOrEmpty]
         [ArgumentCompleter(typeof(ContainerArgumentCompleter))]
-        [Alias("Name")]
-        public string[] Id { get; set; }
+        [Alias("Name","Id")]
+        public string[] ContainerIdOrName { get; set; }
 
         #region Overrides
         /// <summary>
@@ -24,9 +24,9 @@ namespace Docker.PowerShell.Cmdlets
         /// </summary>
         protected override async Task ProcessRecordAsync()
         {
-            if (Id != null)
+            if (ContainerIdOrName != null)
             {
-                foreach (var id in Id)
+                foreach (var id in ContainerIdOrName)
                 {
                     WriteObject(await ContainerOperations.GetContainersByIdOrName(id, DkrClient));
                 }

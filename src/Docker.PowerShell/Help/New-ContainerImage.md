@@ -5,7 +5,8 @@ schema: 2.0.0
 
 # New-ContainerImage
 ## SYNOPSIS
-New-ContainerImage \[\[-Path\] \<string\>\] \[-Repository \<string\>\] \[-Tag \<string\>\] \[-SkipCache\] \[-ForceRemoveIntermediateContainers\] \[-PreserveIntermediateContainers\] \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Builds a new container image from a set of instructions in a Dockerfile.
+Aliased as "Build-ContainerImage".
 ## SYNTAX
 
 ```
@@ -15,7 +16,8 @@ New-ContainerImage [[-Path] <String>] [-Repository <String>] [-Tag <String>] [-I
 ```
 
 ## DESCRIPTION
-Creates a new container image from an existing container. 
+Builds a new container image from a set of instructions in a Dockerfile.
+Aliased as "Build-ContainerImage".
 ## EXAMPLES
 
 ### Example 1
@@ -23,7 +25,14 @@ Creates a new container image from an existing container.
 PS C:\> New-ContainerImage
 ```
 
-Creates a new container image. 
+Creates a new container image from a Dockerfile in the current folder, "C:\".
+### Example 2
+```
+PS C:\> New-ContainerImage -Path "C:\myData\"
+```
+
+Creates a new container image from a Dockerfile in the specified folder, "C:\myData".
+ 
 ## PARAMETERS
 
 ### -CertificateLocation
@@ -84,7 +93,7 @@ Accept wildcard characters: False
 ```
 
 ### -Path
-The location to put the new container image. 
+The location to the folder containing the Dockerfile or a path to a file to use as the Dockerfile. If not specified, the current working directory is used.
 
 
 
@@ -122,7 +131,7 @@ Accept wildcard characters: False
 ```
 
 ### -Repository
-Specifies a repository.
+Specifies the repository for the new image.
 
 
 
@@ -160,7 +169,7 @@ Accept wildcard characters: False
 ```
 
 ### -Tag
-Sets a tag for the new image. If no tag is specified, the image will be tagged ":latest".
+Sets a tag for the new image. If no tag is specified, the image will be tagged "latest".
 
 
 
@@ -179,7 +188,7 @@ Accept wildcard characters: False
 ```
 
 ### -Isolation
-The isolation level of any resulting containers.
+The isolation level used for containers during the build.
 
 ```yaml
 Type: IsolationType
@@ -207,7 +216,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Online Version:]()
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/New-ContainerImage.md)
 
 
 

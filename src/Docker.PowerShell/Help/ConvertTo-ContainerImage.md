@@ -5,16 +5,15 @@ schema: 2.0.0
 
 # ConvertTo-ContainerImage
 ## SYNOPSIS
-ConvertTo-ContainerImage \[-Id\] \<string\[\]\> \[-Repository \<string\>\] \[-Tag \<string\>\] \[-Message \<string\>\] \[-Author \<string\>\] \[-Configuration \<Config\>\] \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
-
-ConvertTo-ContainerImage \[-Container\] \<ContainerListResponse\[\]\> \[-Repository \<string\>\] \[-Tag \<string\>\] \[-Message \<string\>\] \[-Author \<string\>\] \[-Configuration \<Config\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Creates a new container image by committing an existing container.
+Aliased as "Commit-Container".
 ## SYNTAX
 
 ### Default (Default)
 ```
 ConvertTo-ContainerImage [-Repository <String>] [-Tag <String>] [-Message <String>] [-Author <String>]
- [-Configuration <Config>] [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>]
- [<CommonParameters>]
+ [-Configuration <Config>] [-ContainerIdOrName] <String[]> [-HostAddress <String>]
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ### ContainerObject
@@ -25,19 +24,22 @@ ConvertTo-ContainerImage [-Repository <String>] [-Tag <String>] [-Message <Strin
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Creates a new container image by committing an existing container.
+Aliased as "Commit-Container".
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> New-Container -Name myContainer -Image $myImage -Command myWorkload.exe
+PS C:\> Start-Container myContainer | Wait-Container
+PS C:\> ConvertTo-ContainerImage -ContainerIdOrName myContainer -Repository myWorkloadImage
 ```
 
-{{ Add example description here }}
+Creates a new container named "myContainer" that runs the application "myWorkload.exe", starts it, waits for it to complete, then commits the completed container as a new image named "myWorkloadImage".
 ## PARAMETERS
 
 ### -Author
-{{Fill Author Description}}
+Specifies the value for the Author metadata on the resulting image.
 
 
 
@@ -56,8 +58,7 @@ Accept wildcard characters: False
 ```
 
 ### -CertificateLocation
-{{Fill CertificateLocation Description}}
-
+The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server. (Note that certificate authorization work is still in progress and this is likely to change).
 
 
 
@@ -75,8 +76,7 @@ Accept wildcard characters: False
 ```
 
 ### -Configuration
-{{Fill Configuration Description}}
-
+An instance of a Docker.DotNet.Models.Config object with desired configuration values filled out.
 
 
 
@@ -94,7 +94,7 @@ Accept wildcard characters: False
 ```
 
 ### -Container
-{{Fill Container Description}}
+Specifies the container to be committed as a new image.
 
 
 
@@ -113,7 +113,7 @@ Accept wildcard characters: False
 ```
 
 ### -HostAddress
-{{Fill HostAddress Description}}
+The address of the docker daemon to connect to.
 
 
 
@@ -131,27 +131,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-{{Fill Id Description}}
-
-
-
-
-
-```yaml
-Type: String[]
-Parameter Sets: Default
-Aliases: Name
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -Message
-{{Fill Message Description}}
+Specifies the value for the Message metadata on the resulting image.
 
 
 
@@ -170,7 +151,7 @@ Accept wildcard characters: False
 ```
 
 ### -Repository
-{{Fill Repository Description}}
+Specifies the Repository name to use for the new image.
 
 
 
@@ -189,7 +170,7 @@ Accept wildcard characters: False
 ```
 
 ### -Tag
-{{Fill Tag Description}}
+Optionally specifies the Tag to use for the new image. If no Tag is supplied, defaults to "latest".
 
 
 
@@ -207,6 +188,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ContainerIdOrName
+Specifies the container by Id or Name that will be committed into the new image.
+
+```yaml
+Type: String[]
+Parameter Sets: Default
+Aliases: Name, Id
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 ## INPUTS
@@ -221,7 +217,7 @@ Docker.DotNet.Models.ContainerListResponse[]
 
 ## RELATED LINKS
 
-[Online Version:]()
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/ConvertTo-ContainerImage.md)
 
 
 

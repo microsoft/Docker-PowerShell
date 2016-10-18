@@ -22,7 +22,7 @@ namespace Docker.PowerShell.Cmdlets
 
         protected override async Task ProcessRecordAsync()
         {
-            foreach (var id in ParameterResolvers.GetContainerIds(Container, Id))
+            foreach (var id in ParameterResolvers.GetContainerIds(Container, ContainerIdOrName))
             {
                 await DkrClient.Containers.RemoveContainerAsync(id,
                     new ContainerRemoveParameters() { Force = Force.ToBool() }

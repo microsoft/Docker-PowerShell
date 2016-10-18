@@ -5,17 +5,13 @@ schema: 2.0.0
 
 # New-Container
 ## SYNOPSIS
-New-Container \[-Id\] \<string\[\]\> \[\[-Command\] \<string\[\]\>\] \[-ContainerName \<string\>\] \[-Isolation \<IsolationType\>\] \[-Configuration \<Config\>\] \[-HostConfiguration \<HostConfig\>\] \[-Input\] \[-Terminal\] \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
-
-New-Container \[-Image\] \<ImagesListResponse\[\]\> \[\[-Command\] \<string\[\]\>\] \[-ContainerName \<string\>\] \[-Isolation \<IsolationType\>\] \[-Configuration \<Config\>\] \[-HostConfiguration \<HostConfig\>\] \[-Input\] \[-Terminal\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
-
-New-Container \[-Configuration\] \<Config\> \[-HostConfiguration \<HostConfig\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Creates a new container.
 ## SYNTAX
 
 ### Default (Default)
 ```
 New-Container [-Name <String>] [[-Command] <String[]>] [-Isolation <IsolationType>] [-Configuration <Config>]
- [-HostConfiguration <HostConfig>] [-Input] [-Terminal] [-Id] <String[]> [-HostAddress <String>]
+ [-HostConfiguration <HostConfig>] [-Input] [-Terminal] [-ImageIdOrName] <String[]> [-HostAddress <String>]
  [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
@@ -38,10 +34,10 @@ Creates a new container.
 
 ### Example 1
 ```
-PS C:\> New-Container -Id 4179ed
+PS C:\> New-Container -ImageIdOrName 4179ed
 ```
 
-Creates a new container from the image with id "4179ed"
+Creates a new container from the image with id "4179ed".
 ## PARAMETERS
 
 ### -CertificateLocation
@@ -151,25 +147,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-The Id of the image to create the new container from. 
-
-
-
-
-
-```yaml
-Type: String[]
-Parameter Sets: Default
-Aliases: ImageName
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -Image
 The image to create the new container from.
 
@@ -229,7 +206,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The name for the new container.
 
 ```yaml
 Type: String
@@ -244,7 +221,7 @@ Accept wildcard characters: False
 ```
 
 ### -Terminal
-Specifies to provide an interactive terminal in the new container. 
+Enables terminal emulation in the new container.
 
 
 
@@ -259,6 +236,21 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ImageIdOrName
+The Name or Id for the image to create the new container from.
+
+```yaml
+Type: String[]
+Parameter Sets: Default
+Aliases: ImageName, ImageId
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -277,7 +269,7 @@ Docker.DotNet.Models.ImagesListResponse[]
 
 ## RELATED LINKS
 
-[Online Version:]()
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/New-Container.md)
 
 
 

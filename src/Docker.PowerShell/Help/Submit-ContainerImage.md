@@ -7,12 +7,13 @@ schema: 2.0.0
 # Submit-ContainerImage
 ## SYNOPSIS
 Submits the container image by pushing it to a Docker registry.
+Aliased as "Push-ContainerImage".
 ## SYNTAX
 
 ### Default (Default)
 ```
-Submit-ContainerImage [-Id] <String> [-PassThru] [-Authorization <AuthConfig>] [-HostAddress <String>]
- [-CertificateLocation <String>] [<CommonParameters>]
+Submit-ContainerImage [-ImageIdOrName] <String> [-PassThru] [-Authorization <AuthConfig>]
+ [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ### ImageObject
@@ -23,14 +24,15 @@ Submit-ContainerImage [-Image] <ImagesListResponse> [-PassThru] [-Authorization 
 
 ## DESCRIPTION
 Submits the container image by pushing it to a Docker registry.
+Aliased as "Push-ContainerImage".
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Submit-ContainerImage -ImageIdOrName myImage
 ```
 
-{{ Add example description here }}
+Pushes the image named "myImage" to the Docker registry.
 ## PARAMETERS
 
 ### -Authorization
@@ -78,23 +80,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-The id of the container image.
-
-```yaml
-Type: String
-Parameter Sets: Default
-Aliases: ImageName
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -Image
-Specifies the container image object.
+Specifies the container image object to be pushed.
 
 ```yaml
 Type: ImagesListResponse
@@ -123,6 +110,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ImageIdOrName
+The Id or Name of the image to be pushed.
+
+```yaml
+Type: String
+Parameter Sets: Default
+Aliases: ImageName, ImageId
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 ## INPUTS
@@ -137,3 +139,4 @@ Docker.DotNet.Models.ImagesListResponse
 
 ## RELATED LINKS
 
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Submit-ContainerImage.md)

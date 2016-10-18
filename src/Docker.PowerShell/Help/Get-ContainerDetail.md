@@ -5,14 +5,12 @@ schema: 2.0.0
 
 # Get-ContainerDetail
 ## SYNOPSIS
-Get-ContainerDetail \[-Id\] \<string\[\]\> \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
-
-Get-ContainerDetail \[-Container\] \<ContainerListResponse\[\]\> \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Gets details about a container.
 ## SYNTAX
 
 ### Default (Default)
 ```
-Get-ContainerDetail [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>]
+Get-ContainerDetail [-ContainerIdOrName] <String[]> [-HostAddress <String>] [-CertificateLocation <String>]
  [<CommonParameters>]
 ```
 
@@ -28,10 +26,10 @@ Gets details about a container.
 
 ### Example 1
 ```
-PS C:\> Get-ContainerDetail
+PS C:\> Get-ContainerDetail myContainer
 ```
 
-Gets details about a container. 
+Gets details about the container "myContainer". 
 ## PARAMETERS
 
 ### -CertificateLocation
@@ -91,17 +89,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-Specifies the id of the container to get details for. This parameter also accepts container name, or a unique subset of the id.
-
-
-
-
+### -ContainerIdOrName
+Specifies the Id or Name of the container to get the details for.
 
 ```yaml
 Type: String[]
 Parameter Sets: Default
-Aliases: Name
+Aliases: Name, Id
 
 Required: True
 Position: 0
@@ -124,7 +118,7 @@ Docker.DotNet.Models.ContainerListResponse[]
 
 ## RELATED LINKS
 
-[Online Version:]()
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Get-ContainerDetail.md)
 
 
 

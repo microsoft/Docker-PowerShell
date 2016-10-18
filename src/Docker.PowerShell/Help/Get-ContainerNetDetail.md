@@ -5,7 +5,7 @@ schema: 2.0.0
 
 # Get-ContainerNetDetail
 ## SYNOPSIS
-Get-ContainerNetDetail \[-Name\] \<string\> \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Gets details about a network endpoint.
 ## SYNTAX
 
 ### Default
@@ -21,15 +21,15 @@ Get-ContainerNetDetail [-Network] <NetworkListResponse[]> [-HostAddress <String>
 ```
 
 ## DESCRIPTION
-Gets details about a container's network.
+Gets details about a network endpoint.
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> Get-ContainerNetDetail -Name mycontainer
+PS C:\> Get-ContainerNetDetail -Name myNatNetwork
 ```
 
-Gets network details for the container "mycontainer"
+Gets network endpoint details for the network "myNatNetwork"
 ## PARAMETERS
 
 ### -CertificateLocation
@@ -71,7 +71,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-{{Fill Id Description}}
+Specifies the Id of the network endpoint.
 
 ```yaml
 Type: String[]
@@ -86,7 +86,7 @@ Accept wildcard characters: False
 ```
 
 ### -Network
-{{Fill Network Description}}
+Specifies the network endpoint.
 
 ```yaml
 Type: NetworkListResponse[]
@@ -114,7 +114,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Online Version:]()
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Get-ContainerNetDetail.md)
 
 
 

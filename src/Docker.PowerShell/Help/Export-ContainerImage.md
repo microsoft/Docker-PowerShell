@@ -6,12 +6,13 @@ schema: 2.0.0
 
 # Export-ContainerImage
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Exports the container image, including all layers, into a single compressed file.
+Aliased to "Save-ContainerImage".
 ## SYNTAX
 
 ### Default (Default)
 ```
-Export-ContainerImage -DestinationFilePath <String> [-Id] <String[]> [-HostAddress <String>]
+Export-ContainerImage -DestinationFilePath <String> [-ImageIdOrName] <String[]> [-HostAddress <String>]
  [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
@@ -22,19 +23,20 @@ Export-ContainerImage -DestinationFilePath <String> [-Image] <ImagesListResponse
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Exports the container image, including all layers, into a single compressed file.
+Aliased to "Save-ContainerImage".
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Export-ContainerImage -ImageIdOrName myImage -DestinationFilePath c:\myImage.tar
 ```
 
-{{ Add example description here }}
+Exports all layers for the image "myImage" to the compressed file "c:\myImage.tar".
 ## PARAMETERS
 
 ### -CertificateLocation
-{{Fill CertificateLocation Description}}
+The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server. (Note that certificate authorization work is still in progress and this is likely to change).
 
 ```yaml
 Type: String
@@ -49,7 +51,7 @@ Accept wildcard characters: False
 ```
 
 ### -HostAddress
-{{Fill HostAddress Description}}
+The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
@@ -63,23 +65,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-{{Fill Id Description}}
-
-```yaml
-Type: String[]
-Parameter Sets: Default
-Aliases: ImageName
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -Image
-{{Fill Image Description}}
+The image that will be exported to a file.
 
 ```yaml
 Type: ImagesListResponse[]
@@ -94,7 +81,7 @@ Accept wildcard characters: False
 ```
 
 ### -DestinationFilePath
-{{Fill DestinationFilePath Description}}
+The path to export the image to.
 
 ```yaml
 Type: String
@@ -105,6 +92,21 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ImageIdOrName
+The Name or Id of the image that will be exported.
+
+```yaml
+Type: String[]
+Parameter Sets: Default
+Aliases: ImageName, ImageId
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -122,3 +124,4 @@ Docker.DotNet.Models.ImagesListResponse[]
 
 ## RELATED LINKS
 
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Export-ContainerImage.md)

@@ -5,15 +5,13 @@ schema: 2.0.0
 
 # Wait-Container
 ## SYNOPSIS
-Wait-Container \[-Id\] \<string\[\]\> \[-PassThru\] \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
-
-Wait-Container \[-Container\] \<ContainerListResponse\[\]\> \[-PassThru\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Waits for the given container to shutdown, often indicating that the process run inside the container has completed.
 ## SYNTAX
 
 ### Default (Default)
 ```
-Wait-Container [-PassThru] [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>]
- [<CommonParameters>]
+Wait-Container [-PassThru] [-ContainerIdOrName] <String[]> [-HostAddress <String>]
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ### ContainerObject
@@ -28,7 +26,7 @@ Waits for the given container to shutdown, often indicating that the process run
 
 ### Example 1
 ```
-PS C:\> Wait-Container -id 1512f
+PS C:\> Wait-Container -ContainerIdOrName 1512f
 ```
 
 Waits for the container "1521f" to shut down. 
@@ -91,25 +89,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-The id of the container. 
-
-
-
-
-
-```yaml
-Type: String[]
-Parameter Sets: Default
-Aliases: Name
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -PassThru
 Passes the container object through the pipeline. 
 
@@ -129,6 +108,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ContainerIdOrName
+The Id or Name of the container to wait for.
+
+```yaml
+Type: String[]
+Parameter Sets: Default
+Aliases: Name, Id
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 ## INPUTS
@@ -143,7 +137,7 @@ Docker.DotNet.Models.ContainerListResponse[]
 
 ## RELATED LINKS
 
-[Online Version:]()
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Wait-Container.md)
 
 
 

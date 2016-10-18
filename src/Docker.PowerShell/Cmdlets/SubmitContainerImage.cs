@@ -22,8 +22,8 @@ namespace Docker.PowerShell.Cmdlets
                    Mandatory = true)]
         [ValidateNotNullOrEmpty]
         [ArgumentCompleter(typeof(ImageArgumentCompleter))]
-        [Alias("ImageName")]
-        public string Id { get; set; }
+        [Alias("ImageName", "ImageId")]
+        public string ImageIdOrName { get; set; }
 
         [Parameter(ParameterSetName = CommonParameterSetNames.ImageObject,
             ValueFromPipeline = true,
@@ -43,9 +43,9 @@ namespace Docker.PowerShell.Cmdlets
         {
             string repoTag = null;
 
-            if (Id != null)
+            if (ImageIdOrName != null)
             {
-                repoTag = Id;
+                repoTag = ImageIdOrName;
             }
             else if (Image.RepoTags.Count != 1)
             {

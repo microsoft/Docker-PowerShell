@@ -49,7 +49,7 @@ namespace Docker.PowerShell.Cmdlets
 
         protected override async Task ProcessRecordAsync()
         {
-            foreach (var id in ParameterResolvers.GetContainerIds(Container, Id))
+            foreach (var id in ParameterResolvers.GetContainerIds(Container, ContainerIdOrName))
             {
                 var commitResult = await DkrClient.Miscellaneous.CommitContainerChangesAsync(
                     new CommitContainerChangesParameters() {

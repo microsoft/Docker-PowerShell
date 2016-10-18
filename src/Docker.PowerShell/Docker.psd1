@@ -56,7 +56,7 @@ CmdletsToExport = @(
     'Remove-ContainerNet',
     'Invoke-ContainerImage',
     'Request-ContainerImage',
-    'Set-ContainerImageTag',
+    'Add-ContainerImageTag',
     'Start-Container',
     'Start-ContainerProcess',
     'Stop-Container',

@@ -5,14 +5,13 @@ schema: 2.0.0
 
 # Enter-ContainerSession
 ## SYNOPSIS
-Enter-ContainerSession \[-Id\] \<string\> \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
-
-Enter-ContainerSession \[-Container\] \<ContainerListResponse\> \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Connects to interactive session in the specified container.
+Aliased as "Attach-Container".
 ## SYNTAX
 
 ### Default (Default)
 ```
-Enter-ContainerSession [-Id] <String> [-HostAddress <String>] [-CertificateLocation <String>]
+Enter-ContainerSession [-ContainerIdOrName] <String> [-HostAddress <String>] [-CertificateLocation <String>]
  [<CommonParameters>]
 ```
 
@@ -24,11 +23,12 @@ Enter-ContainerSession [-Container] <ContainerListResponse> [-HostAddress <Strin
 
 ## DESCRIPTION
 Connects to interactive session in the specified container.
+Aliased as "Attach-Container".
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Enter-ContainerSession $myContainer}}
+PS C:\> Enter-ContainerSession $myContainer
 ```
 
 Connects to $myContainer
@@ -91,17 +91,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-Specifies the container by id or name. You can pass a subset of the ID if it is unique.
-
-
-
-
+### -ContainerIdOrName
+Specifies the container by Id or Name to connect to.
 
 ```yaml
 Type: String
 Parameter Sets: Default
-Aliases: Name
+Aliases: Name, Id
 
 Required: True
 Position: 0
@@ -124,7 +120,7 @@ Docker.DotNet.Models.ContainerListResponse
 These are some notes about the cmdlet. 
 ## RELATED LINKS
 
-[Online Version:](https://github.com/Microsoft/Docker-PowerShell)
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Enter-ContainerSession.md)
 
 
 

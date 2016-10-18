@@ -5,15 +5,13 @@ schema: 2.0.0
 
 # Stop-Container
 ## SYNOPSIS
-Stop-Container \[-Id\] \<string\[\]\> \[-Force\] \[-PassThru\] \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
-
-Stop-Container \[-Container\] \<ContainerListResponse\[\]\> \[-Force\] \[-PassThru\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Stops a running container.
 ## SYNTAX
 
 ### Default (Default)
 ```
-Stop-Container [-Force] [-PassThru] [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>]
- [<CommonParameters>]
+Stop-Container [-Force] [-PassThru] [-ContainerIdOrName] <String[]> [-HostAddress <String>]
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ### ContainerObject
@@ -28,10 +26,10 @@ Stops a running container.
 
 ### Example 1
 ```
-PS C:\> Stop-Container myContainer
+PS C:\> Stop-Container -ContainerIdOrName myContainer
 ```
 
-Stops the container myContainer
+Stops the container named "myContainer".
 ## PARAMETERS
 
 ### -CertificateLocation
@@ -110,25 +108,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-The id of the container to be stopped.
-
-
-
-
-
-```yaml
-Type: String[]
-Parameter Sets: Default
-Aliases: Name
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -PassThru
 Passes the stopped container through the pipeline.
 
@@ -148,6 +127,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ContainerIdOrName
+The Id or Name of the container to stop.
+
+```yaml
+Type: String[]
+Parameter Sets: Default
+Aliases: Name, Id
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 ## INPUTS
@@ -162,7 +156,7 @@ Docker.DotNet.Models.ContainerListResponse[]
 
 ## RELATED LINKS
 
-[Online Version:](https://github.com/Microsoft/Docker-PowerShell/)
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Stop-Container.md)
 
 
 

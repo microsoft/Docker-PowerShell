@@ -5,14 +5,12 @@ schema: 2.0.0
 
 # Copy-ContainerFile
 ## SYNOPSIS
-Copy-ContainerFile \[-Id\] \<string\> \[-Path\] \<string\[\]\> \[-Destination \<string\>\] \[-ToContainer\] \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
-
-Copy-ContainerFile \[-Container\] \<ContainerListResponse\> \[-Path\] \<string\[\]\> \[-Destination \<string\>\] \[-ToContainer\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Copies a file between container and host.
 ## SYNTAX
 
 ### Default (Default)
 ```
-Copy-ContainerFile [-Path] <String[]> [-Destination <String>] [-ToContainer] [-Id] <String>
+Copy-ContainerFile [-Path] <String[]> [-Destination <String>] [-ToContainer] [-ContainerIdOrName] <String>
  [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
@@ -29,10 +27,16 @@ Copies a file between container and host.
 
 ### Example 1
 ```
-PS C:\> {{ Copy-ContainerFile -stuff }}
+PS C:\> Copy-ContainerFile -ContainerIdOrName myContainer -Path $filepathInsideContainer -Destination c:\test\
 ```
 
-Copies a file into container
+Copies a file located at $filepathInsideContainer out of the container to the folder "c:\test\" on the host.
+### Example 2
+```
+PS C:\> Copy-ContainerFile -ContainerIdOrName myContainer -ToContainer -Path $filepathOnHost -Destination c:\test\
+```
+
+Copies a file located at $filepathOnHost on the host to the folder "c:\test\" in the container.
 ## PARAMETERS
 
 ### -CertificateLocation
@@ -74,7 +78,7 @@ Accept wildcard characters: False
 ```
 
 ### -Destination
-Destination location for the file.
+Destination folder for the file.
 
 
 
@@ -111,25 +115,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-Id of the container to copy a file to/from.
-
-
-
-
-
-```yaml
-Type: String
-Parameter Sets: Default
-Aliases: Name
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -Path
 The path of the file to copy.
 
@@ -150,7 +135,7 @@ Accept wildcard characters: False
 ```
 
 ### -ToContainer
-Specifies that the file will be copied from the host into the container.
+Specifies that the file will be copied from the host into the container. Otherwise, the file is copied from the container to the host.
 
 
 
@@ -164,6 +149,21 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ContainerIdOrName
+Specifies the container by Id or Name.
+
+```yaml
+Type: String
+Parameter Sets: Default
+Aliases: Name, Id
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -181,7 +181,7 @@ Docker.DotNet.Models.ContainerListResponse
 
 ## RELATED LINKS
 
-[Online Version:](https://github.com/Microsoft/Docker-PowerShell)
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Copy-ContainerFile.md)
 
 
 

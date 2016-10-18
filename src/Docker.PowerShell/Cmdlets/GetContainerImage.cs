@@ -20,8 +20,8 @@ namespace Docker.PowerShell.Cmdlets
                    Position = 0)]
         [ValidateNotNullOrEmpty]
         [ArgumentCompleter(typeof(ImageArgumentCompleter))]
-        [Alias("ImageName")]
-        public string[] Id { get; set; }
+        [Alias("ImageName", "ImageId")]
+        public string[] ImageIdOrName { get; set; }
 
         /// <summary>
         /// Specifies whether all images should be shown, or just top level images.
@@ -37,13 +37,13 @@ namespace Docker.PowerShell.Cmdlets
         /// </summary>
         protected override async Task ProcessRecordAsync()
         {
-            var listParams = new ImagesListParameters() { All = (All || Id != null) };
+            var listParams = new ImagesListParameters() { All = (All || ImageIdOrName != null) };
 
             foreach (var img in await DkrClient.Images.ListImagesAsync(listParams))
             {
-                if (Id == null ||
-                    Id.Any(i => img.RepoTags.Any(r => i.Split('/').Last().Contains(":") ? r == i : r == (i + ":latest"))) ||
-                    Id.Any(i => img.ID.StartsWith(i) || img.ID.StartsWith("sha256:" + i)))
+                if (ImageIdOrName == null ||
+                    ImageIdOrName.Any(i => img.RepoTags.Any(r => i.Split('/').Last().Contains(":") ? r == i : r == (i + ":latest"))) ||
+                    ImageIdOrName.Any(i => img.ID.StartsWith(i) || img.ID.StartsWith("sha256:" + i)))
                 {
                     WriteObject(img);
                 }

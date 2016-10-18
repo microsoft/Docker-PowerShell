@@ -6,7 +6,7 @@ schema: 2.0.0
 
 # Remove-ContainerNet
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Removes a network endpoint.
 ## SYNTAX
 
 ### Default (Default)
@@ -22,19 +22,19 @@ Remove-ContainerNet [-Force] [-Network] <NetworkListResponse[]> [-HostAddress <S
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Removes a network endpoint.
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Remove-ContainerNet -Id "Virtual Switch"
 ```
 
-{{ Add example description here }}
+Removes the network endpoint named "Virtual Switch"
 ## PARAMETERS
 
 ### -CertificateLocation
-{{Fill CertificateLocation Description}}
+The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server. (Note that certificate authorization work is still in progress and this is likely to change).
 
 ```yaml
 Type: String
@@ -49,7 +49,7 @@ Accept wildcard characters: False
 ```
 
 ### -Force
-{{Fill Force Description}}
+Completes the operation without prompting for confirmation.
 
 ```yaml
 Type: SwitchParameter
@@ -64,7 +64,7 @@ Accept wildcard characters: False
 ```
 
 ### -HostAddress
-{{Fill HostAddress Description}}
+The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-{{Fill Id Description}}
+The name or id of the network endpoint to remove.
 
 ```yaml
 Type: String[]
@@ -94,7 +94,7 @@ Accept wildcard characters: False
 ```
 
 ### -Network
-{{Fill Network Description}}
+The network endpont to remove.
 
 ```yaml
 Type: NetworkListResponse[]
@@ -122,3 +122,4 @@ Docker.DotNet.Models.NetworkListResponse[]
 
 ## RELATED LINKS
 
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Remove-ContainerNet.md)
