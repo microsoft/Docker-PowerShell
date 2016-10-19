@@ -53,11 +53,13 @@ namespace Docker.PowerShell.Cmdlets
                     };
                 }
 
+                var cDetail = await DkrClient.Containers.InspectContainerAsync(id);
+
                 await ContainerOperations.StartContainerAsync(
                     this.DkrClient,
                     id,
                     attachParams,
-                    false,
+                    cDetail.Config.Tty,
                     null,
                     this.CmdletCancellationToken);
 
