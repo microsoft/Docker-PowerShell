@@ -1,7 +1,8 @@
 {
   "projects": [
     "src",
-    "src/Docker.DotNet"
+    "src/Docker.DotNet",
+    "test/src"
   ],
   "sdk": {
     "version": "1.0.0-preview3-003178"
