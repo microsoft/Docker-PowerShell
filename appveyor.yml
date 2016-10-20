@@ -69,4 +69,4 @@ test_script:
       throw "Help files do not match updated cmdlets. Please update the help markdown to correspond to the latest changes."
     }
 artifacts:
-- path: bin/testRepo/*.nupkg
+- path: testRepo/*.nupkg
