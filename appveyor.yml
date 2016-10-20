@@ -35,18 +35,20 @@ build_script:
     # Replace module manifest version.
     $manifest = "src\Docker.PowerShell\Docker.psd1"
     (Get-Content $manifest -Raw) -replace "ModuleVersion.+","ModuleVersion = '$version'" | Out-File $manifest
-    
+
     Get-Content $projectFile
     Get-Content $manifest
 - ps: dotnet restore
 - ps: dotnet build src/Docker.PowerShell/project.json
 - ps: dotnet publish -f net46 -o $pwd\bin\Docker\clr -c Release $pwd\src\Docker.PowerShell
 - ps: dotnet publish -f netstandard1.6 -o $pwd\bin\Docker\coreclr -c Release $pwd\src\Docker.PowerShell
+- ps: nuget install Newtonsoft.Json -Version 9.0.1 -OutputDirectory $pwd\bin
 - ps: cp $pwd\bin\Docker\coreclr\Docker.*ps* $pwd\bin\Docker\
+- ps: cp $pwd\bin\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll $pwd\bin\Docker\coreclr\Newtonsoft.Json.dll
 - ps: New-ExternalHelp -Path src\Docker.PowerShell\Help -OutputPath $pwd\bin\Docker\en-US
 - ps: mkdir $pwd\testRepo
 - ps: Register-PSRepository -Name test -SourceLocation $pwd\testRepo
-- ps: Publish-Module -Path $pwd\bin\Docker -Repository test 
+- ps: Publish-Module -Path $pwd\bin\Docker -Repository test
 test_script:
 - ps: Install-Module -Name Docker -Repository test -Force
 - ps: Import-Module Docker
@@ -64,7 +66,7 @@ test_script:
     git status -s
     git diff
     if ((git status -s)){
-      throw "Help files do not match updated cmdlets. Please update the help markdown to correspond to the latest changes." 
+      throw "Help files do not match updated cmdlets. Please update the help markdown to correspond to the latest changes."
     }
 artifacts:
 - path: bin/testRepo/*.nupkg
