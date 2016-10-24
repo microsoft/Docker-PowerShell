@@ -7,6 +7,7 @@ schema: 2.0.0
 # Request-ContainerImage
 ## SYNOPSIS
 Downloads a container image matching the given repository and tag from the Docker registry.
+Aliased as "Pull-ContainerImage".
 ## SYNTAX
 
 ```
@@ -16,14 +17,15 @@ Request-ContainerImage [-Repository] <String> [[-Tag] <String>] [-All] [-Authori
 
 ## DESCRIPTION
 Downloads a container image matching the given repository and tag from the Docker registry.
+Aliased as "Pull-ContainerImage".
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Request-ContainerImage -Repository "microsoft/nanoserver"
 ```
 
-{{ Add example description here }}
+Pulls the latest image from the repository "microsoft/nanoserver".
 ## PARAMETERS
 
 ### -All
@@ -42,7 +44,7 @@ Accept wildcard characters: False
 ```
 
 ### -Authorization
-A Docker.DotNet.Models.AuthConfig object containing authentication information for the connection to the Docker registry being pushed to.
+A Docker.DotNet.Models.AuthConfig object containing authentication information for the connection to the Docker registry being pulled from.
 
 ```yaml
 Type: AuthConfig
@@ -102,7 +104,7 @@ Accept wildcard characters: False
 ```
 
 ### -Tag
-The tag for which image to download.
+The tag specifying the image to download. If not provided, the "latest" image is pulled.
 
 ```yaml
 Type: String
@@ -130,3 +132,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Request-ContainerImage.md)

@@ -6,7 +6,7 @@ schema: 2.0.0
 
 # New-ContainerNet
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a new network.
 ## SYNTAX
 
 ```
@@ -17,19 +17,28 @@ New-ContainerNet [-HostAddress <String>] [-CertificateLocation <String>] [[-Name
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Creates a new network.
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> New-ContainerNet -Name myNet -Driver transparent
 ```
 
-{{ Add example description here }}
+Creates a new transparent network endpoing called "myNet".
+### Example 2
+```
+PS C:\> $opt = New-Object 'System.Collections.Generic.Dictionary[String,String]'
+PS C:\> $opt.add("com.docker.network.windowsshim.interface","Virtual Switch")
+PS C:\> New-ContainerNet -Name externalNet -Driver transparent -Options $opt
+```
+
+Creates a new transparent network called "externalNet" that is connected to the
+Hyper-V switch named "Virtual Switch".
 ## PARAMETERS
 
 ### -CertificateLocation
-{{Fill CertificateLocation Description}}
+The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server. (Note that certificate authorization work is still in progress and this is likely to change).
 
 ```yaml
 Type: String
@@ -44,7 +53,7 @@ Accept wildcard characters: False
 ```
 
 ### -CheckDuplicate
-{{Fill CheckDuplicate Description}}
+Requests that the daemon check for networks with the same name.
 
 ```yaml
 Type: SwitchParameter
@@ -59,7 +68,7 @@ Accept wildcard characters: False
 ```
 
 ### -Driver
-{{Fill Driver Description}}
+The name of the network driver plugin to use.  If not specified, uses the default configured on the daemon.
 
 ```yaml
 Type: String
@@ -74,7 +83,7 @@ Accept wildcard characters: False
 ```
 
 ### -EnableIPv6
-{{Fill EnableIPv6 Description}}
+Enables IPv6 support on the network.
 
 ```yaml
 Type: SwitchParameter
@@ -89,7 +98,7 @@ Accept wildcard characters: False
 ```
 
 ### -HostAddress
-{{Fill HostAddress Description}}
+The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
@@ -104,7 +113,7 @@ Accept wildcard characters: False
 ```
 
 ### -IPAM
-{{Fill IPAM Description}}
+A Docker.DotNet.Models.IPAM object containing optional custom IP scheme settings for the network.
 
 ```yaml
 Type: IPAM
@@ -119,7 +128,7 @@ Accept wildcard characters: False
 ```
 
 ### -Internal
-{{Fill Internal Description}}
+If specified, external access to the network will be restricted.
 
 ```yaml
 Type: SwitchParameter
@@ -134,7 +143,7 @@ Accept wildcard characters: False
 ```
 
 ### -Labels
-{{Fill Labels Description}}
+A dictionary containing labels to set on the network.
 
 ```yaml
 Type: System.Collections.Generic.IDictionary`2[System.String,System.String]
@@ -149,7 +158,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+The network name to use.
 
 ```yaml
 Type: String
@@ -164,7 +173,7 @@ Accept wildcard characters: False
 ```
 
 ### -Options
-{{Fill Options Description}}
+A dictionary containing driver specific network options.
 
 ```yaml
 Type: System.Collections.Generic.IDictionary`2[System.String,System.String]
@@ -192,3 +201,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/New-ContainerNet.md)

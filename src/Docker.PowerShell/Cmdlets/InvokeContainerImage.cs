@@ -44,7 +44,7 @@ namespace Docker.PowerShell.Cmdlets
         /// </summary>
         protected override async Task ProcessRecordAsync()
         {
-            foreach (var id in ParameterResolvers.GetImageIds(Image, Id))
+            foreach (var id in ParameterResolvers.GetImageIds(Image, ImageIdOrName))
             {
                 var createResult = await ContainerOperations.CreateContainer(
                     id,

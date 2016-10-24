@@ -5,12 +5,12 @@ schema: 2.0.0
 
 # Get-ContainerImage
 ## SYNOPSIS
-Get-ContainerImage \[-All\] \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Returns container images.
 ## SYNTAX
 
 ### Default (Default)
 ```
-Get-ContainerImage [[-Id] <String[]>] [-HostAddress <String>] [-CertificateLocation <String>]
+Get-ContainerImage [[-ImageIdOrName] <String[]>] [-HostAddress <String>] [-CertificateLocation <String>]
  [<CommonParameters>]
 ```
 
@@ -32,7 +32,7 @@ Returns a list of container images.
 ## PARAMETERS
 
 ### -All
-Specifies that all images should be retrieved. 
+Specifies that all images should be retrieved. Otherwise, intermediate images are suppressed.
 
 
 
@@ -88,13 +88,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-{{Fill Id Description}}
+### -ImageIdOrName
+An array of names or ids of the images to be retrieved
 
 ```yaml
 Type: String[]
 Parameter Sets: Default
-Aliases: ImageName
+Aliases: ImageName, ImageId
 
 Required: False
 Position: 0
@@ -117,7 +117,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Online Version:]()
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Get-ContainerImage.md)
 
 
 

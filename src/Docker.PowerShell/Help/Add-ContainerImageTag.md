@@ -4,37 +4,39 @@ online version:
 schema: 2.0.0
 ---
 
-# Set-ContainerImageTag
+# Add-ContainerImageTag
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Adds a repository and tag to the given image.
+Aliased as "Tag-ContainerImage".
 ## SYNTAX
 
 ### Default (Default)
 ```
-Set-ContainerImageTag [-Force] [-Repository] <String> [[-Tag] <String>] [-Id] <String[]>
+Add-ContainerImageTag [-Force] [-Repository] <String> [[-Tag] <String>] [-ImageIdOrName] <String[]>
  [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ### ImageObject
 ```
-Set-ContainerImageTag [-Force] [-Repository] <String> [[-Tag] <String>] [-Image] <ImagesListResponse[]>
+Add-ContainerImageTag [-Force] [-Repository] <String> [[-Tag] <String>] [-Image] <ImagesListResponse[]>
  [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Adds a repository and tag to the given image.
+Aliased as "Tag-ContainerImage".
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Add-ContainerImageTag -ImageIdOrName 5b61 -Repository myImage -Tag 1.4
 ```
 
-{{ Add example description here }}
+Add the repository/tag "myImage:1.4" to the image with id "5b61".
 ## PARAMETERS
 
 ### -CertificateLocation
-{{Fill CertificateLocation Description}}
+The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server. (Note that certificate authorization work is still in progress and this is likely to change).
 
 ```yaml
 Type: String
@@ -49,7 +51,7 @@ Accept wildcard characters: False
 ```
 
 ### -Force
-{{Fill Force Description}}
+Completes the operation without prompting for confirmation.
 
 ```yaml
 Type: SwitchParameter
@@ -64,7 +66,7 @@ Accept wildcard characters: False
 ```
 
 ### -HostAddress
-{{Fill HostAddress Description}}
+The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
@@ -78,23 +80,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-{{Fill Id Description}}
-
-```yaml
-Type: String[]
-Parameter Sets: Default
-Aliases: ImageName
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -Image
-{{Fill Image Description}}
+The image the tag will be added to.
 
 ```yaml
 Type: ImagesListResponse[]
@@ -109,7 +96,7 @@ Accept wildcard characters: False
 ```
 
 ### -Repository
-{{Fill Repository Description}}
+The new repository value that will be added to the image.
 
 ```yaml
 Type: String
@@ -124,7 +111,7 @@ Accept wildcard characters: False
 ```
 
 ### -Tag
-{{Fill Tag Description}}
+The new tag value that will be added to the image.
 
 ```yaml
 Type: String
@@ -135,6 +122,21 @@ Required: False
 Position: 2
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ImageIdOrName
+The Id or Name of the image the tag will be added to.
+
+```yaml
+Type: String[]
+Parameter Sets: Default
+Aliases: ImageName, ImageId
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -152,3 +154,4 @@ Docker.DotNet.Models.ImagesListResponse[]
 
 ## RELATED LINKS
 
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Add-ContainerImageTag.md)

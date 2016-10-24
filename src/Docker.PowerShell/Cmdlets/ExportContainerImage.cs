@@ -24,7 +24,7 @@ namespace Docker.PowerShell.Cmdlets
         protected override async Task ProcessRecordAsync()
         {
             var filePath = System.IO.Path.Combine(SessionState.Path.CurrentFileSystemLocation.Path, DestinationFilePath);
-            var names = new List<string>(ParameterResolvers.GetImageIds(Image, Id));
+            var names = new List<string>(ParameterResolvers.GetImageIds(Image, ImageIdOrName));
 
             using (var fs = File.Create(filePath))
             using (var stream = await DkrClient.Miscellaneous.GetImagesAsTarballAsync(names.ToArray(), CmdletCancellationToken))

@@ -27,7 +27,7 @@ namespace Docker.PowerShell.Cmdlets
         {
             if (Container != null)
             {
-                Id = Container.ID;
+                ContainerIdOrName = Container.ID;
             }
 
             if (ToContainer)
@@ -54,7 +54,7 @@ namespace Docker.PowerShell.Cmdlets
 
                 using (var reader = Archiver.CreateTarStream(hostPaths, CmdletCancellationToken, progress))
                 {
-                    await DkrClient.Containers.ExtractArchiveToContainerAsync(Id, p, reader, CmdletCancellationToken);
+                    await DkrClient.Containers.ExtractArchiveToContainerAsync(ContainerIdOrName, p, reader, CmdletCancellationToken);
                 }
             }
             else
@@ -67,7 +67,7 @@ namespace Docker.PowerShell.Cmdlets
                         Path = singlePath
                     };
 
-                    var response = await DkrClient.Containers.GetArchiveFromContainerAsync(Id, p, false, CmdletCancellationToken);
+                    var response = await DkrClient.Containers.GetArchiveFromContainerAsync(ContainerIdOrName, p, false, CmdletCancellationToken);
                     using (var stream = response.Stream)
                     {
                         var progress = new Progress<string>();

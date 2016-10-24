@@ -5,14 +5,12 @@ schema: 2.0.0
 
 # Start-Container
 ## SYNOPSIS
-Start-Container \[-Id\] \<string\[\]\> \[-PassThru\] \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
-
-Start-Container \[-Container\] \<ContainerListResponse\[\]\> \[-PassThru\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Starts a container.
 ## SYNTAX
 
 ### Default (Default)
 ```
-Start-Container [-Attach] [-Input] [-PassThru] [-Id] <String[]> [-HostAddress <String>]
+Start-Container [-Attach] [-Input] [-PassThru] [-ContainerIdOrName] <String[]> [-HostAddress <String>]
  [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
@@ -23,7 +21,7 @@ Start-Container [-Attach] [-Input] [-PassThru] [-Container] <ContainerListRespon
 ```
 
 ## DESCRIPTION
-Starts a container
+Starts a container.
 ## EXAMPLES
 
 ### Example 1
@@ -31,11 +29,11 @@ Starts a container
 PS C:\> Start-Container $myContainer
 ```
 
-Starts a container
+Starts a container.
 ## PARAMETERS
 
 ### -CertificateLocation
-Cert location
+The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server. (Note that certificate authorization work is still in progress and this is likely to change).
 
 
 
@@ -54,7 +52,7 @@ Accept wildcard characters: False
 ```
 
 ### -Container
-The container to start
+The container to start.
 
 
 
@@ -91,27 +89,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-Id of the container to start. Can be a unique subset of ID.
-
-
-
-
-
-```yaml
-Type: String[]
-Parameter Sets: Default
-Aliases: Name
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -PassThru
-Passes the new container object through the pipeline.
+Passes the started container object through the pipeline.
 
 
 
@@ -145,7 +124,7 @@ Accept wildcard characters: False
 ```
 
 ### -Input
-If set directs STDIN.
+Indicates that the stdin of the container should be kept open.
 
 ```yaml
 Type: SwitchParameter
@@ -156,6 +135,21 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ContainerIdOrName
+The Id or Name of the container to start.
+
+```yaml
+Type: String[]
+Parameter Sets: Default
+Aliases: Name, Id
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -173,7 +167,7 @@ Docker.DotNet.Models.ContainerListResponse[]
 
 ## RELATED LINKS
 
-[Online Version:](https://github.com/Microsoft/Docker-PowerShell/tree/master/src/Docker.PowerShell/en-us/)
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Start-Container.md)
 
 
 

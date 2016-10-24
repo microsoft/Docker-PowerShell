@@ -6,15 +6,14 @@ schema: 2.0.0
 
 # Start-ContainerProcess
 ## SYNOPSIS
-Start-ContainerProcess \[-Id\] \<string\[\]\> \[\[-Command\] \<string\[\]\>\] \[-Detached\] \[-TTY\] \[-Privileged\] \[-User \<string\[\]\>\]\[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
-
-Start-ContainerProcess \[-Container\] \<ContainerListResponse\[\]\> \[\[-Command\] \<string\[\]\>\] \[-Detached\] \[-TTY\] \[-Privileged\] \[-User \<string\[\]\>\]\[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Starts a new process with the given command in the specified container.
+Aliased as "Exec-Container".
 ## SYNTAX
 
 ### Default (Default)
 ```
 Start-ContainerProcess [[-Command] <String[]>] [-Detached] [-Input] [-Terminal] [-Privileged] [-User <String>]
- [-Id] <String> [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
+ [-ContainerIdOrName] <String> [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ### ContainerObject
@@ -26,14 +25,15 @@ Start-ContainerProcess [[-Command] <String[]>] [-Detached] [-Input] [-Terminal] 
 
 ## DESCRIPTION
 Starts a new process with the given command in the specified container.
+Aliased as "Exec-Container".
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Start-ContainerProcess -ContainerIdOrName myContainer -Command "c:\myTest.exe"
 ```
 
-{{ Add example description here }}
+Starts the command "c:\myTest.exe" in the container named "myContainer".
 ## PARAMETERS
 
 ### -CertificateLocation
@@ -82,7 +82,7 @@ Accept wildcard characters: False
 ```
 
 ### -Detached
-If specified, just the container process object will be returned and the process will run asynchronously.
+If specified, just the container process object will be returned and the process will run asynchronously. Otherwise, STDOUT/STDERR will be connected and output of the command will be displayed.
 
 ```yaml
 Type: SwitchParameter
@@ -108,21 +108,6 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Id
-The identifier for the container in which the process will be started.
-
-```yaml
-Type: String
-Parameter Sets: Default
-Aliases: Name
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -172,7 +157,7 @@ Accept wildcard characters: False
 ```
 
 ### -Input
-Indicates that the stdin of the process should be kept open.
+Indicates that the STDIN of the process should be kept open.
 
 ```yaml
 Type: SwitchParameter
@@ -183,6 +168,21 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ContainerIdOrName
+The Id or Name of the container to start the command in.
+
+```yaml
+Type: String
+Parameter Sets: Default
+Aliases: Name, Id
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -201,3 +201,4 @@ Docker.DotNet.Models.ContainerListResponse
 
 ## RELATED LINKS
 
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Start-ContainerProcess.md)

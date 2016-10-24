@@ -5,18 +5,15 @@ schema: 2.0.0
 
 # Invoke-ContainerImage
 ## SYNOPSIS
-Invoke-ContainerImage \[-Id\] \<string\[\]\> \[\[-Command\] \<string\[\]\>\] \[-RemoveAutomatically\] \[-PassThru\] \[-ContainerName \<string\>\] \[-Isolation \<IsolationType\>\] \[-Configuration \<Config\>\] \[-HostConfiguration \<HostConfig\>\] \[-Input\] \[-Terminal\] \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
-
-Invoke-ContainerImage \[-Image\] \<ImagesListResponse\[\]\> \[\[-Command\] \<string\[\]\>\] \[-RemoveAutomatically\] \[-PassThru\] \[-ContainerName \<string\>\] \[-Isolation \<IsolationType\>\] \[-Configuration \<Config\>\] \[-HostConfiguration \<HostConfig\>\] \[-Input\] \[-Terminal\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
-
-Invoke-ContainerImage \[-Configuration\] \<Config\> \[-RemoveAutomatically\] \[-PassThru\] \[-HostConfiguration \<HostConfig\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Runs a container from an existing image.
+Aliased as "Run-Container".
 ## SYNTAX
 
 ### Default (Default)
 ```
 Invoke-ContainerImage [-RemoveAutomatically] [-PassThru] [-Detach] [-Name <String>] [[-Command] <String[]>]
  [-Isolation <IsolationType>] [-Configuration <Config>] [-HostConfiguration <HostConfig>] [-Input] [-Terminal]
- [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
+ [-ImageIdOrName] <String[]> [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ### ImageObject
@@ -34,18 +31,19 @@ Invoke-ContainerImage [-RemoveAutomatically] [-PassThru] [-Detach] -Configuratio
 
 ## DESCRIPTION
 Runs a container from an existing image.
+Aliased as "Run-Container".
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> Invoke-ContainerImage -id 903ef
+PS C:\> Invoke-ContainerImage -ImageIdOrName 903ef
 ```
 
 Starts a container using the image with id 903ef.
 ## PARAMETERS
 
 ### -CertificateLocation
-Specifies the certificate location. 
+The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server. (Note that certificate authorization work is still in progress and this is likely to change).
 
 
 
@@ -151,25 +149,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-The id of the container image.
-
-
-
-
-
-```yaml
-Type: String[]
-Parameter Sets: Default
-Aliases: ImageName
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -Image
 Specifies the container image.
 
@@ -229,7 +208,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+Specifies the name of the newly created container.
 
 ```yaml
 Type: String
@@ -282,7 +261,7 @@ Accept wildcard characters: False
 ```
 
 ### -Terminal
-Gives a terminal in the new container.
+Enables terminal emulation in the new container.
 
 
 
@@ -315,6 +294,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ImageIdOrName
+The Id or Name of the image the container is created from.
+
+```yaml
+Type: String[]
+Parameter Sets: Default
+Aliases: ImageName, ImageId
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 ## INPUTS
@@ -330,7 +324,7 @@ Docker.DotNet.Models.ImagesListResponse[]
 
 ## RELATED LINKS
 
-[Online Version:]()
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Invoke-ContainerImage.md)
 
 
 

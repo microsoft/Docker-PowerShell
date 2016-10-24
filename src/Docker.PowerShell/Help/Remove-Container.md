@@ -5,15 +5,13 @@ schema: 2.0.0
 
 # Remove-Container
 ## SYNOPSIS
-Remove-Container \[-Id\] \<string\[\]\> \[-Force\] \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
-
-Remove-Container \[-Container\] \<ContainerListResponse\[\]\> \[-Force\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Removes a container. 
 ## SYNTAX
 
 ### Default (Default)
 ```
-Remove-Container [-Force] [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>]
- [<CommonParameters>]
+Remove-Container [-Force] [-ContainerIdOrName] <String[]> [-HostAddress <String>]
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ### ContainerObject
@@ -28,7 +26,7 @@ Removes a container.
 
 ### Example 1
 ```
-PS C:\> Remove-Container -id 514e
+PS C:\> Remove-Container -ContainerIdOrName 514e
 ```
 
 Removes the container with id "514e"
@@ -110,17 +108,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-The id of the container to be removed. 
-
-
-
-
+### -ContainerIdOrName
+An array of names or ids of the containers to be removed.
 
 ```yaml
 Type: String[]
 Parameter Sets: Default
-Aliases: Name
+Aliases: Name, Id
 
 Required: True
 Position: 0
@@ -143,7 +137,7 @@ Docker.DotNet.Models.ContainerListResponse[]
 
 ## RELATED LINKS
 
-[Online Version:]()
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Remove-Container.md)
 
 
 

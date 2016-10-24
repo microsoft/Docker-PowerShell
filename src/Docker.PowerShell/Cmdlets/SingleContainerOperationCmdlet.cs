@@ -13,8 +13,8 @@ namespace Docker.PowerShell.Cmdlets
                    Mandatory = true)]
         [ValidateNotNullOrEmpty]
         [ArgumentCompleter(typeof(ContainerArgumentCompleter))]
-        [Alias("Name")]
-        public string Id { get; set; }
+        [Alias("Name", "Id")]
+        public string ContainerIdOrName { get; set; }
 
         [Parameter(ParameterSetName = CommonParameterSetNames.ContainerObject,
             ValueFromPipeline = true,

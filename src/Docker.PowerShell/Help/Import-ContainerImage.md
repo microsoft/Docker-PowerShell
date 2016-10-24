@@ -6,7 +6,8 @@ schema: 2.0.0
 
 # Import-ContainerImage
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Imports the container image, including all layers, from a single compressed file.
+Aliased to "Load-ContainerImage".
 ## SYNTAX
 
 ```
@@ -15,19 +16,20 @@ Import-ContainerImage [-FilePath] <String[]> [-HostAddress <String>] [-Certifica
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Imports the container image, including all layers, from a single compressed file.
+Aliased to "Load-ContainerImage".
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Import-ContainerImage -FilePath c:\myImage.tar
 ```
 
-{{ Add example description here }}
+Imports the image from the file "c:\myImage.tar".
 ## PARAMETERS
 
 ### -CertificateLocation
-{{Fill CertificateLocation Description}}
+The location of the X509 certificate file named "key.pfx" that will be used for authentication with the server. (Note that certificate authorization work is still in progress and this is likely to change).
 
 ```yaml
 Type: String
@@ -42,7 +44,7 @@ Accept wildcard characters: False
 ```
 
 ### -FilePath
-{{Fill FilePath Description}}
+The path to the file to be imported.
 
 ```yaml
 Type: String[]
@@ -57,7 +59,7 @@ Accept wildcard characters: False
 ```
 
 ### -HostAddress
-{{Fill HostAddress Description}}
+The address of the docker daemon to connect to.
 
 ```yaml
 Type: String
@@ -85,3 +87,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Import-ContainerImage.md)

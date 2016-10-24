@@ -5,11 +5,12 @@ schema: 2.0.0
 
 # Get-Container
 ## SYNOPSIS
-Get-Container \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Returns a list of containers.
 ## SYNTAX
 
 ```
-Get-Container [[-Id] <String[]>] [-HostAddress <String>] [-CertificateLocation <String>] [<CommonParameters>]
+Get-Container [[-ContainerIdOrName] <String[]>] [-HostAddress <String>] [-CertificateLocation <String>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -62,13 +63,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-{{Fill Id Description}}
+### -ContainerIdOrName
+An array of names or ids of the containers to be retrieved.
 
 ```yaml
 Type: String[]
 Parameter Sets: (All)
-Aliases: Name
+Aliases: Name, Id
 
 Required: False
 Position: 0
@@ -91,7 +92,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Online Version:]()
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Get-Container.md)
 
 
 

@@ -22,7 +22,7 @@ namespace Docker.PowerShell.Cmdlets
 
         protected override async Task ProcessRecordAsync()
         {
-            foreach (var id in ParameterResolvers.GetImageIds(Image, Id))
+            foreach (var id in ParameterResolvers.GetImageIds(Image, ImageIdOrName))
             {
                 await DkrClient.Images.DeleteImageAsync(id,
                     new ImageDeleteParameters() { Force = Force.ToBool() }

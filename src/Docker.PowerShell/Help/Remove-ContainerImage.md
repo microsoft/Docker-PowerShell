@@ -5,15 +5,13 @@ schema: 2.0.0
 
 # Remove-ContainerImage
 ## SYNOPSIS
-Remove-ContainerImage \[-Id\] \<string\[\]\> \[-Force\] \[-HostAddress \<string\>\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
-
-Remove-ContainerImage \[-Image\] \<ImagesListResponse\[\]\> \[-Force\] \[-CertificateLocation \<string\>\] \[\<CommonParameters\>\]
+Removes a container image. 
 ## SYNTAX
 
 ### Default (Default)
 ```
-Remove-ContainerImage [-Force] [-Id] <String[]> [-HostAddress <String>] [-CertificateLocation <String>]
- [<CommonParameters>]
+Remove-ContainerImage [-Force] [-ImageIdOrName] <String[]> [-HostAddress <String>]
+ [-CertificateLocation <String>] [<CommonParameters>]
 ```
 
 ### ImageObject
@@ -28,7 +26,7 @@ Removes a container image.
 
 ### Example 1
 ```
-PS C:\> Remove-ContainerImage -id 124dfe
+PS C:\> Remove-ContainerImage -ImageIdOrName 124dfe
 ```
 
 Removes the container with id "124dfe"
@@ -91,25 +89,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-The id of the image to be removed. 
-
-
-
-
-
-```yaml
-Type: String[]
-Parameter Sets: Default
-Aliases: ImageName
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -Image
 The image that is to be removed. 
 
@@ -121,6 +100,21 @@ The image that is to be removed.
 Type: ImagesListResponse[]
 Parameter Sets: ImageObject
 Aliases: 
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -ImageIdOrName
+The Name or Id for the image to be removed.
+
+```yaml
+Type: String[]
+Parameter Sets: Default
+Aliases: ImageName, ImageId
 
 Required: True
 Position: 0
@@ -143,7 +137,7 @@ Docker.DotNet.Models.ImagesListResponse[]
 
 ## RELATED LINKS
 
-[Online Version:]()
+[Online Version:](https://github.com/Microsoft/Docker-PowerShell/blob/master/src/Docker.PowerShell/Help/Remove-ContainerImage.md)
 
 
 

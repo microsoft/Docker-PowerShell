@@ -16,8 +16,8 @@ namespace Docker.PowerShell.Cmdlets
                    Mandatory = true)]
         [ValidateNotNullOrEmpty]
         [ArgumentCompleter(typeof(ImageArgumentCompleter))]
-        [Alias("ImageName")]
-        public string[] Id { get; set; }
+        [Alias("ImageName", "ImageId")]
+        public string[] ImageIdOrName { get; set; }
 
         /// <summary>
         /// The containers to remove.
