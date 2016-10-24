@@ -8,11 +8,13 @@ both Windows and Linux.
 Note that this module is still in alpha status and is likely to change rapidly.
 
 ## Dependencies
-* Windows or Windows Server (Nano Server coming soon)
+* Windows, Windows Server, Nano Server, or PowerShell 6 supported host.
 * PowerShell 5 (available in Windows 10, Server 2016 Preview, or by installing
   [WMF 5](https://www.microsoft.com/en-us/download/details.aspx?id=50395)) or
   [PowerShell 6 Preview](https://github.com/powershell/powershell) (available for Windows, Linux, and Mac OS X)
-* A recent Docker endpoint, running either locally or on a remote machine
+* A recent Docker endpoint, running either locally or on a remote machine. 
+  [Container Quick Start for Windows Server](https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/quick_start_windows_server)
+  [Container Quick Start for Windows 10](https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/quick_start_windows_10)
 
 Note that there is no dependency on the docker client.
 
