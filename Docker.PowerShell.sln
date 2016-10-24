@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Docker.PowerShell", "src\Docker.PowerShell\Docker.PowerShell.xproj", "{AD2C487D-EC48-4B97-A977-4C2B52E097BF}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tar", "src\dotnet-tar\src\Tar\Tar.xproj", "{FAC0B799-8BF2-4FCE-8867-D717867403A1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CDFD41E7-FB95-44DD-866D-2461321EAEFE}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,6 +13,10 @@ EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Docker.DotNet", "src\Docker.DotNet\Docker.DotNet\Docker.DotNet.xproj", "{A9C3E587-DDEC-494B-96E2-BFB4FC34EC74}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FD49E869-E8F2-4E40-837D-E0329F087D4A}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Docker.DotNet.X509", "src\Docker.DotNet\Docker.DotNet.X509\Docker.DotNet.X509.xproj", "{3EB8C108-EAD7-4A58-AACF-33D9149F4708}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tar", "src\Tar\Tar.xproj", "{FAC0B799-8BF2-4FCE-8867-D717867403A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,21 +28,26 @@ Global
 		{AD2C487D-EC48-4B97-A977-4C2B52E097BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD2C487D-EC48-4B97-A977-4C2B52E097BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD2C487D-EC48-4B97-A977-4C2B52E097BF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FAC0B799-8BF2-4FCE-8867-D717867403A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAC0B799-8BF2-4FCE-8867-D717867403A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAC0B799-8BF2-4FCE-8867-D717867403A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAC0B799-8BF2-4FCE-8867-D717867403A1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A9C3E587-DDEC-494B-96E2-BFB4FC34EC74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A9C3E587-DDEC-494B-96E2-BFB4FC34EC74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9C3E587-DDEC-494B-96E2-BFB4FC34EC74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9C3E587-DDEC-494B-96E2-BFB4FC34EC74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EB8C108-EAD7-4A58-AACF-33D9149F4708}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EB8C108-EAD7-4A58-AACF-33D9149F4708}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EB8C108-EAD7-4A58-AACF-33D9149F4708}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EB8C108-EAD7-4A58-AACF-33D9149F4708}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAC0B799-8BF2-4FCE-8867-D717867403A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAC0B799-8BF2-4FCE-8867-D717867403A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAC0B799-8BF2-4FCE-8867-D717867403A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAC0B799-8BF2-4FCE-8867-D717867403A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AD2C487D-EC48-4B97-A977-4C2B52E097BF} = {FD49E869-E8F2-4E40-837D-E0329F087D4A}
-		{FAC0B799-8BF2-4FCE-8867-D717867403A1} = {FD49E869-E8F2-4E40-837D-E0329F087D4A}
 		{A9C3E587-DDEC-494B-96E2-BFB4FC34EC74} = {FD49E869-E8F2-4E40-837D-E0329F087D4A}
+		{3EB8C108-EAD7-4A58-AACF-33D9149F4708} = {FD49E869-E8F2-4E40-837D-E0329F087D4A}
+		{FAC0B799-8BF2-4FCE-8867-D717867403A1} = {FD49E869-E8F2-4E40-837D-E0329F087D4A}
 	EndGlobalSection
 EndGlobal
