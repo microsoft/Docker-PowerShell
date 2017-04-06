@@ -16,7 +16,7 @@ Note that this module is still in alpha status and is likely to change rapidly.
   [Container Quick Start for Windows Server](https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/quick_start_windows_server)
   [Container Quick Start for Windows 10](https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/quick_start_windows_10)
 
-Note that there is no dependency on the docker client.
+Note that there is no dependency on the Docker client.
 
 Currently, the Docker endpoint must support API version 1.24, which is still in
 development. Practically speaking, this means you will need a development build
@@ -42,12 +42,12 @@ build, in PowerShell 5.0 run:
 
     > Register-PSRepository -Name DockerPS-Dev -SourceLocation https://ci.appveyor.com/nuget/docker-powershell-dev
 
-    > Install-Module Docker -Repository DockerPS-Dev -Scope CurrentUser
+    > Install-Module -Name Docker -Repository DockerPS-Dev -Scope CurrentUser
 (Note: if you get an error like "WARNING: MSG:SourceLocationNotValid" try updating your Nu-Get version as explained in [this issue comment](https://github.com/Microsoft/Docker-PowerShell/issues/62#issuecomment-221659534).)
 
 After this, you can update to new development builds with just:
 
-    > Update-Module Docker
+    > Update-Module -Name Docker
 
 #### Linux and Mac OS X
 
@@ -58,7 +58,7 @@ listed above for development builds work as expected on Linux.
 
 From an internet connected machine:
 
-    > Save-Module Docker -Path .
+    > Save-Module -Name Docker -Path .
 
 Copy the entire folder `.\Docker` to the destination at: `%ProgramFiles%\WindowsPowerShell\Modules`
 
