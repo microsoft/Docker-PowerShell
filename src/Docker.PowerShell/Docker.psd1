@@ -16,7 +16,7 @@ Description = "This package contains Docker PowerShell cmdlets that can be used 
 
 # Minimum PowerShell version. This should match the reference assembly version
 # in project.json (we require 5.0 due to dependencies on parameter completion).
-PowerShellVersion = '5.0.0'
+#PowerShellVersion = '5.0.0'
 
 # ID used to uniquely identify this module
 GUID = '7cc6f829-b4b5-493d-9a99-f92dc54d7e10'
