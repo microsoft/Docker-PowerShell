@@ -1,4 +1,11 @@
+# THIS MODULE HAS BEEN DEPRECATED
+
+> Please note that due to low usage this module is no longer being actively maintained. It is recommended to use either the `Docker cli (docker.exe)` or try [Docker.DotNet](https://github.com/Microsoft/Docker.DotNet) directly.
+
+---
+
 # PowerShell for Docker
+
 This repo contains a PowerShell module for the [Docker Engine](
 https://github.com/docker/docker/). It can be used as an alternative to the
 Docker command-line interface (`docker`), or along side it. It can target a
@@ -12,7 +19,7 @@ Note that this module is still in alpha status and is likely to change rapidly.
 * PowerShell 5 (available in Windows 10, Server 2016 Preview, or by installing
   [WMF 5](https://www.microsoft.com/en-us/download/details.aspx?id=50395)) or
   [PowerShell 6 Preview](https://github.com/powershell/powershell) (available for Windows, Linux, and Mac OS X)
-* A recent Docker endpoint, running either locally or on a remote machine. 
+* A recent Docker endpoint, running either locally or on a remote machine.
   [Container Quick Start for Windows Server](https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/quick_start_windows_server)
   [Container Quick Start for Windows 10](https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/quick_start_windows_10)
 
@@ -116,11 +123,11 @@ You will only need to run `dotnet restore` once unless you pull changes that
 update the project dependencies in project.json.
 
 ### Updating Help Markdown Files
-This codebase includes markdown files corresponding to the help information for 
-each of the cmdlets. This markdown is generated and consumed by the 
+This codebase includes markdown files corresponding to the help information for
+each of the cmdlets. This markdown is generated and consumed by the
 [platyPS PowerShell module](https://github.com/PowerShell/platyPS). You should use
 the platyPS cmdlets to update and refresh the markdown files to reflect any changes
-made to the structure or behavior of the cmdlets.  Follow the instructions on the 
+made to the structure or behavior of the cmdlets.  Follow the instructions on the
 platyPS github readme to get the module installed, and then after imported the
 Docker module with your changes compiled in, run:
 
@@ -142,7 +149,7 @@ you will find three tasks pre-defined in the top-level directory:
   the compilation section above.
 * `test` will launch a new powershell window with the module loaded for manual
   testing.
-* `update-help` will use powershell to run the New-MarkdownHelp and 
+* `update-help` will use powershell to run the New-MarkdownHelp and
   Update-MarkdownHelp cmdlets with the arguments necessary to generate any
   updates to the help markdown files. NOTE: This requires the platyPS module
   and uses the most recently built local Docker module.
