@@ -4,8 +4,8 @@ pull_requests:
 image: WMF 5
 init:
 - ps: Install-PackageProvider NuGet -Force
-- ps: (new-object net.webclient).DownloadFile('https://dotnetcli.blob.core.windows.net/dotnet/Sdk/rel-1.0.0/dotnet-dev-win-x64.latest.exe', "c:/dotnet-install.exe")
-- cmd: c:\dotnet-install.exe /install /quiet
+- ps: (new-object net.webclient).DownloadFile('https://raw.githubusercontent.com/dotnet/cli/master/scripts/obtain/dotnet-install.ps1', "C:/dotnet-install.ps1")
+- ps: C:/dotnet-install.ps1
 install:
 - ps: Install-Module platyPS -Force -RequiredVersion 0.7.0
 - cmd: git submodule update --init --recursive
@@ -19,17 +19,22 @@ build_script:
 - ps: |
     $env:PATH = "c:\program files\dotnet;$env:PATH"
 
-    $projectFile = "src\Docker.PowerShell\project.json"
-    $project =  Get-Content $projectFile -Raw | ConvertFrom-Json
-    $version = $project.version
+    $projectFile = "src\Docker.PowerShell\Docker.PowerShell.csproj"
+    $projectRawContents = Get-Content $projectFile -Raw
+    $versionNodes =  $projectRawContents | Select-Xml -XPath "/Project/PropertyGroup/Version"
+    if ($versionNodes.Count -ne 1) {
+      throw "Invalid number of version nodes found in csproj."
+    }
+
+    $version = $versionNodes.Node.InnerXml
 
     # Tags do not get build versions.
     if ($env:APPVEYOR_REPO_TAG -ne "true") {
       $version += ".$($env:APPVEYOR_BUILD_VERSION.split("-")[0])"
 
-      # Update the project.json version to include the build number.
-      $project.version = $version
-      ConvertTo-Json $project -Depth 100 | Out-File -Encoding UTF8 $projectFile
+      # Update the .csproj version to include the build number.
+      $newProjectContents = $projectRawContents -replace "<Version>.+</Version>", "<Version>$version</Version>"
+      $newProjectContents | Out-File -Encoding UTF8 $projectFile
     }
 
     # Replace module manifest version.
@@ -38,8 +43,8 @@ build_script:
 
     Get-Content $projectFile
     Get-Content $manifest
-- ps: dotnet restore
-- ps: dotnet build src/Docker.PowerShell/project.json
+- ps: dotnet restore src/Docker.PowerShell/Docker.PowerShell.csproj
+- ps: dotnet build src/Docker.PowerShell/Docker.PowerShell.csproj
 - ps: dotnet publish -f net46 -o $pwd\bin\Docker\clr -c Release $pwd\src\Docker.PowerShell
 - ps: dotnet publish -f netstandard1.6 -o $pwd\bin\Docker\coreclr -c Release $pwd\src\Docker.PowerShell
 - ps: nuget install Newtonsoft.Json -Version 9.0.1 -OutputDirectory $pwd\bin
@@ -57,7 +62,7 @@ test_script:
       throw "Module failed to load: no commands found."
     }
 - ps: git checkout -- src/Docker.PowerShell/Docker.psd1
-- ps: git checkout -- src/Docker.PowerShell/project.json
+- ps: git checkout -- src/Docker.PowerShell/Docker.PowerShell.csproj
 - ps: git config core.autocrlf true
 - ps: New-MarkdownHelp -Module Docker -OutputFolder src\Docker.PowerShell\Help -ErrorAction SilentlyContinue
 - ps: Update-MarkdownHelp -Path src\Docker.PowerShell\Help

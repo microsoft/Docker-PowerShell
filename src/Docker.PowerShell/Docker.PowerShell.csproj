@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <PackageId>Docker.PowerShell</PackageId>
+    <Description>Docker.PowerShell is a module that allows you to interact with the Docker Remote API via a PowerShell like syntax.</Description>
+    <Version>0.1.0</Version>
+    <TargetFrameworks>net46;netstandard1.6</TargetFrameworks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyName>Docker.PowerShell</AssemblyName>
+    <PackageLicenseUrl>https://github.com/Microsoft/Docker-PowerShell/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright Microsoft 2015</Copyright>
+    <PackageTags>Docker Container C# .NET PowerShell</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Microsoft/Docker-PowerShell</RepositoryUrl>
+    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.6' ">1.6.1</NetStandardImplicitPackageVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Docker.DotNet\Docker.DotNet.X509\Docker.DotNet.X509.csproj" Version="2.124.3" />
+    <ProjectReference Include="..\Docker.DotNet\Docker.DotNet\Docker.DotNet.csproj" Version="2.124.3" />
+    <ProjectReference Include="..\Tar\Tar.csproj" Version="0.1.0-*" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.0-alpha17" Type="platform" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
+    <PackageReference Include="Microsoft.PowerShell.5.ReferenceAssemblies" Version="1.0.0" Type="build" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Docker.Format.ps1xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Docker.psd1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Docker.psm1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

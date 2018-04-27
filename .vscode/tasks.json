@@ -103,11 +103,6 @@
 			"taskName": "clean",
 			"suppressTaskName": true,
 			"args": [
-				"del",
-				"/Q",
-				"/S",
-				".\\src\\*project.lock.json",
-				"&&",
 				"rmdir",
 				"/Q",
 				"/S",
