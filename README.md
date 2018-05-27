@@ -50,7 +50,7 @@ build, in PowerShell 5.0 run:
     > Register-PSRepository -Name DockerPS-Dev -SourceLocation https://ci.appveyor.com/nuget/docker-powershell-dev
 
     > Install-Module -Name Docker -Repository DockerPS-Dev -Scope CurrentUser
-(Note: if you get an error like "WARNING: MSG:SourceLocationNotValid" try updating your Nu-Get version as explained in [this issue comment](https://github.com/Microsoft/Docker-PowerShell/issues/62#issuecomment-221659534).)
+(Note: if you get an error like "`WARNING: MSG:SourceLocationNotValid" try updating your Nu-Get version as explained in [this issue comment](https://github.com/Microsoft/Docker-PowerShell/issues/62#issuecomment-221659534).)
 
 After this, you can update to new development builds with just:
 
